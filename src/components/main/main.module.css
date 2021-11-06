@@ -1,0 +1,7 @@
+.main {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  margin: 0 auto;
+  max-height: 910px;
+}

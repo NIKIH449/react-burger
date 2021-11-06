@@ -1,0 +1,16 @@
+.header {
+  background-color: #1c1c21;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+}
+
+.navigation {
+  display: grid;
+  width: 100%;
+  grid-template-rows: max-content;
+  grid-template-columns: max-content max-content 1fr max-content;
+  grid-auto-rows: 0px;
+  align-self: center;
+  padding: 0 300px 0 320px;
+}

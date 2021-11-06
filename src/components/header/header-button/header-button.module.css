@@ -1,0 +1,31 @@
+.button {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f2f2f3;
+  opacity: 0.6;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.button:last-child {
+  width: 207px;
+}
+
+.button:first-child {
+  width: 178px;
+}
+.button:nth-child(2) {
+  width: 198px;
+}
+
+.link {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
