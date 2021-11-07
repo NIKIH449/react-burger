@@ -2,10 +2,10 @@ import React from 'react';
 import mainStyle from './main.module.css';
 import BurgerIngredients from './burger-ingredients/burger-ingredients';
 import BurgerConstructor from './burger-constructor/burger-constructor';
+import { mainProTypes } from '../../utils/type';
 
 function Main(props) {
   const [bag, setBag] = React.useState({});
-
   function addIngredients(item) {
     setBag(item);
   }
@@ -16,9 +16,10 @@ function Main(props) {
         data={props.data}
         onItemClick={addIngredients}
       ></BurgerIngredients>
-      <BurgerConstructor bag={bag}></BurgerConstructor>
+      <BurgerConstructor></BurgerConstructor>
     </main>
   );
 }
 
+Main.propTypes = mainProTypes;
 export default Main;

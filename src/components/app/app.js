@@ -11,7 +11,7 @@ function App() {
 
   React.useEffect(() => {
     setMenu(data);
-  }, [menu]);
+  });
 
   return (
     <div className={appStyles.page}>
@@ -21,22 +21,6 @@ function App() {
   );
 }
 
-App.propTypes = {
-  menu: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      type: PropTypes.string,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      image: PropTypes.sting,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    })
-  ),
-};
+
 
 export default App;

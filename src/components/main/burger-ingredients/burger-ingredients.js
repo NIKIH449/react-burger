@@ -1,12 +1,13 @@
 import React from 'react';
 import IngredientsList from './ingredients-list/ingredients-list';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
+import { burgerIngredientsPropTypes } from '../../../utils/type';
 import {
   Tab,
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerConstructor(props) {
+function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState('one');
   const [counter, setCounter] = React.useState(0);
 
@@ -50,6 +51,7 @@ function BurgerConstructor(props) {
                 <div
                   onClick={countIngredients}
                   style={{ position: 'relative' }}
+                  key={item._id}
                 >
                   {!(counter === 0) ? (
                     <Counter
@@ -59,8 +61,6 @@ function BurgerConstructor(props) {
                     />
                   ) : null}
                   <IngredientsList
-                    add={props.add}
-                    key={item._id}
                     type={item.type}
                     name={item.name}
                     price={item.price}
@@ -80,12 +80,13 @@ function BurgerConstructor(props) {
             Cоусы
           </p>
           <ul className={burgerIngredientsStyle.list}>
-            {props.data.map((item, index) => {
+            {props.data.map((item) => {
               if (item.type === 'sauce') {
                 return (
                   <div
                     onClick={countIngredients}
                     style={{ position: 'relative' }}
+                    key={item._id}
                   >
                     {!(counter === 0) ? (
                       <Counter
@@ -95,7 +96,6 @@ function BurgerConstructor(props) {
                       />
                     ) : null}
                     <IngredientsList
-                      key={item._id}
                       type={item.type}
                       name={item.name}
                       price={item.price}
@@ -122,6 +122,7 @@ function BurgerConstructor(props) {
                   <div
                     onClick={countIngredients}
                     style={{ position: 'relative' }}
+                    key={item._id}
                   >
                     {!(counter === 0) ? (
                       <Counter
@@ -132,7 +133,6 @@ function BurgerConstructor(props) {
                     ) : null}
                     <IngredientsList
                       onClick={props.add}
-                      key={item._id}
                       type={item.type}
                       name={item.name}
                       price={item.price}
@@ -151,4 +151,5 @@ function BurgerConstructor(props) {
   );
 }
 
-export default BurgerConstructor;
+BurgerIngredients.propTypes = burgerIngredientsPropTypes;
+export default BurgerIngredients;
