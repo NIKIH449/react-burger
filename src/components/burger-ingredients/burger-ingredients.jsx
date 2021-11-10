@@ -60,6 +60,8 @@ function BurgerIngredients(props) {
                   item={item}
                 />
               );
+            } else {
+              return '';
             }
           })}
         </ul>
@@ -83,6 +85,8 @@ function BurgerIngredients(props) {
                     item={item}
                   />
                 );
+              } else {
+                return '';
               }
             })}
           </ul>
@@ -107,6 +111,8 @@ function BurgerIngredients(props) {
                     item={item}
                   />
                 );
+              } else {
+                return '';
               }
             })}
           </ul>
