@@ -1,6 +1,6 @@
 import React from 'react';
 import orderDetails from './order-details.module.css';
-import done from '../../images/done.gif';
+import done from 'images/done.gif';
 
 function OrderDeatils() {
   return (

@@ -1,12 +1,13 @@
 import React from 'react';
 import ingredientDetailsStyle from './ingredient-details.module.css';
-import { ingredientsDetailsPropTypes } from '../../utils/type';
+import { ingredientsDetailsPropTypes } from 'utils/type';
 
 function IngredientDetails(props) {
   return (
-    <div className={`pt-15 pb-15 ${ingredientDetailsStyle.container}`}>
+    <div className={`pt-15 pb-15 ${ingredientDetailsStyle.ingredientDetails}`}>
       <img
         src={props.image}
+        alt={props.name}
         className={ingredientDetailsStyle.image}
       />
       <p className={`text text_type_main-medium pt-4 ${ingredientDetailsStyle.name}`}>{props.name}</p>

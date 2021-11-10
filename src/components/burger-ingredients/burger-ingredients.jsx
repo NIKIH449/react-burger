@@ -9,7 +9,7 @@ import Modal from '../modal/modal';
 function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState('one');
   const [modal, setModal] = React.useState(false);
-  const [ingredient, setIngredient] = React.useState({});
+  const [ingredient, setIngredient] = React.useState(undefined);
 
   function handleOpenModal(item) {
     setIngredient(item);
@@ -22,7 +22,7 @@ function BurgerIngredients(props) {
   }
 
   return (
-    <section className={`mr-5 ${burgerIngredientsStyle.ingredinets}`}>
+    <section className={`mr-5 ${burgerIngredientsStyle.burgerIngredients}`}>
       <h1
         className={`text text_type_main-large pb-5 ${burgerIngredientsStyle.title}`}
       >
@@ -47,7 +47,7 @@ function BurgerIngredients(props) {
           Булки
         </p>
         <ul className={`pb-15 ${burgerIngredientsStyle.list}`}>
-          {props.data.map((item) => {
+          {props.ingredients.map((item) => {
             if (item.type === 'bun') {
               return (
                 <IngredientsList
@@ -70,7 +70,7 @@ function BurgerIngredients(props) {
             Cоусы
           </p>
           <ul className={burgerIngredientsStyle.list}>
-            {props.data.map((item) => {
+            {props.ingredients.map((item) => {
               if (item.type === 'sauce') {
                 return (
                   <IngredientsList
@@ -94,7 +94,7 @@ function BurgerIngredients(props) {
             Начинки{' '}
           </p>
           <ul className={burgerIngredientsStyle.list}>
-            {props.data.map((item) => {
+            {props.ingredients.map((item) => {
               if (item.type === 'main') {
                 return (
                   <IngredientsList
@@ -112,7 +112,7 @@ function BurgerIngredients(props) {
           </ul>
         </div>
       </div>
-      {modal ? (
+      {modal && (
         <Modal title="Детали ингридиента" onClose={handleCloseModal}>
           <IngredientDetails
             name={ingredient.name}
@@ -123,7 +123,7 @@ function BurgerIngredients(props) {
             proteins={ingredient.proteins}
           ></IngredientDetails>
         </Modal>
-      ) : null}
+      )}
     </section>
   );
 }

@@ -19,9 +19,9 @@ function App() {
   }, []);
 
   return (
-    <div className={appStyles.page}>
+    <div className={appStyles.app}>
       <AppHeader />
-      <Main data={ingredients} />
+      <Main ingredients={ingredients} />
     </div>
   );
 }

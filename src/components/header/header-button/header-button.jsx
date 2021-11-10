@@ -1,5 +1,5 @@
 import React from 'react';
-import { headerButtonProTypes } from '../../../utils/type';
+import { headerButtonProTypes } from 'utils/type';
 import headerButtonStyle from './header-button.module.css';
 
 function HeaderButton(props) {

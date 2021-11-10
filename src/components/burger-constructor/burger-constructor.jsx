@@ -17,7 +17,7 @@ function BurgerConstructor() {
     setModal(false);
   }
   return (
-    <section className={`pt-15 ${burgerConstructorStyle.constructor}`}>
+    <section className={`pt-15 ${burgerConstructorStyle.burgerConstructor}`}>
       <ConstructorElement
         type="top"
         isLocked={true}

@@ -10,15 +10,15 @@ import {
 
 function AppHeader() {
   return (
-    <header className={`${headerStyles.header}`}>
+    <header className={headerStyles.header}>
       <nav className={headerStyles.navigation}>
-        <HeaderButton name={'Конструктор'}>
+        <HeaderButton name='Конструктор'>
           <BurgerIcon type="primary" />
         </HeaderButton>
         <HeaderButton name={'Лента заказов'}>
           <ListIcon type="primary" />
         </HeaderButton>
-        <a className={'pl-30'} href="https://nikih449.github.io/react-burger/">
+        <a className={headerStyles.logo}href="https://nikih449.github.io/react-burger/">
           <Logo />
         </a>
         <HeaderButton name={'Личный кабинет'}>

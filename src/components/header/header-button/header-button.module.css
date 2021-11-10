@@ -2,11 +2,11 @@
   height: 56px;
   display: flex;
   align-items: center;
-  justify-content: center;
   color: #f2f2f3;
   opacity: 0.6;
   transition: 0.3s;
   cursor: pointer;
+  justify-content: center;
 }
 
 .button:hover {

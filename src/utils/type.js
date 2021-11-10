@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const mainProTypes = {
-  data: PropTypes.arrayOf(
+  ingredients: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
@@ -24,7 +24,7 @@ const headerButtonProTypes = {
 };
 
 const burgerIngredientsPropTypes = {
-  data: PropTypes.arrayOf(
+  ingredients: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
@@ -64,7 +64,7 @@ const modalOverlayPropTypes = {
 };
 
 const modalPropTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   onClose: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
 };
