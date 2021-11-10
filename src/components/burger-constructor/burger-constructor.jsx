@@ -1,7 +1,7 @@
 import React from 'react';
 import burgerConstructorStyle from './burger-constructor.module.css';
-import Modal from '../../modal/modal';
-import OrderDeatils from '../../modal/order-details/order-detail';
+import Modal from '../modal/modal';
+import OrderDeatils from '../order-details/order-detail';
 import {
   ConstructorElement,
   CurrencyIcon,

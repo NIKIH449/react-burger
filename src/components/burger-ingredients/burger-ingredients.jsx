@@ -1,10 +1,10 @@
 import React from 'react';
 import IngredientsList from './ingredients-list/ingredients-list';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
-import IngredientDetails from '../../modal/ingredient-details/ingredient-details';
-import { burgerIngredientsPropTypes } from '../../../utils/type';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import { burgerIngredientsPropTypes } from '../../utils/type';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from '../../modal/modal';
+import Modal from '../modal/modal';
 
 function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState('one');

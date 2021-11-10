@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useEffect } from 'react';
 import modalStyle from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from './modal-overlay/modal-overlay';
@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import { modalPropTypes } from '../../utils/type';
 
 function Modal(props) {
-  React.useEffect(() => {
+  useEffect(() => {
     function onEscClose(e) {
       if (e.key === 'Escape') {
         props.onClose();

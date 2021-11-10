@@ -1,7 +1,7 @@
 import React from 'react';
 import ingredientsListStyle from './ingredients-list.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientsListPropTypes } from '../../../../utils/type';
+import { ingredientsListPropTypes } from '../../../utils/type';
 
 function IngredientsList(props) {
   function handleClick() {
