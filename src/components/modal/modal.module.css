@@ -1,0 +1,24 @@
+.modal {
+  min-width: 720px;
+  background: #1c1c21;
+  border-radius: 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  position: absolute;
+  top: 72px;
+  right: 40px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.name {
+  padding: 40px 0 0 0;
+  margin-left: 40px;
+}

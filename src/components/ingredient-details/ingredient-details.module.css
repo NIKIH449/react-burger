@@ -1,0 +1,21 @@
+.image {
+  width: 480px;
+  height: 240px;
+  margin: 0 auto;
+}
+
+.ingredientDetails {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+.list {
+  padding-left: 0;
+  list-style-type: none;
+  display: flex;
+  margin: 0 auto;
+  text-align: center;
+}
