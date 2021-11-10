@@ -1,26 +1,34 @@
 import React from 'react';
 import appStyles from './app.module.css';
 import Main from '../main/main';
-import Header from '../header/header';
+import AppHeader from '../header/app-header';
 import '../../fonts/fonts.css';
-import { data } from '../../utils/data';
-import PropTypes from 'prop-types';
 
 function App() {
   const [menu, setMenu] = React.useState([]);
+  const data = 'https://norma.nomoreparties.space/api/ingredients';
 
   React.useEffect(() => {
-    setMenu(data);
-  });
+    fetch(data)
+      .then((data) => {
+        if (data.ok) {
+          return data.json();
+        } else {
+          return Promise.reject(data.status);
+        }
+      })
+      .then((data) => setMenu(data.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className={appStyles.page}>
-      <Header />
+      <AppHeader />
       <Main data={menu} />
     </div>
   );
 }
-
-
 
 export default App;

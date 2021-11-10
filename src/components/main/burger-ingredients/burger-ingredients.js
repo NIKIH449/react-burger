@@ -1,18 +1,24 @@
 import React from 'react';
 import IngredientsList from './ingredients-list/ingredients-list';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
+import IngredientDetails from '../../modal/ingredient-details/ingredient-details';
 import { burgerIngredientsPropTypes } from '../../../utils/type';
-import {
-  Tab,
-  Counter,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import Modal from '../../modal/modal';
 
 function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState('one');
-  const [counter, setCounter] = React.useState(0);
+  const [modal, setModal] = React.useState(false);
+  const [ingredient, setIngredient] = React.useState({});
 
-  function countIngredients() {
-    setCounter(counter + 1);
+  function handleOpenModal(item) {
+    setIngredient(item);
+    setModal(true);
+  }
+
+  function handleCloseModal(e) {
+    setIngredient({});
+    setModal(false);
   }
 
   return (
@@ -23,18 +29,14 @@ function BurgerIngredients(props) {
         Соберите бургер
       </h1>
       <div style={{ display: 'flex' }}>
-        <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
-          Булки
+        <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+          One
         </Tab>
-        <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
-          Соусы
+        <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+          Two
         </Tab>
-        <Tab
-          value="Начинки"
-          active={current === 'Начинки'}
-          onClick={setCurrent}
-        >
-          Начинки
+        <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+          Three
         </Tab>
       </div>
 
@@ -48,27 +50,15 @@ function BurgerIngredients(props) {
           {props.data.map((item) => {
             if (item.type === 'bun') {
               return (
-                <div
-                  onClick={countIngredients}
-                  style={{ position: 'relative' }}
+                <IngredientsList
+                  onItemClick={handleOpenModal}
                   key={item._id}
-                >
-                  {!(counter === 0) ? (
-                    <Counter
-                      onClick={countIngredients}
-                      count={counter}
-                      size="default"
-                    />
-                  ) : null}
-                  <IngredientsList
-                    type={item.type}
-                    name={item.name}
-                    price={item.price}
-                    image={item.image}
-                    item={item}
-                    onItemClick={props.onItemClick}
-                  />
-                </div>
+                  type={item.type}
+                  name={item.name}
+                  price={item.price}
+                  image={item.image}
+                  item={item}
+                />
               );
             }
           })}
@@ -83,27 +73,15 @@ function BurgerIngredients(props) {
             {props.data.map((item) => {
               if (item.type === 'sauce') {
                 return (
-                  <div
-                    onClick={countIngredients}
-                    style={{ position: 'relative' }}
+                  <IngredientsList
+                    onItemClick={handleOpenModal}
                     key={item._id}
-                  >
-                    {!(counter === 0) ? (
-                      <Counter
-                        onClick={countIngredients}
-                        count={counter}
-                        size="default"
-                      />
-                    ) : null}
-                    <IngredientsList
-                      type={item.type}
-                      name={item.name}
-                      price={item.price}
-                      image={item.image}
-                      item={item}
-                      onItemClick={props.onItemClick}
-                    />
-                  </div>
+                    type={item.type}
+                    name={item.name}
+                    price={item.price}
+                    image={item.image}
+                    item={item}
+                  />
                 );
               }
             })}
@@ -119,34 +97,33 @@ function BurgerIngredients(props) {
             {props.data.map((item) => {
               if (item.type === 'main') {
                 return (
-                  <div
-                    onClick={countIngredients}
-                    style={{ position: 'relative' }}
+                  <IngredientsList
+                    type={item.type}
+                    onItemClick={handleOpenModal}
                     key={item._id}
-                  >
-                    {!(counter === 0) ? (
-                      <Counter
-                        onClick={countIngredients}
-                        count={counter}
-                        size="default"
-                      />
-                    ) : null}
-                    <IngredientsList
-                      onClick={props.add}
-                      type={item.type}
-                      name={item.name}
-                      price={item.price}
-                      image={item.image}
-                      item={item}
-                      onItemClick={props.onItemClick}
-                    />
-                  </div>
+                    name={item.name}
+                    price={item.price}
+                    image={item.image}
+                    item={item}
+                  />
                 );
               }
             })}
           </ul>
         </div>
       </div>
+      {modal ? (
+        <Modal title="Детали ингридиента" onClose={handleCloseModal}>
+          <IngredientDetails
+            name={ingredient.name}
+            image={ingredient.image}
+            calories={ingredient.calories}
+            carbohydrates={ingredient.carbohydrates}
+            fat={ingredient.fat}
+            proteins={ingredient.proteins}
+          ></IngredientDetails>
+        </Modal>
+      ) : null}
     </section>
   );
 }

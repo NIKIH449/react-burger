@@ -1,5 +1,7 @@
 import React from 'react';
 import burgerConstructorStyle from './burger-constructor.module.css';
+import Modal from '../../modal/modal';
+import OrderDeatils from '../../modal/order-details/order-detail';
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -7,6 +9,13 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerConstructor() {
+  const [modal, setModal] = React.useState(false);
+  function handleOpenModal() {
+    setModal(true);
+  }
+  function handleCloseModal() {
+    setModal(false);
+  }
   return (
     <section className={`pt-15 ${burgerConstructorStyle.constructor}`}>
       <ConstructorElement
@@ -33,10 +42,16 @@ function BurgerConstructor() {
           400
           <CurrencyIcon type="primary" />
         </p>
-        <Button type="primary" size="large">
-          Нажми на меня
+        <Button onClick={handleOpenModal} type="primary" size="large">
+          Оформить заказ
         </Button>
       </div>
+
+      {modal ? (
+        <Modal onClose={handleCloseModal}>
+          <OrderDeatils />
+        </Modal>
+      ) : null}
     </section>
   );
 }

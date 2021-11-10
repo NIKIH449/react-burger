@@ -5,18 +5,10 @@ import BurgerConstructor from './burger-constructor/burger-constructor';
 import { mainProTypes } from '../../utils/type';
 
 function Main(props) {
-  const [bag, setBag] = React.useState({});
-  function addIngredients(item) {
-    setBag(item);
-  }
-
   return (
     <main className={mainStyle.main}>
-      <BurgerIngredients
-        data={props.data}
-        onItemClick={addIngredients}
-      ></BurgerIngredients>
-      <BurgerConstructor></BurgerConstructor>
+      <BurgerIngredients data={props.data}></BurgerIngredients>
+      <BurgerConstructor />
     </main>
   );
 }

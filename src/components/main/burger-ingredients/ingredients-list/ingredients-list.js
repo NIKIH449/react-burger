@@ -8,11 +8,11 @@ function IngredientsList(props) {
     props.onItemClick(props.item);
   }
   return (
-    <li className={ingredientsListStyle.item} onClick={handleClick}>
+    <li onClick={handleClick} className={ingredientsListStyle.item}>
       <img
         className={ingredientsListStyle.image}
         src={props.image}
-        alt={props.image}
+        alt={props.name}
       />
       <p className="text text_type_digits-default">
         {props.price} <CurrencyIcon type="primary" />
