@@ -4,10 +4,10 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { mainProTypes } from 'utils/type';
 
-function Main(props) {
+function Main() {
   return (
     <main className={mainStyle.main}>
-      <BurgerIngredients ingredients={props.ingredients}></BurgerIngredients>
+      <BurgerIngredients />
       <BurgerConstructor />
     </main>
   );

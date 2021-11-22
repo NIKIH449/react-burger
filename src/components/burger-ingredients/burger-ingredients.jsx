@@ -1,26 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import IngredientsList from './ingredients-list/ingredients-list';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { burgerIngredientsPropTypes } from '../../utils/type';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
+import { IngredientsContext } from 'context/IngredientsContext';
+import { ConstructorContext } from 'context/ConstructorContext';
 
-function BurgerIngredients(props) {
+function BurgerIngredients() {
   const [current, setCurrent] = React.useState('one');
   const [modal, setModal] = React.useState(false);
   const [ingredient, setIngredient] = React.useState(undefined);
+  const ingredients = useContext(IngredientsContext);
+  const { constructorValue, setConstructorValue } =
+    useContext(ConstructorContext);
 
   function handleOpenModal(item) {
     setIngredient(item);
     setModal(true);
   }
-
   function handleCloseModal(e) {
     setIngredient({});
     setModal(false);
   }
 
+  {
+    /*function addToConstuctor(item) {
+    {
+      item.type === 'bun'
+        ? setConstructorValue({
+            bun: [item],
+            other: [...constructorValue.other],
+          })
+        : setConstructorValue({
+            bun: [...constructorValue.bun],
+            other: [item, ...constructorValue.other],
+          });
+    }
+  }*/
+  }
   return (
     <section className={`mr-5 ${burgerIngredientsStyle.burgerIngredients}`}>
       <h1
@@ -30,13 +49,13 @@ function BurgerIngredients(props) {
       </h1>
       <div style={{ display: 'flex' }}>
         <Tab value="one" active={current === 'one'} onClick={setCurrent}>
-          One
+          Булки
         </Tab>
         <Tab value="two" active={current === 'two'} onClick={setCurrent}>
-          Two
+          Соусы
         </Tab>
         <Tab value="three" active={current === 'three'} onClick={setCurrent}>
-          Three
+          Начинки
         </Tab>
       </div>
 
@@ -47,7 +66,7 @@ function BurgerIngredients(props) {
           Булки
         </p>
         <ul className={`pb-15 ${burgerIngredientsStyle.list}`}>
-          {props.ingredients.map((item) => {
+          {ingredients.ingredients.map((item) => {
             if (item.type === 'bun') {
               return (
                 <IngredientsList
@@ -72,7 +91,7 @@ function BurgerIngredients(props) {
             Cоусы
           </p>
           <ul className={burgerIngredientsStyle.list}>
-            {props.ingredients.map((item) => {
+            {ingredients.ingredients.map((item) => {
               if (item.type === 'sauce') {
                 return (
                   <IngredientsList
@@ -98,12 +117,12 @@ function BurgerIngredients(props) {
             Начинки{' '}
           </p>
           <ul className={burgerIngredientsStyle.list}>
-            {props.ingredients.map((item) => {
+            {ingredients.ingredients.map((item) => {
               if (item.type === 'main') {
                 return (
                   <IngredientsList
-                    type={item.type}
                     onItemClick={handleOpenModal}
+                    type={item.type}
                     key={item._id}
                     name={item.name}
                     price={item.price}

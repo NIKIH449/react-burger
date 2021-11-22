@@ -1,45 +1,13 @@
 import PropTypes from 'prop-types';
 
-const mainProTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      proteins: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-      __v: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-};
+const mainProTypes = {};
 
 const headerButtonProTypes = {
   children: PropTypes.element.isRequired,
   name: PropTypes.string.isRequired,
 };
 
-const burgerIngredientsPropTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      proteins: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-      __v: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-};
+const burgerIngredientsPropTypes = {};
 
 const ingredientsListPropTypes = {
   item: PropTypes.object.isRequired,
@@ -68,6 +36,12 @@ const modalPropTypes = {
   onClose: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
 };
+
+const orderDetailsPropTypes = {
+  number: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+};
+
 export {
   modalPropTypes,
   modalOverlayPropTypes,
@@ -76,4 +50,5 @@ export {
   headerButtonProTypes,
   burgerIngredientsPropTypes,
   ingredientsListPropTypes,
+  orderDetailsPropTypes
 };

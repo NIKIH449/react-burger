@@ -4,9 +4,14 @@
   width: 100%;
   text-align: center;
   align-items: center;
+
 }
 
 .image {
   width: 120px;
   height: 120px;
+}
+
+.name {
+  width: 500px;
 }

@@ -5,7 +5,7 @@ import { ingredientsListPropTypes } from '../../../utils/type';
 
 function IngredientsList(props) {
   function handleClick() {
-    props.onItemClick(props.item);
+    props.onItemClick(props.item)
   }
   return (
     <li onClick={handleClick} className={ingredientsListStyle.item}>
