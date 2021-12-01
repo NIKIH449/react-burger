@@ -2,6 +2,12 @@ import PropTypes from 'prop-types';
 
 const mainProTypes = {};
 
+const constructorFoodElementPropTypes = {
+  index: PropTypes.number.isRequired,
+  moveIngredient: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired
+};
+
 const headerButtonProTypes = {
   children: PropTypes.element.isRequired,
   name: PropTypes.string.isRequired,
@@ -50,5 +56,6 @@ export {
   headerButtonProTypes,
   burgerIngredientsPropTypes,
   ingredientsListPropTypes,
-  orderDetailsPropTypes
+  orderDetailsPropTypes,
+  constructorFoodElementPropTypes,
 };
