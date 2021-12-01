@@ -32,5 +32,5 @@ function Modal(props) {
     document.getElementById('root')
   );
 }
-Modal.propTypes = modalPropTypes;
+Modal.propTypes = modalPropTypes.isRequired;
 export default Modal;

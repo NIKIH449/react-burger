@@ -1,5 +1,4 @@
-import { ORDER_URL } from './constants';
-import { INGREDIENTS_URL } from './constants';
+import { BURGER_URL } from './constants';
 function checkResponse(res) {
   if (res.ok) {
     return res.json();
@@ -7,11 +6,11 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 const getIngredientsRequest = () => {
-  return fetch(INGREDIENTS_URL).then(checkResponse);
+  return fetch(BURGER_URL + 'ingredients').then(checkResponse);
 };
 
 const sentOrderRequest = (id) => {
-  return fetch(ORDER_URL, {
+  return fetch(BURGER_URL + 'orders', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

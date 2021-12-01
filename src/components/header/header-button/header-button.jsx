@@ -12,5 +12,5 @@ function HeaderButton(props) {
     </div>
   );
 }
-HeaderButton.propTypes = headerButtonProTypes;
+HeaderButton.propTypes = headerButtonProTypes.isRequired;
 export default HeaderButton;

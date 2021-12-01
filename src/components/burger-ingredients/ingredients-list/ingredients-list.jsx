@@ -60,5 +60,5 @@ function IngredientsList(props) {
     </li>
   );
 }
-IngredientsList.propTypes = ingredientsListPropTypes;
+IngredientsList.propTypes = ingredientsListPropTypes.isRequired;
 export default IngredientsList;

@@ -11,15 +11,19 @@ export function getConstructor() {
     dispatch({
       type: GET_CONSTRUCTOR_REQUEST,
     });
-    getIngredientsRequest().then((data) => {
-      if (data && data.success) {
-        dispatch({
-          type: GET_CONSTRUCTOR_SUCCESS,
-          data: data.data,
-        });
-      } else {
-        dispatch({ type: GET_CONSTRUCTOR_FAILED });
-      }
-    });
+    getIngredientsRequest()
+      .then((data) => {
+        if (data && data.success) {
+          dispatch({
+            type: GET_CONSTRUCTOR_SUCCESS,
+            data: data.data,
+          });
+        } else {
+          dispatch({ type: GET_CONSTRUCTOR_FAILED });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }

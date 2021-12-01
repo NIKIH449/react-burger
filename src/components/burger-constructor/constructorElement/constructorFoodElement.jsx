@@ -65,5 +65,5 @@ function ConstructorFoodElement(props) {
     </div>
   );
 }
-ConstructorFoodElement.propTypes = constructorFoodElementPropTypes;
+ConstructorFoodElement.propTypes = constructorFoodElementPropTypes.isRequired;
 export default ConstructorFoodElement;

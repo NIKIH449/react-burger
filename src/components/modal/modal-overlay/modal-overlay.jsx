@@ -9,5 +9,5 @@ function ModalOverlay(props) {
     </div>
   );
 }
-ModalOverlay.propTypes = modalOverlayPropTypes;
+ModalOverlay.propTypes = modalOverlayPropTypes.isRequired;
 export default ModalOverlay;

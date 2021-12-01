@@ -32,5 +32,5 @@ function IngredientDetails(props) {
     </div>
   );
 }
-IngredientDetails.propTypes = ingredientsDetailsPropTypes;
+IngredientDetails.propTypes = ingredientsDetailsPropTypes.isRequired;
 export default IngredientDetails;

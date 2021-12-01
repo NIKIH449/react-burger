@@ -8,15 +8,19 @@ export function getIngredients() {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });
-    getIngredientsRequest().then((data) => {
-      if (data && data.success) {
-        dispatch({
-          type: GET_INGREDIENTS_SUCCESS,
-          ingredients: data.data,
-        });
-      } else {
-        dispatch({ type: GET_INGREDIENTS_FAILED });
-      }
-    });
+    getIngredientsRequest()
+      .then((data) => {
+        if (data && data.success) {
+          dispatch({
+            type: GET_INGREDIENTS_SUCCESS,
+            ingredients: data.data,
+          });
+        } else {
+          dispatch({ type: GET_INGREDIENTS_FAILED });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }

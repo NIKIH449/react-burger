@@ -85,28 +85,43 @@ function BurgerConstructor() {
       ref={dropTarget}
       className={`pt-15 ${burgerConstructorStyle.burgerConstructor}`}
     >
-      {constructorValue.bun.length >= 1 &&
-        constructorValue.bun.map((item, index) => {
-          return (
-            <div
-              name="bun"
-              key={String(item._id) + index}
-              className={burgerConstructorStyle.ingredient}
+      <div
+        className={`${burgerConstructorStyle.constructor} ${
+          constructorValue.bun.length === 0 &&
+          constructorValue.other.length === 0 &&
+          burgerConstructorStyle.empty
+        }`}
+      >
+        {constructorValue.bun.length === 0 &&
+          constructorValue.other.length === 0 && (
+            <p
+              className={`text text_type_main-medium ${burgerConstructorStyle.emptyParagraph}`}
             >
-              <ConstructorElement
-                type="top"
-                isLocked={true}
-                text={`${item.name} (верх)`}
-                price={item.price}
-                thumbnail={item.image}
-              />
-            </div>
-          );
-        })}
-      {
-        <div name="other" className={burgerConstructorStyle.container}>
-          {constructorValue.other.length >= 1 &&
-            constructorValue.other.map((item, index) => {
+              Добавьте ингредиенты
+            </p>
+          )}
+        <div className={burgerConstructorStyle.bun}>
+          {constructorValue.bun.map((item, index) => {
+            return (
+              <div
+                name="bun"
+                key={String(item._id) + index}
+                className={burgerConstructorStyle.ingredient}
+              >
+                <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={`${item.name} (верх)`}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </div>
+            );
+          })}
+        </div>
+        {
+          <div name="other" className={burgerConstructorStyle.container}>
+            {constructorValue.other.map((item, index) => {
               return (
                 <ConstructorFoodElement
                   item={item}
@@ -116,34 +131,45 @@ function BurgerConstructor() {
                 />
               );
             })}
+          </div>
+        }
+        <div className={burgerConstructorStyle.ingredient}>
+          {constructorValue.bun.map((item, index) => {
+            return (
+              <div
+                name="bun"
+                key={String(item._id) + index}
+                className={burgerConstructorStyle.ingredient}
+              >
+                <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={`${item.name} (низ)`}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </div>
+            );
+          })}
         </div>
-      }
-      {constructorValue.bun.length >= 1 &&
-        constructorValue.bun.map((item, index) => {
-          return (
-            <div
-              name="bun"
-              key={String(item._id) + index}
-              className={burgerConstructorStyle.ingredient}
-            >
-              <ConstructorElement
-                type="bottom"
-                isLocked={true}
-                text={`${item.name} (низ)`}
-                price={item.price}
-                thumbnail={item.image}
-              />
-            </div>
-          );
-        })}
+      </div>
       <div className={burgerConstructorStyle.sum}>
         <p className="text text_type_main-large mr-5">
-          {constructorValue.bun.length > 0 && totalSum()}
+          {constructorValue.bun.length > 0 &&
+            constructorValue.other.length > 0 &&
+            totalSum()}
           <CurrencyIcon type="primary" />
         </p>
-        <Button onClick={finishOrder} type="primary" size="large">
-          Оформить заказ
-        </Button>
+        {constructorValue.bun.length > 0 &&
+        constructorValue.other.length > 0 ? (
+          <Button onClick={finishOrder} type="primary" size="large">
+            Оформить заказ
+          </Button>
+        ) : (
+          <Button disabled onClick={finishOrder} type="primary" size="large">
+            Соберите бургер!
+          </Button>
+        )}
       </div>
       {isModalOpen && isOrder && (
         <Modal onClose={handleCloseModal}>

@@ -59,9 +59,7 @@ export const constructorReducer = (state = initialState, action) => {
         constructorRequest: false,
         constructorFailed: false,
         constructor: {
-          bun: action.data.filter(
-            (meat) => meat.name === 'Краторная булка N-200i'
-          ),
+          bun: [],
           other: [],
         },
       };

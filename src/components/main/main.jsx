@@ -17,5 +17,5 @@ function Main() {
   );
 }
 
-Main.propTypes = mainProTypes;
+Main.propTypes = mainProTypes.isRequired;
 export default Main;

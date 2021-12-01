@@ -182,5 +182,5 @@ function BurgerIngredients() {
   );
 }
 
-BurgerIngredients.propTypes = burgerIngredientsPropTypes;
+BurgerIngredients.propTypes = burgerIngredientsPropTypes.isRequired;
 export default BurgerIngredients;

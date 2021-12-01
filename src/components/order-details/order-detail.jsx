@@ -18,5 +18,5 @@ function OrderDeatils(props) {
     </div>
   );
 }
-OrderDeatils.propTypes = orderDetailsPropTypes;
+OrderDeatils.propTypes = orderDetailsPropTypes.isRequired;
 export default OrderDeatils;
