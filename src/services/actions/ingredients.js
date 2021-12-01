@@ -19,8 +19,8 @@ export function getIngredients() {
           dispatch({ type: GET_INGREDIENTS_FAILED });
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        dispatch({ type: GET_INGREDIENTS_FAILED });
       });
   };
 }

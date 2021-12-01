@@ -22,8 +22,8 @@ export function getConstructor() {
           dispatch({ type: GET_CONSTRUCTOR_FAILED });
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        dispatch({ type: GET_CONSTRUCTOR_FAILED });
       });
   };
 }

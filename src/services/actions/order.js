@@ -23,8 +23,8 @@ export function createOrder(id) {
           dispatch({ type: GET_ORDER_FAILED });
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        dispatch({ type: GET_ORDER_FAILED });
       });
   };
 }
