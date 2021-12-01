@@ -1,10 +1,25 @@
 .burgerConstructor {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   width: 600px;
+  height: 910px;
+}
+.constructor {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
   align-self: flex-start;
   align-items: flex-end;
+  position: relative;
+  height: 620px;
+}
+
+.empty {
+  border: 1px dashed #5441f2;
+  position: relative;
+}
+.emptyParagraph {
+  position: absolute;
+  top: 50%;
+  right: 25%;
 }
 .container {
   display: flex;
@@ -38,4 +53,10 @@
   height: 80px;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.bun {
+  height: 80px;
 }

@@ -1,6 +1,7 @@
 .item {
   list-style: none;
   text-align: center;
+  position: relative;
 }
 
 .image {
