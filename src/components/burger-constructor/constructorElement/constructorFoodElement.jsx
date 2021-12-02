@@ -9,7 +9,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { DELETE_INGREDIENT } from 'services/actions/constructor';
 import { constructorFoodElementPropTypes } from 'utils/type';
 
-function ConstructorFoodElement(props) {
+function ConstructorFoodElement({moveIngredient, index, item}) {
   const sortTarget = useRef(null);
   const dispatch = useDispatch();
   const constructorValue = useSelector(
@@ -23,8 +23,8 @@ function ConstructorFoodElement(props) {
         const dragIndex = constructorValue.findIndex(
           (element) => element._id === item._id
         );
-        const hoverIndex = props.index;
-        props.moveIngredient(dragIndex, hoverIndex);
+        const hoverIndex = index;
+        moveIngredient(dragIndex, hoverIndex);
       },
       collect: (monitor) => ({
         opacity: monitor.isOver() ? 0.2 : 1,
@@ -36,7 +36,7 @@ function ConstructorFoodElement(props) {
 
   const [, drag] = useDrag({
     type: 'sort',
-    item: props.item,
+    item: item,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -47,7 +47,7 @@ function ConstructorFoodElement(props) {
     <div
       style={{ opacity }}
       ref={sortTarget}
-      key={props.index}
+      key={index}
       className={ConstructorFoodElementStyle.ingredient}
     >
       <DragIcon />
@@ -55,12 +55,12 @@ function ConstructorFoodElement(props) {
         handleClose={() => {
           dispatch({
             type: DELETE_INGREDIENT,
-            item: props.item._id + props.index,
+            item: item._id + index,
           });
         }}
-        text={props.item.name}
-        price={props.item.price}
-        thumbnail={props.item.image}
+        text={item.name}
+        price={item.price}
+        thumbnail={item.image}
       />
     </div>
   );

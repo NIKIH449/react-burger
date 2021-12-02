@@ -8,29 +8,29 @@ import { ingredientsListPropTypes } from '../../../utils/type';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
 
-function IngredientsList(props) {
+function IngredientsList({item, onItemClick, image, name, price}) {
   const constructorValue = useSelector((store) => store.constructorValue);
 
   function countBun() {
     return (
       constructorValue.constructor.bun.filter(
-        (item) => item._id === props.item._id
+        (element) => element._id === item._id
       ).length * 2
     );
   }
 
   function countIngredients() {
     return constructorValue.constructor.other.filter(
-      (item) => item._id === props.item._id
+      (element) => element._id === item._id
     ).length;
   }
 
   function handleClick() {
-    props.onItemClick(props.item);
+    onItemClick(item);
   }
   const [{ opacity }, ingredientRef] = useDrag({
-    type: props.item.type,
-    item: props.item,
+    type: item.type,
+    item: item,
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.3 : 1,
     }),
@@ -42,7 +42,7 @@ function IngredientsList(props) {
       onClick={handleClick}
       className={ingredientsListStyle.item}
     >
-      {props.item.type === 'bun' ? (
+      {item.type === 'bun' ? (
         <Counter count={countBun()} size="default" />
       ) : (
         <Counter count={countIngredients()} size="default" />
@@ -50,13 +50,13 @@ function IngredientsList(props) {
       <img
         draggable
         className={ingredientsListStyle.image}
-        src={props.image}
-        alt={props.name}
+        src={image}
+        alt={name}
       />
       <p className="text text_type_digits-default">
-        {props.price} <CurrencyIcon type="primary" />
+        {price} <CurrencyIcon type="primary" />
       </p>
-      <p className="text text_type_main-default">{props.name}</p>
+      <p className="text text_type_main-default">{name}</p>
     </li>
   );
 }

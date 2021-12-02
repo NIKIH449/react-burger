@@ -2,12 +2,12 @@ import React from 'react';
 import { headerButtonProTypes } from 'utils/type';
 import headerButtonStyle from './header-button.module.css';
 
-function HeaderButton(props) {
+function HeaderButton({children, name}) {
   return (
     <div className={headerButtonStyle.button}>
       <a className={headerButtonStyle.link} href="http://localhost:3000/react-burger">
-        {props.children}
-        <p className="ml-2 text text_type_main-default">{props.name}</p>
+        {children}
+        <p className="ml-2 text text_type_main-default">{name}</p>
       </a>
     </div>
   );

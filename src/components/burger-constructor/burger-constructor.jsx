@@ -1,22 +1,22 @@
 import React, { useCallback, useEffect } from 'react';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import Modal from '../modal/modal';
+import ConstructorFoodElement from './constructorElement/constructorFoodElement';
 import OrderDeatils from '../order-details/order-detail';
-import {
-  ConstructorElement,
-  CurrencyIcon,
-  Button,
-} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from 'services/actions/order';
 import { closeOrderModal } from 'services/actions/modal';
 import { useDrop } from 'react-dnd';
 import {
+  ConstructorElement,
+  CurrencyIcon,
+  Button,
+} from '@ya.praktikum/react-developer-burger-ui-components';
+import {
   getConstructor,
   ADD_INGREDIENT,
   MOVE_INGREDIENT,
 } from 'services/actions/constructor';
-import ConstructorFoodElement from './constructorElement/constructorFoodElement';
 
 function BurgerConstructor() {
   const constructorValue = useSelector(
@@ -166,7 +166,7 @@ function BurgerConstructor() {
             Оформить заказ
           </Button>
         ) : (
-          <Button disabled onClick={finishOrder} type="primary" size="large">
+          <Button disabled onClick={finishOrder} type="defaul" size="large">
             Соберите бургер!
           </Button>
         )}
