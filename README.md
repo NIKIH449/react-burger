@@ -1,12 +1,12 @@
 # BURGER
 ![Иллюстрация к проекту](https://i.ibb.co/N1fgQCb/2021-11-15-004656.png)
 
-## Описание
+## Description
 
-Проект -- интерактивная страница имитирующая работу настоящей бургерной. 
-Реализован весь процесс от создания своего бургера и до отправки его на "кухню" с получением номера заказа и отлеживанием степени готовности.
+Interactive website imitating real burger restaurant where you can “build” your own burger according to your preferences,
+calculate the price, order and track your order.
 
-### Используемые технологии
+### Stack
 
 - HTML
 - CSS
@@ -14,16 +14,18 @@
 - REACT
 - REDUX
 
-### Инструкция по развёртыванию 
+### How to run this project? 
+
+npm run build // Build app to dist folder
 
 #### npm start
 
-Запуск в режиме разработки. Откроется окно в браузере.
+Start dev server
 
 #### npm run build
 
-Соберет проект в папку build.
+Build app to dist folder
 
-#### [Макет в Figma](https://www.figma.com/file/vejDm3dVTUor3wBdNO137u/React-%2F-%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8?node-id=20%3A158)
+#### [Layout in Figma](https://www.figma.com/file/vejDm3dVTUor3wBdNO137u/React-%2F-%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8?node-id=20%3A158)
 #### [GitHub Pages](https://nikih449.github.io/react-burger/)
 
