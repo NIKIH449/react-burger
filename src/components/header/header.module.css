@@ -17,4 +17,5 @@
 .logo {
   position: relative;
   left: calc(160px - 10%);
+  width: 290px;
 }

@@ -13,3 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* в компонентах кторые предоставляет библиотека яндекса,
+поломан атрибус large у инпутов, поэтом приходится использовать important */
+.input_size_default {
+  width: 480px !important;
+}

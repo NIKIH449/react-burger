@@ -1,0 +1,17 @@
+.button {
+  height: 56px;
+  cursor: pointer;
+}
+
+.link {
+  align-items: center;
+  height: 100%;
+  display: flex;
+  text-decoration: none;
+  color: white;
+  opacity: 0.6;
+}
+
+.active {
+  opacity: 1;
+}

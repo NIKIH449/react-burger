@@ -15,6 +15,7 @@ function Modal({ onClose, title, children }) {
     window.addEventListener('keydown', onEscClose);
     return () => window.removeEventListener('keydown', onEscClose);
   }, [onClose]);
+
   return createPortal(
     <ModalOverlay onClick={onClose}>
       <div className={modalStyle.modal} onClick={(e) => e.stopPropagation()}>

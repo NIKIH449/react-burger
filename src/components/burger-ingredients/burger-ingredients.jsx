@@ -22,7 +22,6 @@ function BurgerIngredients() {
   const sauseRef = useRef(null);
   const mainRef = useRef(null);
   const scrollRef = useRef(null);
-
   const scrollToBun = () => {
     setCurrent('one');
     bunRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -46,9 +45,9 @@ function BurgerIngredients() {
     const sauseY = sauseRef.current.offsetTop / 2;
     const mainY = mainRef.current.offsetTop / 2;
 
-    scrollY > mainY - sauseY && scrollY < mainY + sauseY
+    scrollY > sauseY && scrollY < mainY + sauseY
       ? setCurrent('two')
-      : scrollY > mainY + sauseY
+      : scrollY >= mainY + sauseY
       ? setCurrent('three')
       : setCurrent('one');
   };
@@ -58,7 +57,7 @@ function BurgerIngredients() {
     openIngredientModal(dispatch);
   }
 
-  function handleCloseModal(e) {
+  function handleCloseModal() {
     closeIngredientModal(dispatch);
   }
 
@@ -169,6 +168,7 @@ function BurgerIngredients() {
       {isModalOpen && isIngredient && (
         <Modal title="Детали ингридиента" onClose={handleCloseModal}>
           <IngredientDetails
+            id={ingredient._id}
             name={ingredient.name}
             image={ingredient.image}
             calories={ingredient.calories}

@@ -6,11 +6,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientsListPropTypes } from '../../../utils/type';
 import { useDrag } from 'react-dnd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { SET_CURRENT_ITEM } from 'services/actions/currentItem';
 
-function IngredientsList({item, onItemClick, image, name, price}) {
+function IngredientsList({ item, onItemClick, image, name, price }) {
+  const dispatch = useDispatch();
   const constructorValue = useSelector((store) => store.constructorValue);
-
+  const navigate = useNavigate();
   function countBun() {
     return (
       constructorValue.constructor.bun.filter(
@@ -26,7 +29,9 @@ function IngredientsList({item, onItemClick, image, name, price}) {
   }
 
   function handleClick() {
-    onItemClick(item);
+    dispatch({ type: SET_CURRENT_ITEM, data: item });
+    navigate(`/ingredients/${item._id}`);
+    localStorage.setItem('ingredientItem', JSON.stringify(item));
   }
   const [{ opacity }, ingredientRef] = useDrag({
     type: item.type,

@@ -1,14 +1,24 @@
 import React from 'react';
 import { headerButtonProTypes } from 'utils/type';
 import headerButtonStyle from './header-button.module.css';
-
-function HeaderButton({children, name}) {
+import { useNavigate, useLocation } from 'react-router-dom';
+function HeaderButton({ children, name, link }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
-    <div className={headerButtonStyle.button}>
-      <a className={headerButtonStyle.link} href="http://localhost:3000/react-burger">
-        {children}
-        <p className="ml-2 text text_type_main-default">{name}</p>
-      </a>
+    <div
+      style={
+        location.pathname === link || location.pathname === link + '/orders'
+          ? { opacity: 1 }
+          : { opacity: 0.6 }
+      }
+      onClick={() => {
+        navigate(link);
+      }}
+      className={headerButtonStyle.button}
+    >
+      {children}
+      <p className="ml-2 text text_type_main-default">{name}</p>
     </div>
   );
 }
