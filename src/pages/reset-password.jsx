@@ -7,13 +7,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { onResetPassword } from 'services/actions/auth';
-
 export function ResetPassword() {
   const dispatch = useDispatch();
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
   const navigate = useNavigate();
-  const resetSuccess = useSelector((store) => store.auth.resetPasswordSuccess);
+  const { resetPasswordSuccess, recoveryPasswordSuccess, loggedIn } =
+    useSelector((store) => store.auth);
 
   function resetPassword(e) {
     e.preventDefault();
@@ -21,12 +21,12 @@ export function ResetPassword() {
   }
 
   useEffect(() => {
-    if (resetSuccess) {
+    if (resetPasswordSuccess) {
       navigate('/');
       setPassword('');
       setCode('');
     }
-  }, [resetSuccess, navigate]);
+  }, [resetPasswordSuccess, navigate]);
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
@@ -35,6 +35,16 @@ export function ResetPassword() {
   function handleChangeCode(e) {
     setCode(e.target.value);
   }
+
+  useEffect(() => {
+    if (loggedIn === true) {
+      navigate('/');
+    }
+    if (recoveryPasswordSuccess === false) {
+      navigate('/forgot-password');
+    }
+  }, []);
+
   return (
     <AuthForm
       onSubmit={resetPassword}
@@ -43,22 +53,26 @@ export function ResetPassword() {
       question="Вспомнили пароль?"
       questionLink="Войти"
     >
-      <div className="mb-6 mt-6">
-        <PasswordInput
-          value={password}
-          onChange={handleChangePassword}
-          placeholder={'Введите новый пароль'}
-          size={'default'}
-        />
-      </div>
-      <div className="mb-6">
-        <Input
-          value={code}
-          onChange={handleChangeCode}
-          placeholder={'Введите код из письма'}
-          size={'default'}
-        />
-      </div>
+      {!loggedIn && (
+        <>
+          <div className="mb-6 mt-6">
+            <PasswordInput
+              value={password}
+              onChange={handleChangePassword}
+              placeholder={'Введите новый пароль'}
+              size={'default'}
+            />
+          </div>
+          <div className="mb-6">
+            <Input
+              value={code}
+              onChange={handleChangeCode}
+              placeholder={'Введите код из письма'}
+              size={'default'}
+            />
+          </div>
+        </>
+      )}
     </AuthForm>
   );
 }

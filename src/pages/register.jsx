@@ -4,19 +4,24 @@ import {
   PasswordInput,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { onRegister } from 'services/actions/auth';
+import {  onRegister } from 'services/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+
 export function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const { accessToken, registerSuccess, refreshToken } = useSelector(
+  const { accessToken, registerSuccess, refreshToken, loggedIn } = useSelector(
     (store) => store.auth
   );
-
+  useEffect(() => {
+    if (loggedIn === true) {
+      navigate('/login');
+    }
+  }, []);
   function handleChangeEmail(e) {
     setEmail(e.target.value);
   }

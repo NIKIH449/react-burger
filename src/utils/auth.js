@@ -1,4 +1,4 @@
-import { AUTH_URL, BURGER_URL } from './constants';
+import { BURGER_URL } from './constants';
 function checkResponse(res) {
   if (res.ok) {
     return res.json();
@@ -7,7 +7,7 @@ function checkResponse(res) {
 }
 
 export const signUp = (email, password, name) => {
-  return fetch(AUTH_URL + 'register', {
+  return fetch(BURGER_URL + 'auth/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ export const signUp = (email, password, name) => {
 };
 
 export const signIn = (email, password) => {
-  return fetch(AUTH_URL + 'login', {
+  return fetch(BURGER_URL + 'auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const signIn = (email, password) => {
 };
 
 export const checkValidity = (token) => {
-  return fetch(AUTH_URL + 'user', {
+  return fetch(BURGER_URL + 'auth/user', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export const checkValidity = (token) => {
 };
 
 export const refreshingToken = (token) => {
-  return fetch(AUTH_URL + 'token', {
+  return fetch(BURGER_URL + 'auth/token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ export const refreshingToken = (token) => {
 };
 
 export const updateUserInfo = (email, name, password, token) => {
-  return fetch(AUTH_URL + 'user', {
+  return fetch(BURGER_URL + 'auth/user', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export const updateUserInfo = (email, name, password, token) => {
 };
 
 export const signOut = (token) => {
-  return fetch(AUTH_URL + 'logout ', {
+  return fetch(BURGER_URL + 'auth/logout ', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

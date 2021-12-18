@@ -30,7 +30,7 @@ function Modal({ onClose, title, children }) {
         </button>
       </div>
     </ModalOverlay>,
-    document.getElementById('root')
+    document.getElementById('modal')
   );
 }
 Modal.propTypes = modalPropTypes.isRequired;

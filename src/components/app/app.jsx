@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import appStyles from './app.module.css';
 import Main from '../main/main';
 import AppHeader from '../header/app-header';
@@ -8,10 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { onCheckAuth } from 'services/actions/auth';
 import { Preloader } from 'components/preloader/preloader';
 import { NotFound } from 'pages/not-found';
-import {
-  ProtectedRoute,
-  ProtectedRouteAuth,
-} from 'components/protected-route/protected-route';
+import { useLocation } from 'react-router';
+import { ProtectedRoute } from 'components/protected-route/protected-route';
 import {
   Login,
   Ingredient,
@@ -22,18 +20,11 @@ import {
 } from 'pages';
 
 function App() {
+  const location = useLocation();
+  const background = location.state && location.state.background;
   const ingredientItem = JSON.parse(localStorage.getItem('ingredientItem'));
-  const {
-    loggedIn,
-    loginSuccess,
-    refreshToken,
-    refreshTokenSuccess,
-    loading,
-    accessToken,
-    recoveryPasswordSuccess,
-    registerSuccess,
-  } = useSelector((store) => store.auth);
-  const [authState, setAuthState] = useState(false);
+  const { refreshToken, refreshTokenSuccess, loading, accessToken } =
+    useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
   function checkAuth(accessToken, refreshToken) {
@@ -45,13 +36,8 @@ function App() {
     const refreshToken = localStorage.getItem('refreshToken');
     if (accessToken) {
       checkAuth(accessToken, refreshToken);
-      setAuthState(true);
     }
   }, []);
-
-  useEffect(() => {
-    setAuthState(true);
-  }, [loginSuccess, registerSuccess]);
 
   useEffect(() => {
     if (refreshTokenSuccess) {
@@ -67,64 +53,34 @@ function App() {
         <Preloader />
       ) : (
         <Routes>
-          <Route
-            path="/login"
-            element={
-              <ProtectedRouteAuth loggedIn={loggedIn}>
-                <Login />
-              </ProtectedRouteAuth>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <ProtectedRouteAuth loggedIn={loggedIn}>
-                <Register />
-              </ProtectedRouteAuth>
-            }
-          />
-          <Route
-            path="/forgot-password"
-            element={
-              <ProtectedRouteAuth loggedIn={loggedIn}>
-                <RecoveryPassword />
-              </ProtectedRouteAuth>
-            }
-          />
-          <Route
-            path="/reset-password"
-            element={
-              <ProtectedRouteAuth loggedIn={loggedIn}>
-                {recoveryPasswordSuccess ? (
-                  <ResetPassword />
-                ) : (
-                  <RecoveryPassword />
-                )}
-              </ProtectedRouteAuth>
-            }
-          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<RecoveryPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/profile"
             element={
-              authState ? (
-                <ProtectedRoute loggedIn={loggedIn}>
-                  <Profile />
-                </ProtectedRoute>
-              ) : (
-                <ProtectedRouteAuth loggedIn={loggedIn}>
-                  <Login />
-                </ProtectedRouteAuth>
-              )
+              <ProtectedRoute path="/login">
+                <Profile />
+              </ProtectedRoute>
             }
           />
           <Route path="/profile/orders" element={<Profile />} />
+
+          <Route path="/" element={<Main />} />
+          <Route path="*" element={<NotFound />}></Route>
           <Route
             path="/ingredients/:id"
             ingredientItem={ingredientItem}
             element={<Ingredient />}
           />
-          <Route path="/" element={<Main />} />
-          <Route path="*" element={<NotFound />}></Route>
+          {background && (
+            <Route
+              path="/ingredients/:id"
+              ingredientItem={ingredientItem}
+              element={<Ingredient />}
+            />
+          )}
         </Routes>
       )}
     </div>

@@ -12,11 +12,13 @@ import {
   openIngredientModal,
   closeIngredientModal,
 } from 'services/actions/modal';
+import { Link, useLocation } from 'react-router-dom';
 function BurgerIngredients() {
   const [current, setCurrent] = React.useState('one');
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const ingredient = useSelector((store) => store.currentItem.currentItem);
   const { isModalOpen, isIngredient } = useSelector((store) => store.modal);
+  const location = useLocation();
   const bunRef = useRef(null);
   const sauseRef = useRef(null);
   const mainRef = useRef(null);
@@ -94,15 +96,22 @@ function BurgerIngredients() {
           {ingredients.map((item) => {
             if (item.type === 'bun') {
               return (
-                <IngredientsList
-                  onItemClick={handleOpenModal}
+                <Link
+                  style={{ textDecoration: 'none' }}
                   key={item._id}
-                  type={item.type}
-                  name={item.name}
-                  price={item.price}
-                  image={item.image}
-                  item={item}
-                />
+                  to={`/ingredients/${item._id}`}
+                  state={{ background: location.pathname }}
+                >
+                  <IngredientsList
+                    onItemClick={handleOpenModal}
+                    key={item._id}
+                    type={item.type}
+                    name={item.name}
+                    price={item.price}
+                    image={item.image}
+                    item={item}
+                  />
+                </Link>
               );
             } else {
               return '';
@@ -120,15 +129,22 @@ function BurgerIngredients() {
             {ingredients.map((item) => {
               if (item.type === 'sauce') {
                 return (
-                  <IngredientsList
-                    onItemClick={handleOpenModal}
+                  <Link
+                    style={{ textDecoration: 'none' }}
                     key={item._id}
-                    type={item.type}
-                    name={item.name}
-                    price={item.price}
-                    image={item.image}
-                    item={item}
-                  />
+                    to={`/ingredients/${item._id}`}
+                    state={{ background: location.pathname }}
+                  >
+                    <IngredientsList
+                      onItemClick={handleOpenModal}
+                      key={item._id}
+                      type={item.type}
+                      name={item.name}
+                      price={item.price}
+                      image={item.image}
+                      item={item}
+                    />
+                  </Link>
                 );
               } else {
                 return '';
@@ -147,15 +163,22 @@ function BurgerIngredients() {
             {ingredients.map((item) => {
               if (item.type === 'main') {
                 return (
-                  <IngredientsList
-                    onItemClick={handleOpenModal}
-                    type={item.type}
+                  <Link
+                    style={{ textDecoration: 'none' }}
                     key={item._id}
-                    name={item.name}
-                    price={item.price}
-                    image={item.image}
-                    item={item}
-                  />
+                    to={`/ingredients/${item._id}`}
+                    state={{ background: location.pathname }}
+                  >
+                    <IngredientsList
+                      onItemClick={handleOpenModal}
+                      type={item.type}
+                      key={item._id}
+                      name={item.name}
+                      price={item.price}
+                      image={item.image}
+                      item={item}
+                    />
+                  </Link>
                 );
               } else {
                 return '';

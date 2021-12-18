@@ -1,10 +1,10 @@
-import { onCheckAuth } from './check_auth';
-import { onEditUserInfo } from './edit_profile';
+import { onCheckAuth } from './check-auth';
+import { onEditUserInfo } from './edit-profile';
 import { onLogin } from './login';
-import { onRecoveryPassword } from './recovery_password';
-import { onRefreshToken } from './refresh_token';
+import { onRecoveryPassword } from './recovery-password';
+import { onRefreshToken } from './refresh-token';
 import { onRegister } from './register';
-import { onResetPassword } from './reset_password';
+import { onResetPassword } from './reset-password';
 import { onSignOut } from './signout';
 
 export const GET_LOGGED_IN = 'GET_LOGGED_IN';

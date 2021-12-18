@@ -10,7 +10,7 @@ import ProfileButton from 'components/profile-button/profile-button';
 import { useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { onEditUserInfo, onSignOut } from 'services/actions/auth';
-import { GET_EDITPROFILE_RESET } from 'services/actions/auth/edit_profile';
+import { GET_EDITPROFILE_RESET } from 'services/actions/auth/edit-profile';
 export function Profile() {
   const {
     name,
@@ -20,6 +20,7 @@ export function Profile() {
     refreshTokenSuccess,
     signOutSuccess,
     editProfileSuccess,
+    loggedIn,
   } = useSelector((store) => store.auth);
 
   const [userEmail, setUserEmail] = useState(email);
@@ -42,6 +43,11 @@ export function Profile() {
   function handleChangeName(e) {
     setUserName(e.target.value);
   }
+  useEffect(() => {
+    if (loggedIn === false) {
+      navigate('/login');
+    }
+  }, []);
 
   useEffect(() => {
     if (!(userEmail === email && password === '' && userName === name)) {

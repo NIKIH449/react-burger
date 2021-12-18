@@ -2,13 +2,13 @@ import {
   GET_CHECK_AUTH_FAILED,
   GET_CHECK_AUTH_REQUEST,
   GET_CHECK_AUTH_SUCCESS,
-} from 'services/actions/auth/check_auth';
+} from 'services/actions/auth/check-auth';
 import {
   GET_EDITPROFILE_FAILED,
   GET_EDITPROFILE_REQUEST,
   GET_EDITPROFILE_SUCCESS,
   GET_EDITPROFILE_RESET,
-} from 'services/actions/auth/edit_profile';
+} from 'services/actions/auth/edit-profile';
 import {
   GET_LOGIN_FAILED,
   GET_LOGIN_REQUEST,
@@ -18,12 +18,12 @@ import {
   GET_RECOVERY_PASSWORD_FAILED,
   GET_RECOVERY_PASSWORD_REQUEST,
   GET_RECOVERY_PASSWORD_SUCCESS,
-} from 'services/actions/auth/recovery_password';
+} from 'services/actions/auth/recovery-password';
 import {
   GET_REFRESH_TOKEN_FAILED,
   GET_REFRESH_TOKEN_REQUEST,
   GET_REFRESH_TOKEN_SUCCESS,
-} from 'services/actions/auth/refresh_token';
+} from 'services/actions/auth/refresh-token';
 import {
   GET_REGISTER_FAILED,
   GET_REGISTER_REQUEST,
@@ -33,7 +33,7 @@ import {
   GET_RESET_PASSWORD_FAILED,
   GET_RESET_PASSWORD_REQUEST,
   GET_RESET_PASSWORD_SUCCESS,
-} from 'services/actions/auth/reset_password';
+} from 'services/actions/auth/reset-password';
 import {
   GET_SIGNOUT_FAILED,
   GET_SIGNOUT_SUCCESS,

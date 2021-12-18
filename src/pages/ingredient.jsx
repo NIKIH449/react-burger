@@ -2,20 +2,18 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ingredientStyles from './ingredient.module.css';
 import IngredientDetails from 'components/ingredient-details/ingredient-details';
-import { useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { getIngredients } from 'services/actions/ingredients';
 import Modal from 'components/modal/modal';
 import Main from 'components/main/main';
 import { closeIngredientModal } from 'services/actions/modal';
 export function Ingredient() {
   const currentId = useParams();
-
+  const { state } = useLocation();
   const navigate = useNavigate();
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const ingredient = ingredients.filter((item) => currentId.id === item._id)[0];
-  const currentItem = useSelector((store) => store.currentItem.currentItem);
   const dispatch = useDispatch();
-  const ingredientItem = JSON.parse(localStorage.getItem('ingredientItem'));
 
   useEffect(() => {
     ingredients.length === 0 && dispatch(getIngredients());
@@ -24,12 +22,11 @@ export function Ingredient() {
   function handleCloseModal() {
     closeIngredientModal(dispatch);
     navigate('/');
-    localStorage.removeItem('ingredientItem');
   }
   return (
     <>
-      {ingredientItem && <Main></Main>}
-      {currentItem.name ? (
+      {state && <Main></Main>}
+      {state && ingredient ? (
         <Modal title="Детали ингридиента" onClose={handleCloseModal}>
           <IngredientDetails
             id={ingredient._id}
@@ -39,18 +36,6 @@ export function Ingredient() {
             carbohydrates={ingredient.carbohydrates}
             fat={ingredient.fat}
             proteins={ingredient.proteins}
-          ></IngredientDetails>
-        </Modal>
-      ) : ingredientItem ? (
-        <Modal title="Детали ингридиента" onClose={handleCloseModal}>
-          <IngredientDetails
-            id={ingredientItem._id}
-            name={ingredientItem.name}
-            image={ingredientItem.image}
-            calories={ingredientItem.calories}
-            carbohydrates={ingredientItem.carbohydrates}
-            fat={ingredientItem.fat}
-            proteins={ingredientItem.proteins}
           ></IngredientDetails>
         </Modal>
       ) : (

@@ -7,15 +7,15 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import '../index.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 export function Login() {
+  const { state } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { accessToken, refreshToken, loggedSuccess, loginFailed } = useSelector(
-    (store) => store.auth
-  );
+  const { accessToken, refreshToken, loginSuccess, loginFailed, loggedIn } =
+    useSelector((store) => store.auth);
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
@@ -31,14 +31,20 @@ export function Login() {
   }
 
   useEffect(() => {
-    if (loggedSuccess) {
+    if (loginSuccess) {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      navigate('/');
+      navigate(state?.path || '/');
       setEmail('');
       setPassword('');
     }
-  }, [loggedSuccess, refreshToken, password, accessToken, navigate]);
+  }, [loginSuccess, refreshToken, password, accessToken, navigate, state?.path]);
+
+  useEffect(() => {
+    if (loggedIn === true) {
+      navigate('/profile');
+    }
+  }, []);
 
   return (
     <AuthForm

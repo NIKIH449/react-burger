@@ -1,13 +1,16 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { protectedRoutePropsTypes } from 'utils/type';
+import { Navigate } from 'react-router';
 
-export function ProtectedRoute({ loggedIn, children }) {
-  return loggedIn ? children : <Navigate to="/login" />;
+export function ProtectedRoute({ children }) {
+  const location = useLocation();
+  const loggedIn = useSelector((store) => store.auth.loggedIn);
+  return loggedIn === true ? (
+    children
+  ) : (
+    <Navigate to="/login" state={{ path: location.pathname }} />
+  );
 }
-export function ProtectedRouteAuth({ loggedIn, children }) {
-  return loggedIn ? <Navigate to="/" /> : children;
-}
-
 ProtectedRoute.propTypes = protectedRoutePropsTypes.isRequired;
-ProtectedRouteAuth.propTypes = protectedRoutePropsTypes.isRequired;

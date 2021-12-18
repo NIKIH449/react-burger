@@ -67,7 +67,6 @@ const profileButtonPropTypes = {
 };
 
 const protectedRoutePropsTypes = {
-  loggedIn: PropTypes.bool.isRequired,
   children: PropTypes.element.isRequired,
 };
 
