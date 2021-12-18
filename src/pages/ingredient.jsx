@@ -7,17 +7,19 @@ import { getIngredients } from 'services/actions/ingredients';
 import Modal from 'components/modal/modal';
 import Main from 'components/main/main';
 import { closeIngredientModal } from 'services/actions/modal';
-export function Ingredient(props) {
+export function Ingredient() {
   const currentId = useParams();
+
   const navigate = useNavigate();
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const ingredient = ingredients.filter((item) => currentId.id === item._id)[0];
   const currentItem = useSelector((store) => store.currentItem.currentItem);
   const dispatch = useDispatch();
   const ingredientItem = JSON.parse(localStorage.getItem('ingredientItem'));
+
   useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
+    ingredients.length === 0 && dispatch(getIngredients());
+  }, [dispatch, ingredients.length]);
 
   function handleCloseModal() {
     closeIngredientModal(dispatch);
@@ -26,7 +28,6 @@ export function Ingredient(props) {
   }
   return (
     <>
-      {currentItem.name && <Main></Main>}
       {ingredientItem && <Main></Main>}
       {currentItem.name ? (
         <Modal title="Детали ингридиента" onClose={handleCloseModal}>
@@ -49,7 +50,7 @@ export function Ingredient(props) {
             calories={ingredientItem.calories}
             carbohydrates={ingredientItem.carbohydrates}
             fat={ingredientItem.fat}
-            proteins={ingredientItem._proteinsd}
+            proteins={ingredientItem.proteins}
           ></IngredientDetails>
         </Modal>
       ) : (

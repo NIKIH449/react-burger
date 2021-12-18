@@ -8,6 +8,7 @@ const initialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
+  ingredientsSucces: false,
 };
 
 export const indredientsReducer = (state = initialState, action) => {
@@ -16,6 +17,7 @@ export const indredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         ingredientsRequest: true,
+        ingredientsSucces: false,
       };
     }
     case GET_INGREDIENTS_SUCCESS: {
@@ -23,6 +25,7 @@ export const indredientsReducer = (state = initialState, action) => {
         ...state,
         ingredientsRequest: false,
         ingredientsFailed: false,
+        ingredientsSucces: true,
         ingredients: action.ingredients,
       };
     }

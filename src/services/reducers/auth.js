@@ -1,29 +1,45 @@
 import {
-  GET_REGISTER_FAILED,
-  GET_REGISTER_REQUEST,
-  GET_REGISTER_SUCCESS,
-  GET_LOGIN_FAILED,
-  GET_LOGIN_SUCCESS,
-  GET_LOGIN_REQUEST,
-  GET_SIGNOUT_FAILED,
-  GET_SIGNOUT_SUCCESS,
-  GET_SIGNOUT_REQUEST,
-  GET_EDITPROFILE_FAILED,
-  GET_EDITPROFILE_REQUEST,
-  GET_EDITPROFILE_SUCCESS,
-  GET_RECOVERY_PASSWORD_FAILED,
-  GET_RECOVERY_PASSWORD_REQUEST,
-  GET_RECOVERY_PASSWORD_SUCCESS,
-  GET_RESET_PASSWORD_FAILED,
-  GET_RESET_PASSWORD_REQUEST,
-  GET_RESET_PASSWORD_SUCCESS,
-  GET_REFRESH_TOKEN_FAILED,
-  GET_REFRESH_TOKEN_REQUEST,
-  GET_REFRESH_TOKEN_SUCCESS,
   GET_CHECK_AUTH_FAILED,
   GET_CHECK_AUTH_REQUEST,
   GET_CHECK_AUTH_SUCCESS,
+} from 'services/actions/auth/check_auth';
+import {
+  GET_EDITPROFILE_FAILED,
+  GET_EDITPROFILE_REQUEST,
+  GET_EDITPROFILE_SUCCESS,
   GET_EDITPROFILE_RESET,
+} from 'services/actions/auth/edit_profile';
+import {
+  GET_LOGIN_FAILED,
+  GET_LOGIN_REQUEST,
+  GET_LOGIN_SUCCESS,
+} from 'services/actions/auth/login';
+import {
+  GET_RECOVERY_PASSWORD_FAILED,
+  GET_RECOVERY_PASSWORD_REQUEST,
+  GET_RECOVERY_PASSWORD_SUCCESS,
+} from 'services/actions/auth/recovery_password';
+import {
+  GET_REFRESH_TOKEN_FAILED,
+  GET_REFRESH_TOKEN_REQUEST,
+  GET_REFRESH_TOKEN_SUCCESS,
+} from 'services/actions/auth/refresh_token';
+import {
+  GET_REGISTER_FAILED,
+  GET_REGISTER_REQUEST,
+  GET_REGISTER_SUCCESS,
+} from 'services/actions/auth/register';
+import {
+  GET_RESET_PASSWORD_FAILED,
+  GET_RESET_PASSWORD_REQUEST,
+  GET_RESET_PASSWORD_SUCCESS,
+} from 'services/actions/auth/reset_password';
+import {
+  GET_SIGNOUT_FAILED,
+  GET_SIGNOUT_SUCCESS,
+  GET_SIGNOUT_REQUEST,
+} from 'services/actions/auth/signout';
+import {
   GET_LOGGED_IN,
   LOADING_END,
   LOADING_START,
@@ -31,9 +47,8 @@ import {
 
 const initialState = {
   email: '',
-  password: '',
   name: '',
-  token: '',
+  accessToken: '',
   refreshToken: '',
   registerRequest: false,
   regiterFailed: false,
@@ -126,7 +141,7 @@ export const authReducer = (state = initialState, action) => {
         refreshTokenRequest: false,
         refreshTokenFailed: false,
         refreshTokenSuccess: true,
-        token: action.data.accessToken.split('Bearer ')[1],
+        accessToken: action.data.accessToken.split('Bearer ')[1],
         refreshToken: action.data.refreshToken,
       };
     }
@@ -223,9 +238,12 @@ export const authReducer = (state = initialState, action) => {
         signOutFailed: false,
         signOutSuccess: true,
         loginSuccess: false,
+        registerSuccess: false,
+        chekAuthSuccess: false,
+        editProfileSuccess: false,
         loggedIn: false,
         email: '',
-        token: '',
+        accessToken: '',
         refreshToken: '',
         name: '',
       };
@@ -251,7 +269,7 @@ export const authReducer = (state = initialState, action) => {
         loginSuccess: true,
         loggedIn: true,
         email: action.data.user.email,
-        token: action.data.accessToken.split('Bearer ')[1],
+        accessToken: action.data.accessToken.split('Bearer ')[1],
         refreshToken: action.data.refreshToken,
         name: action.data.user.name,
         signOutSuccess: false,
@@ -277,9 +295,10 @@ export const authReducer = (state = initialState, action) => {
         registerFailed: false,
         registerSuccess: true,
         loggedIn: true,
+        signOutSuccess: false,
         email: action.data.user.email,
         name: action.data.user.name,
-        token: action.data.accessToken.split('Bearer ')[1],
+        accessToken: action.data.accessToken.split('Bearer ')[1],
         refreshToken: action.data.refreshToken,
       };
     }

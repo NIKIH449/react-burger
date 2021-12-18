@@ -10,11 +10,12 @@ import { useNavigate } from 'react-router';
 export function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const registerSuccess = useSelector((store) => store.auth.registerSuccess);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const auth = useSelector((store) => store.auth);
+  const { accessToken, registerSuccess, refreshToken } = useSelector(
+    (store) => store.auth
+  );
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
@@ -35,14 +36,14 @@ export function Register() {
 
   useEffect(() => {
     if (registerSuccess) {
-      localStorage.setItem('accessToken', auth.token);
-      localStorage.setItem('refreshToken', auth.refreshToken);
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
       navigate('/');
       setEmail('');
       setName('');
       setPassword('');
     }
-  }, [registerSuccess, navigate, auth.refreshToken, auth.token]);
+  }, [registerSuccess, navigate, refreshToken, accessToken]);
 
   return (
     <AuthForm

@@ -2,24 +2,22 @@ import React from 'react';
 import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import profileButtonStyle from './profile-button.module.css';
-
-function ProfileButton(props) {
+import { profileButtonPropTypes } from 'utils/type';
+function ProfileButton({ link, onSignOut, title, children }) {
   const location = useLocation();
 
   return (
     <NavLink
       className={profileButtonStyle.link}
-      style={
-        location.pathname === props.link ? { opacity: 1 } : { opacity: 0.6 }
-      }
-      to={props.link && props.link}
+      style={location.pathname === link ? { opacity: 1 } : { opacity: 0.6 }}
+      to={link && link}
     >
-      <div onClick={props.onSignOut} className={profileButtonStyle.button}>
-        {props.children}
-        <p className="text text_type_main-medium">{props.title}</p>
+      <div onClick={onSignOut} className={profileButtonStyle.button}>
+        {children}
+        <p className="text text_type_main-medium">{title}</p>
       </div>
     </NavLink>
   );
 }
-
+ProfileButton.propTypes = profileButtonPropTypes.isRequired;
 export default ProfileButton;

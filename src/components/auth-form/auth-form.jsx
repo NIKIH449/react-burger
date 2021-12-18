@@ -2,22 +2,31 @@ import React from 'react';
 import authFormStyle from './auth-form.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
-
-export function AuthForm(props) {
+import { AuthFormPropTypes } from 'utils/type';
+export function AuthForm({
+  onSubmit,
+  title,
+  children,
+  button,
+  question,
+  questionLink,
+  recovery,
+  recoveryLink,
+}) {
   const location = useLocation();
   return (
     <section className={authFormStyle.auth}>
-      <form onSubmit={props.onSubmit} className={authFormStyle.form}>
+      <form onSubmit={onSubmit} className={authFormStyle.form}>
         <div className={authFormStyle.container}>
           <p className={`text text_type_main-medium ${authFormStyle.title}`}>
-            {props.title}
+            {title}
           </p>
           <div className={`mb-6 ${authFormStyle.inputContainer}`}>
-            {props.children}
+            {children}
           </div>
           <div className={authFormStyle.button}>
             <Button type="primary" size="medium">
-              {props.button}
+              {button}
             </Button>
           </div>
         </div>
@@ -25,25 +34,25 @@ export function AuthForm(props) {
           <p
             className={`mb-4 text text_type_main-default text_color_inactive ${authFormStyle.paragraph}`}
           >
-            {props.question}{' '}
+            {question}{' '}
             <Link
               className={authFormStyle.link}
               to={location.pathname === '/login' ? '/register' : '/login'}
             >
-              {props.questionLink}
+              {questionLink}
             </Link>
           </p>
           <p
             className={`mb-4 text text_type_main-default text_color_inactive ${authFormStyle.paragraph}`}
           >
-            {props.recovery}{' '}
+            {recovery}{' '}
             <Link
               className={authFormStyle.link}
               to={
                 location.pathname === '/login' ? '/forgot-password' : '/login'
               }
             >
-              {props.recoveryLink}
+              {recoveryLink}
             </Link>
           </p>
         </div>
@@ -51,3 +60,4 @@ export function AuthForm(props) {
     </section>
   );
 }
+AuthForm.propTypes = AuthFormPropTypes.isRequired;

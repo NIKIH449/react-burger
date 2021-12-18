@@ -9,22 +9,22 @@ import {
 import ProfileButton from 'components/profile-button/profile-button';
 import { useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { onSignOut } from 'services/actions/auth';
-import { onEditUserInfo } from 'services/actions/auth';
-import { GET_EDITPROFILE_RESET } from 'services/actions/auth';
+import { onEditUserInfo, onSignOut } from 'services/actions/auth';
+import { GET_EDITPROFILE_RESET } from 'services/actions/auth/edit_profile';
 export function Profile() {
-  const userName = useSelector((store) => store.auth.name);
-  const userEmail = useSelector((store) => store.auth.email);
-  const accessToken = useSelector((store) => store.auth.token);
-  const refreshToken = useSelector((store) => store.auth.refreshToken);
-  const refreshSuccess = useSelector((store) => store.auth.refreshTokenSuccess);
-  const signOutSuccess = useSelector((store) => store.auth.signOutSuccess);
-  const editProfileSuccess = useSelector(
-    (store) => store.auth.editProfileSuccess
-  );
-  const [email, setEmail] = useState(userEmail);
+  const {
+    name,
+    email,
+    accessToken,
+    refreshToken,
+    refreshTokenSuccess,
+    signOutSuccess,
+    editProfileSuccess,
+  } = useSelector((store) => store.auth);
+
+  const [userEmail, setUserEmail] = useState(email);
   const [password, setPassword] = useState('');
-  const [name, setName] = useState(userName);
+  const [userName, setUserName] = useState(name);
   const [isInputChange, setIsInputChange] = useState(false);
 
   const location = useLocation();
@@ -32,7 +32,7 @@ export function Profile() {
   const dispatch = useDispatch();
 
   function handleChangeEmail(e) {
-    setEmail(e.target.value);
+    setUserEmail(e.target.value);
   }
 
   function handleChangePassword(e) {
@@ -40,7 +40,7 @@ export function Profile() {
   }
 
   function handleChangeName(e) {
-    setName(e.target.value);
+    setUserName(e.target.value);
   }
 
   useEffect(() => {
@@ -49,31 +49,33 @@ export function Profile() {
     } else {
       setIsInputChange(false);
     }
-  }, [email, password, name]);
+  }, [userEmail, password, userName]);
 
   function onEditProfile(e) {
     e.preventDefault();
     const refreshToken = localStorage.getItem('refreshToken');
     const accessToken = localStorage.getItem('accessToken');
-    dispatch(onEditUserInfo(email, name, password, accessToken, refreshToken));
+    dispatch(
+      onEditUserInfo(userEmail, userName, password, accessToken, refreshToken)
+    );
   }
 
   useEffect(() => {
-    if (refreshSuccess) {
+    if (refreshTokenSuccess) {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       dispatch(
-        onEditUserInfo(email, name, password, accessToken, refreshToken)
+        onEditUserInfo(userEmail, userName, password, accessToken, refreshToken)
       );
     }
-  }, [accessToken, refreshSuccess, refreshToken, dispatch]);
+  }, [accessToken, refreshTokenSuccess, refreshToken, dispatch]);
 
   useEffect(() => {
     if (signOutSuccess) {
-      navigate('/');
-      setEmail('');
+      navigate('/login');
+      setUserEmail('');
       setPassword('');
-      setName('');
+      setUserName('');
       setIsInputChange(false);
     }
   }, [signOutSuccess, navigate]);
@@ -86,8 +88,8 @@ export function Profile() {
   }, [editProfileSuccess, userName, userEmail, dispatch]);
 
   function cancelChanges() {
-    setName(localStorage.getItem('userName'));
-    setEmail(localStorage.getItem('userEmail'));
+    setUserName(localStorage.getItem('userName'));
+    setUserEmail(localStorage.getItem('userEmail'));
     setPassword('');
   }
 
@@ -112,7 +114,7 @@ export function Profile() {
         <form onSubmit={onEditProfile}>
           <div className="mb-6">
             <Input
-              value={name}
+              value={userName}
               onChange={handleChangeName}
               type={'text'}
               placeholder={'Имя'}
@@ -120,7 +122,7 @@ export function Profile() {
             />
           </div>
           <div className="mb-6">
-            <EmailInput onChange={handleChangeEmail} value={email} />
+            <EmailInput onChange={handleChangeEmail} value={userEmail} />
           </div>
           <div>
             <PasswordInput onChange={handleChangePassword} value={password} />

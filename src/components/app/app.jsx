@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { onCheckAuth } from 'services/actions/auth';
 import { Preloader } from 'components/preloader/preloader';
+import { NotFound } from 'pages/not-found';
 import {
   ProtectedRoute,
   ProtectedRouteAuth,
@@ -21,21 +22,24 @@ import {
 } from 'pages';
 
 function App() {
-  const recoveryPasswordSuccess = useSelector(
-    (store) => store.auth.recoveryPasswordSuccess
-  );
   const ingredientItem = JSON.parse(localStorage.getItem('ingredientItem'));
-  const loggedIn = useSelector((store) => store.auth.loggedIn);
-  const loginSuccess = useSelector((store) => store.auth.loginSuccess);
-  const accessToken = useSelector((store) => store.auth.token);
-  const isLoading = useSelector((store) => store.auth.loading);
-  const refreshToken = useSelector((store) => store.auth.refreshToken);
-  const refreshSuccess = useSelector((store) => store.auth.refreshTokenSuccess);
+  const {
+    loggedIn,
+    loginSuccess,
+    refreshToken,
+    refreshTokenSuccess,
+    loading,
+    accessToken,
+    recoveryPasswordSuccess,
+    registerSuccess,
+  } = useSelector((store) => store.auth);
   const [authState, setAuthState] = useState(false);
   const dispatch = useDispatch();
+
   function checkAuth(accessToken, refreshToken) {
     dispatch(onCheckAuth(accessToken, refreshToken));
   }
+
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
@@ -47,20 +51,19 @@ function App() {
 
   useEffect(() => {
     setAuthState(true);
-  }, [loginSuccess]);
+  }, [loginSuccess, registerSuccess]);
 
   useEffect(() => {
-    if (refreshSuccess) {
+    if (refreshTokenSuccess) {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       checkAuth(accessToken, refreshToken);
     }
-  }, [accessToken, refreshSuccess, refreshToken]);
-
+  }, [accessToken, refreshTokenSuccess, refreshToken]);
   return (
     <div className={appStyles.app}>
       <AppHeader />
-      {isLoading ? (
+      {loading ? (
         <Preloader />
       ) : (
         <Routes>
@@ -89,7 +92,7 @@ function App() {
             }
           />
           <Route
-            path={'/reset-password'}
+            path="/reset-password"
             element={
               <ProtectedRouteAuth loggedIn={loggedIn}>
                 {recoveryPasswordSuccess ? (
@@ -101,7 +104,7 @@ function App() {
             }
           />
           <Route
-            path={'/profile'}
+            path="/profile"
             element={
               authState ? (
                 <ProtectedRoute loggedIn={loggedIn}>
@@ -121,6 +124,7 @@ function App() {
             element={<Ingredient />}
           />
           <Route path="/" element={<Main />} />
+          <Route path="*" element={<NotFound />}></Route>
         </Routes>
       )}
     </div>

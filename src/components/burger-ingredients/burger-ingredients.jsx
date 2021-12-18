@@ -12,7 +12,6 @@ import {
   openIngredientModal,
   closeIngredientModal,
 } from 'services/actions/modal';
-
 function BurgerIngredients() {
   const [current, setCurrent] = React.useState('one');
   const ingredients = useSelector((store) => store.ingredients.ingredients);
@@ -37,8 +36,8 @@ function BurgerIngredients() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
+    ingredients.length === 0 && dispatch(getIngredients());
+  }, [dispatch, ingredients.length]);
 
   const handleScroll = (e) => {
     const scrollY = e.target.scrollTop;

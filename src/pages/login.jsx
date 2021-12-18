@@ -9,12 +9,14 @@ import '../index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 export function Login() {
-  const loggedSuccess = useSelector((store) => store.auth.loginSuccess);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const auth = useSelector((store) => store.auth);
+  const { accessToken, refreshToken, loggedSuccess, loginFailed } = useSelector(
+    (store) => store.auth
+  );
+
   function handleChangeEmail(e) {
     setEmail(e.target.value);
   }
@@ -30,14 +32,13 @@ export function Login() {
 
   useEffect(() => {
     if (loggedSuccess) {
-      localStorage.setItem('accessToken', auth.token);
-      localStorage.setItem('refreshToken', auth.refreshToken);
-
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
       navigate('/');
       setEmail('');
       setPassword('');
     }
-  }, [loggedSuccess, auth.refreshToken, password, auth.token, navigate]);
+  }, [loggedSuccess, refreshToken, password, accessToken, navigate]);
 
   return (
     <AuthForm
@@ -65,6 +66,12 @@ export function Login() {
           size={'default'}
         />
       </div>
+
+      {loginFailed && (
+        <p className="mt-5 text text_type_main-small">
+          Ошибка. Возможно логин или пароль ошибочны.
+        </p>
+      )}
     </AuthForm>
   );
 }

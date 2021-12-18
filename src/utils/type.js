@@ -5,12 +5,13 @@ const mainProTypes = {};
 const constructorFoodElementPropTypes = {
   index: PropTypes.number.isRequired,
   moveIngredient: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
 };
 
 const headerButtonProTypes = {
   children: PropTypes.element.isRequired,
   name: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 const burgerIngredientsPropTypes = {};
@@ -20,7 +21,6 @@ const ingredientsListPropTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  onItemClick: PropTypes.func.isRequired,
 };
 
 const ingredientsDetailsPropTypes = {
@@ -48,6 +48,29 @@ const orderDetailsPropTypes = {
   name: PropTypes.string.isRequired,
 };
 
+const AuthFormPropTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
+  button: PropTypes.string.isRequired,
+  question: PropTypes.string.isRequired,
+  questionLink: PropTypes.string.isRequired,
+  recovery: PropTypes.string.isRequired,
+  recoveryLink: PropTypes.string.isRequired,
+};
+
+const profileButtonPropTypes = {
+  onSignOut: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
+  link: PropTypes.string.isRequired,
+};
+
+const protectedRoutePropsTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  children: PropTypes.element.isRequired,
+};
+
 export {
   modalPropTypes,
   modalOverlayPropTypes,
@@ -58,4 +81,7 @@ export {
   ingredientsListPropTypes,
   orderDetailsPropTypes,
   constructorFoodElementPropTypes,
+  AuthFormPropTypes,
+  profileButtonPropTypes,
+  protectedRoutePropsTypes,
 };

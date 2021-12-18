@@ -1,9 +1,13 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { protectedRoutePropsTypes } from 'utils/type';
 
-export const ProtectedRoute = (props) => {
-  return props.loggedIn ? props.children : <Navigate to="/login" />;
-};
-export const ProtectedRouteAuth = (props) => {
-  return props.loggedIn ? <Navigate to="/" /> : props.children;
-};
+export function ProtectedRoute({ loggedIn, children }) {
+  return loggedIn ? children : <Navigate to="/login" />;
+}
+export function ProtectedRouteAuth({ loggedIn, children }) {
+  return loggedIn ? <Navigate to="/" /> : children;
+}
+
+ProtectedRoute.propTypes = protectedRoutePropsTypes.isRequired;
+ProtectedRouteAuth.propTypes = protectedRoutePropsTypes.isRequired;

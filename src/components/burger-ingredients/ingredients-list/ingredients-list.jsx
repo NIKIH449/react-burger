@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { SET_CURRENT_ITEM } from 'services/actions/currentItem';
 
-function IngredientsList({ item, onItemClick, image, name, price }) {
+function IngredientsList({ item, image, name, price }) {
   const dispatch = useDispatch();
   const constructorValue = useSelector((store) => store.constructorValue);
   const navigate = useNavigate();
+
   function countBun() {
     return (
       constructorValue.constructor.bun.filter(
