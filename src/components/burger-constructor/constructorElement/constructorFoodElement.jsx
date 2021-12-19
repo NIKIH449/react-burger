@@ -9,7 +9,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { DELETE_INGREDIENT } from 'services/actions/constructor';
 import { constructorFoodElementPropTypes } from 'utils/type';
 
-function ConstructorFoodElement({moveIngredient, index, item}) {
+function ConstructorFoodElement({ moveIngredient, index, item }) {
   const sortTarget = useRef(null);
   const dispatch = useDispatch();
   const constructorValue = useSelector(

@@ -12,17 +12,17 @@ import {
   openIngredientModal,
   closeIngredientModal,
 } from 'services/actions/modal';
-
+import { Link, useLocation } from 'react-router-dom';
 function BurgerIngredients() {
   const [current, setCurrent] = React.useState('one');
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const ingredient = useSelector((store) => store.currentItem.currentItem);
   const { isModalOpen, isIngredient } = useSelector((store) => store.modal);
+  const location = useLocation();
   const bunRef = useRef(null);
   const sauseRef = useRef(null);
   const mainRef = useRef(null);
   const scrollRef = useRef(null);
-
   const scrollToBun = () => {
     setCurrent('one');
     bunRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -38,17 +38,17 @@ function BurgerIngredients() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
+    ingredients.length === 0 && dispatch(getIngredients());
+  }, [dispatch, ingredients.length]);
 
   const handleScroll = (e) => {
     const scrollY = e.target.scrollTop;
     const sauseY = sauseRef.current.offsetTop / 2;
     const mainY = mainRef.current.offsetTop / 2;
 
-    scrollY > mainY - sauseY && scrollY < mainY + sauseY
+    scrollY > sauseY && scrollY < mainY + sauseY
       ? setCurrent('two')
-      : scrollY > mainY + sauseY
+      : scrollY >= mainY + sauseY
       ? setCurrent('three')
       : setCurrent('one');
   };
@@ -58,7 +58,7 @@ function BurgerIngredients() {
     openIngredientModal(dispatch);
   }
 
-  function handleCloseModal(e) {
+  function handleCloseModal() {
     closeIngredientModal(dispatch);
   }
 
@@ -96,15 +96,22 @@ function BurgerIngredients() {
           {ingredients.map((item) => {
             if (item.type === 'bun') {
               return (
-                <IngredientsList
-                  onItemClick={handleOpenModal}
+                <Link
+                  style={{ textDecoration: 'none' }}
                   key={item._id}
-                  type={item.type}
-                  name={item.name}
-                  price={item.price}
-                  image={item.image}
-                  item={item}
-                />
+                  to={`/ingredients/${item._id}`}
+                  state={{ background: location.pathname }}
+                >
+                  <IngredientsList
+                    onItemClick={handleOpenModal}
+                    key={item._id}
+                    type={item.type}
+                    name={item.name}
+                    price={item.price}
+                    image={item.image}
+                    item={item}
+                  />
+                </Link>
               );
             } else {
               return '';
@@ -122,15 +129,22 @@ function BurgerIngredients() {
             {ingredients.map((item) => {
               if (item.type === 'sauce') {
                 return (
-                  <IngredientsList
-                    onItemClick={handleOpenModal}
+                  <Link
+                    style={{ textDecoration: 'none' }}
                     key={item._id}
-                    type={item.type}
-                    name={item.name}
-                    price={item.price}
-                    image={item.image}
-                    item={item}
-                  />
+                    to={`/ingredients/${item._id}`}
+                    state={{ background: location.pathname }}
+                  >
+                    <IngredientsList
+                      onItemClick={handleOpenModal}
+                      key={item._id}
+                      type={item.type}
+                      name={item.name}
+                      price={item.price}
+                      image={item.image}
+                      item={item}
+                    />
+                  </Link>
                 );
               } else {
                 return '';
@@ -149,15 +163,22 @@ function BurgerIngredients() {
             {ingredients.map((item) => {
               if (item.type === 'main') {
                 return (
-                  <IngredientsList
-                    onItemClick={handleOpenModal}
-                    type={item.type}
+                  <Link
+                    style={{ textDecoration: 'none' }}
                     key={item._id}
-                    name={item.name}
-                    price={item.price}
-                    image={item.image}
-                    item={item}
-                  />
+                    to={`/ingredients/${item._id}`}
+                    state={{ background: location.pathname }}
+                  >
+                    <IngredientsList
+                      onItemClick={handleOpenModal}
+                      type={item.type}
+                      key={item._id}
+                      name={item.name}
+                      price={item.price}
+                      image={item.image}
+                      item={item}
+                    />
+                  </Link>
                 );
               } else {
                 return '';
@@ -169,6 +190,7 @@ function BurgerIngredients() {
       {isModalOpen && isIngredient && (
         <Modal title="Детали ингридиента" onClose={handleCloseModal}>
           <IngredientDetails
+            id={ingredient._id}
             name={ingredient.name}
             image={ingredient.image}
             calories={ingredient.calories}

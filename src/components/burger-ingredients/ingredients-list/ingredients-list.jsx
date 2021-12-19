@@ -7,8 +7,7 @@ import {
 import { ingredientsListPropTypes } from '../../../utils/type';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
-
-function IngredientsList({item, onItemClick, image, name, price}) {
+function IngredientsList({ item, image, name, price }) {
   const constructorValue = useSelector((store) => store.constructorValue);
 
   function countBun() {
@@ -25,9 +24,6 @@ function IngredientsList({item, onItemClick, image, name, price}) {
     ).length;
   }
 
-  function handleClick() {
-    onItemClick(item);
-  }
   const [{ opacity }, ingredientRef] = useDrag({
     type: item.type,
     item: item,
@@ -39,7 +35,6 @@ function IngredientsList({item, onItemClick, image, name, price}) {
     <li
       style={{ opacity }}
       ref={ingredientRef}
-      onClick={handleClick}
       className={ingredientsListStyle.item}
     >
       {item.type === 'bun' ? (

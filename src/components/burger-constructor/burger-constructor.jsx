@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import burgerConstructorStyle from './burger-constructor.module.css';
 import Modal from '../modal/modal';
 import ConstructorFoodElement from './constructorElement/constructorFoodElement';
@@ -12,26 +12,23 @@ import {
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import {
-  getConstructor,
-  ADD_INGREDIENT,
-  MOVE_INGREDIENT,
-} from 'services/actions/constructor';
+import { ADD_INGREDIENT, MOVE_INGREDIENT } from 'services/actions/constructor';
+import { useNavigate } from 'react-router';
 
 function BurgerConstructor() {
   const constructorValue = useSelector(
     (store) => store.constructorValue.constructor
   );
+  const loggedIn = useSelector((store) => store.auth.loggedIn);
   const { isModalOpen, isOrder } = useSelector((store) => store.modal);
   const order = useSelector((store) => store.order.order);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getConstructor());
-  }, [dispatch]);
 
   function finishOrder() {
-    dispatch(createOrder(orderIdentificators()));
+    loggedIn
+      ? dispatch(createOrder(orderIdentificators()))
+      : navigate('/login');
   }
   function orderIdentificators() {
     const arr = [constructorValue.bun[0]._id];

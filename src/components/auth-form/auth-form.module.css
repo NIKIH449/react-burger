@@ -1,0 +1,44 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 302px;
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+  max-width: 480px;
+  margin: 180px auto 0 auto;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+
+.title {
+  text-align: center;
+}
+
+.container {
+  align-items: center;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.link {
+  text-decoration: none;
+  color: #4c4cff;
+}
+
+.paragraph {
+  text-align: center;
+}

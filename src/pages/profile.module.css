@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile {
+  margin-left: auto;
+  display: flex;
+  width: 78%;
+  height: 320px;
+}
+
+.paragraph {
+  width: 320px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancelButton {
+  background-color: transparent;
+  border: none;
+  color: #4c4cff;
+  margin-right: 5px;
+  width: 150px;
+  height: 55px;
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: normal;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.cancelButton:hover {
+  color: white;
+
+}

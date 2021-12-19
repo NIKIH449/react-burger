@@ -15,6 +15,7 @@ function Modal({ onClose, title, children }) {
     window.addEventListener('keydown', onEscClose);
     return () => window.removeEventListener('keydown', onEscClose);
   }, [onClose]);
+
   return createPortal(
     <ModalOverlay onClick={onClose}>
       <div className={modalStyle.modal} onClick={(e) => e.stopPropagation()}>
@@ -29,7 +30,7 @@ function Modal({ onClose, title, children }) {
         </button>
       </div>
     </ModalOverlay>,
-    document.getElementById('root')
+    document.getElementById('modal')
   );
 }
 Modal.propTypes = modalPropTypes.isRequired;
