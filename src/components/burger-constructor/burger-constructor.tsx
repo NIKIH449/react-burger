@@ -104,7 +104,6 @@ const BurgerConstructor = () => {
           {constructorValue.bun.map((item: TItem, index: string) => {
             return (
               <div
-                //name="bun"
                 key={String(item._id) + index}
                 className={burgerConstructorStyle.ingredient}
               >
@@ -121,7 +120,6 @@ const BurgerConstructor = () => {
         </div>
         {
           <div
-            //name="other"
             className={burgerConstructorStyle.container}
           >
             {constructorValue.other.map((item: TItem, index: string) => {
@@ -140,7 +138,6 @@ const BurgerConstructor = () => {
           {constructorValue.bun.map((item: TItem, index: string) => {
             return (
               <div
-                //name="bun"
                 key={String(item._id) + index}
                 className={burgerConstructorStyle.ingredient}
               >

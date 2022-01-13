@@ -1,10 +1,10 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, FormEventHandler, ReactNode } from 'react';
 import authFormStyle from './auth-form.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
 
 export const AuthForm: FC<{
-  onSubmit: any;
+  onSubmit: FormEventHandler | undefined;
   title: string;
   children: ReactNode;
   button: string;
