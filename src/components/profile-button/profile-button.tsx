@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { FC, MouseEventHandler, ReactNode } from 'react';
 import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import profileButtonStyle from './profile-button.module.css';
-import { profileButtonPropTypes } from 'utils/type';
-function ProfileButton({ link, onSignOut, title, children }) {
+const ProfileButton: FC<{
+  link: string;
+  onSignOut: MouseEventHandler<HTMLDivElement> | undefined;
+  title: string;
+  children: ReactNode;
+}> = ({ link, onSignOut, title, children }) => {
   const location = useLocation();
 
   return (
@@ -18,6 +22,5 @@ function ProfileButton({ link, onSignOut, title, children }) {
       </div>
     </NavLink>
   );
-}
-ProfileButton.propTypes = profileButtonPropTypes.isRequired;
-export default ProfileButton;
+};
+export { ProfileButton };

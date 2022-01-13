@@ -1,12 +1,16 @@
 import { BURGER_URL } from './constants';
-function checkResponse(res) {
+const checkResponse = (res: {
+  ok: boolean;
+  json(): Promise<object>;
+  status: number;
+}) => {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(`Ошибка: ${res.status}`);
-}
+};
 
-export const signUp = (email, password, name) => {
+export const signUp = (email: string, password: string, name: string) => {
   return fetch(BURGER_URL + 'auth/register', {
     method: 'POST',
     headers: {
@@ -16,7 +20,7 @@ export const signUp = (email, password, name) => {
   }).then(checkResponse);
 };
 
-export const signIn = (email, password) => {
+export const signIn = (email: string, password: string) => {
   return fetch(BURGER_URL + 'auth/login', {
     method: 'POST',
     headers: {
@@ -26,7 +30,7 @@ export const signIn = (email, password) => {
   }).then(checkResponse);
 };
 
-export const checkValidity = (token) => {
+export const checkValidity = (token: string) => {
   return fetch(BURGER_URL + 'auth/user', {
     method: 'GET',
     headers: {
@@ -36,7 +40,7 @@ export const checkValidity = (token) => {
   }).then((res) => res.json());
 };
 
-export const refreshingToken = (token) => {
+export const refreshingToken = (token: string) => {
   return fetch(BURGER_URL + 'auth/token', {
     method: 'POST',
     headers: {
@@ -46,7 +50,12 @@ export const refreshingToken = (token) => {
   }).then(checkResponse);
 };
 
-export const updateUserInfo = (email, name, password, token) => {
+export const updateUserInfo = (
+  email: string,
+  name: string,
+  password: string,
+  token: string
+) => {
   return fetch(BURGER_URL + 'auth/user', {
     method: 'PATCH',
     headers: {
@@ -57,7 +66,7 @@ export const updateUserInfo = (email, name, password, token) => {
   }).then((res) => res.json());
 };
 
-export const signOut = (token) => {
+export const signOut = (token: string) => {
   return fetch(BURGER_URL + 'auth/logout ', {
     method: 'POST',
     headers: {
@@ -67,7 +76,7 @@ export const signOut = (token) => {
   }).then(checkResponse);
 };
 
-export const recoveryPassword = (email) => {
+export const recoveryPassword = (email: string) => {
   return fetch(BURGER_URL + 'password-reset', {
     method: 'POST',
     headers: {
@@ -77,7 +86,7 @@ export const recoveryPassword = (email) => {
   }).then(checkResponse);
 };
 
-export const resetPassword = (password, token) => {
+export const resetPassword = (password: string, token: string) => {
   return fetch(BURGER_URL + 'password-reset/reset', {
     method: 'POST',
     headers: {

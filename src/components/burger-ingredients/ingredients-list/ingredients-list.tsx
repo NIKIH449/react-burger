@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ingredientsListStyle from './ingredients-list.module.css';
 import {
   CurrencyIcon,
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientsListPropTypes } from '../../../utils/type';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
-function IngredientsList({ item, image, name, price }) {
-  const constructorValue = useSelector((store) => store.constructorValue);
+import { TItem } from 'utils';
+const IngredientsList: FC<{
+  item: TItem;
+  image: string;
+  name: string;
+  price: number;
+}> = ({ item, image, name, price }) => {
+  const constructorValue = useSelector((store: any) => store.constructorValue);
 
   function countBun() {
     return (
       constructorValue.constructor.bun.filter(
-        (element) => element._id === item._id
+        (element: { _id: string }) => element._id === item._id
       ).length * 2
     );
   }
 
   function countIngredients() {
     return constructorValue.constructor.other.filter(
-      (element) => element._id === item._id
+      (element: { _id: string }) => element._id === item._id
     ).length;
   }
 
@@ -54,6 +59,5 @@ function IngredientsList({ item, image, name, price }) {
       <p className="text text_type_main-default">{name}</p>
     </li>
   );
-}
-IngredientsList.propTypes = ingredientsListPropTypes.isRequired;
-export default IngredientsList;
+};
+export { IngredientsList };

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { onRecoveryPassword } from 'services/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-export function RecoveryPassword() {
+const RecoveryPassword: FC<{}> = ({}) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
   const { recoveryPasswordSuccess, loggedIn } = useSelector(
-    (store) => store.auth
+    (store: any) => store.auth
   );
 
-  function recoveryPassword(e) {
+  function recoveryPassword(e: { preventDefault: () => void }) {
     e.preventDefault();
     dispatch(onRecoveryPassword(email));
   }
@@ -21,7 +21,7 @@ export function RecoveryPassword() {
       navigate('/');
     }
   }, []);
-  function handleChangeEmail(e) {
+  function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     setEmail(e.target.value);
   }
 
@@ -39,6 +39,8 @@ export function RecoveryPassword() {
       button="Восстановить"
       question="Вспомнили пароль?"
       questionLink="Войти"
+      recovery={''}
+      recoveryLink={''}
     >
       <div className="mb-6 mt-6">
         <Input
@@ -51,4 +53,5 @@ export function RecoveryPassword() {
       </div>
     </AuthForm>
   );
-}
+};
+export { RecoveryPassword };

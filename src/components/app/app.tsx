@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import appStyles from './app.module.css';
 import Main from '../main/main';
-import AppHeader from '../header/app-header';
+import { AppHeader } from 'components/header/app-header';
 import '../../fonts/fonts.css';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,14 +22,16 @@ import {
 function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
-  const ingredientItem = JSON.parse(localStorage.getItem('ingredientItem'));
   const { refreshToken, refreshTokenSuccess, loading, accessToken } =
-    useSelector((store) => store.auth);
+    useSelector((store: any) => store.auth);
   const dispatch = useDispatch();
 
-  function checkAuth(accessToken, refreshToken) {
+  const checkAuth = (
+    accessToken: string | null,
+    refreshToken: string | null
+  ) => {
     dispatch(onCheckAuth(accessToken, refreshToken));
-  }
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -60,26 +62,17 @@ function App() {
           <Route
             path="/profile"
             element={
-              <ProtectedRoute path="/login">
+              <ProtectedRoute>
                 <Profile />
               </ProtectedRoute>
             }
           />
           <Route path="/profile/orders" element={<Profile />} />
-
           <Route path="/" element={<Main />} />
           <Route path="*" element={<NotFound />}></Route>
-          <Route
-            path="/ingredients/:id"
-            ingredientItem={ingredientItem}
-            element={<Ingredient />}
-          />
+          <Route path="/ingredients/:id" element={<Ingredient />} />
           {background && (
-            <Route
-              path="/ingredients/:id"
-              ingredientItem={ingredientItem}
-              element={<Ingredient />}
-            />
+            <Route path="/ingredients/:id" element={<Ingredient />} />
           )}
         </Routes>
       )}

@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { FC } from 'react';
 import orderDetails from './order-details.module.css';
 import done from 'images/done.gif';
-import { orderDetailsPropTypes } from 'utils/type';
 
-function OrderDeatils({number, name}) {
+const OrderDeatils: FC<{ number: number; name: string }> = ({
+  number,
+  name,
+}) => {
   return (
     <div className={`pb-30 ${orderDetails.container}`}>
       <p className={'text text_type_digits-large pt-30'}>{number}</p>
-      <p className={`text text_type_main-medium pt-8 ${orderDetails.name}`}>{name}</p>
-      <img src={done} alt="Заказ готов"className={`pt-15 ${orderDetails.image}`} />
+      <p className={`text text_type_main-medium pt-8 ${orderDetails.name}`}>
+        {name}
+      </p>
+      <img
+        src={done}
+        alt="Заказ готов"
+        className={`pt-15 ${orderDetails.image}`}
+      />
       <p className={'text text_type_main-small pt-15'}>
         Ваш заказ начали готовить
       </p>
@@ -17,6 +25,5 @@ function OrderDeatils({number, name}) {
       </p>
     </div>
   );
-}
-OrderDeatils.propTypes = orderDetailsPropTypes.isRequired;
-export default OrderDeatils;
+};
+export { OrderDeatils };

@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderButton from './header-button/header-button';
+import { HeaderButton } from './header-button/header-button';
 import headerStyles from './header.module.css';
 import {
   Logo,
@@ -8,7 +8,7 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function AppHeader() {
+const AppHeader = () => {
   return (
     <header className={headerStyles.header}>
       <nav className={headerStyles.navigation}>
@@ -30,6 +30,6 @@ function AppHeader() {
       </nav>
     </header>
   );
-}
+};
 
-export default AppHeader;
+export { AppHeader };

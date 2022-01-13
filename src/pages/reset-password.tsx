@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
 import {
   PasswordInput,
@@ -7,15 +7,15 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { onResetPassword } from 'services/actions/auth';
-export function ResetPassword() {
+const ResetPassword: FC<{}> = ({}) => {
   const dispatch = useDispatch();
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
   const navigate = useNavigate();
   const { resetPasswordSuccess, recoveryPasswordSuccess, loggedIn } =
-    useSelector((store) => store.auth);
+    useSelector((store: any) => store.auth);
 
-  function resetPassword(e) {
+  function resetPassword(e: React.ChangeEvent<HTMLInputElement>): void {
     e.preventDefault();
     dispatch(onResetPassword(password, code));
   }
@@ -28,11 +28,11 @@ export function ResetPassword() {
     }
   }, [resetPasswordSuccess, navigate]);
 
-  function handleChangePassword(e) {
+  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>): void {
     setPassword(e.target.value);
   }
 
-  function handleChangeCode(e) {
+  function handleChangeCode(e: React.ChangeEvent<HTMLInputElement>): void {
     setCode(e.target.value);
   }
 
@@ -52,6 +52,8 @@ export function ResetPassword() {
       button="Сохранить"
       question="Вспомнили пароль?"
       questionLink="Войти"
+      recovery={''}
+      recoveryLink={''}
     >
       {!loggedIn && (
         <>
@@ -59,8 +61,8 @@ export function ResetPassword() {
             <PasswordInput
               value={password}
               onChange={handleChangePassword}
-              placeholder={'Введите новый пароль'}
               size={'default'}
+              name={''}
             />
           </div>
           <div className="mb-6">
@@ -75,4 +77,5 @@ export function ResetPassword() {
       )}
     </AuthForm>
   );
-}
+};
+export { ResetPassword };
