@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import modalOverlayStyle from './modal-overlay.module.css';
 
-const ModalOverlay: FC<{ onClick: any; children: ReactNode }> = ({
+const ModalOverlay: FC<{ onClick: () => void; children: ReactNode }> = ({
   onClick,
   children,
 }) => {

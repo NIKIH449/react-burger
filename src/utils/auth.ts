@@ -1,14 +1,5 @@
 import { BURGER_URL } from './constants';
-const checkResponse = (res: {
-  ok: boolean;
-  json(): Promise<object>;
-  status: number;
-}) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-};
+import { checkResponse } from 'utils/utils';
 
 export const signUp = (email: string, password: string, name: string) => {
   return fetch(BURGER_URL + 'auth/register', {

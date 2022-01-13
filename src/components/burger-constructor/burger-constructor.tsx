@@ -119,9 +119,7 @@ const BurgerConstructor = () => {
           })}
         </div>
         {
-          <div
-            className={burgerConstructorStyle.container}
-          >
+          <div className={burgerConstructorStyle.container}>
             {constructorValue.other.map((item: TItem, index: string) => {
               return (
                 <ConstructorFoodElement

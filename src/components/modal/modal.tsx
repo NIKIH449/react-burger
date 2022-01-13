@@ -4,11 +4,11 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ModalOverlay } from './modal-overlay/modal-overlay';
 import { createPortal } from 'react-dom';
 
-const Modal: FC<{ onClose: any; title: string; children: ReactNode }> = ({
-  onClose,
-  title,
-  children,
-}) => {
+const Modal: FC<{
+  onClose: () => void;
+  title: string;
+  children: ReactNode;
+}> = ({ onClose, title, children }) => {
   useEffect(() => {
     function onEscClose(e: KeyboardEvent): void {
       if (e.key === 'Escape') {

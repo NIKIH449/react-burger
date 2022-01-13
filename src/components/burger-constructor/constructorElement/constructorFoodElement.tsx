@@ -9,7 +9,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { DELETE_INGREDIENT } from 'services/actions/constructor';
 import { TItem } from 'utils';
 const ConstructorFoodElement: FC<{
-  moveIngredient: any;
+  moveIngredient: (dragIndex: number, hoverIndex: string) => void;
   index: string;
   item: TItem;
 }> = ({ moveIngredient, index, item }) => {

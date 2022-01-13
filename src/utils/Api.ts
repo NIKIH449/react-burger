@@ -1,14 +1,6 @@
 import { BURGER_URL } from './constants';
-const checkResponse = (res: {
-  ok: boolean;
-  json(): Promise<object>;
-  status: number;
-}) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-};
+import { checkResponse } from 'utils/utils';
+
 const getIngredientsRequest = async (): Promise<object> => {
   const res = await fetch(BURGER_URL + 'ingredients');
   return checkResponse(res);
