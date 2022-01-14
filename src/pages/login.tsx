@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
 import { onLogin } from 'services/actions/auth';
 import {
@@ -8,24 +8,24 @@ import {
 import '../index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
-export function Login() {
+const Login: FC = () => {
   const { state } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { accessToken, refreshToken, loginSuccess, loginFailed, loggedIn } =
-    useSelector((store) => store.auth);
+    useSelector((store: any) => store.auth);
 
-  function handleChangeEmail(e) {
+  function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     setEmail(e.target.value);
   }
 
-  function handleChangePassword(e) {
+  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>): void {
     setPassword(e.target.value);
   }
 
-  function signIn(e) {
+  function signIn(e: { preventDefault: () => void }) {
     e.preventDefault();
     dispatch(onLogin(email, password));
   }
@@ -38,7 +38,14 @@ export function Login() {
       setEmail('');
       setPassword('');
     }
-  }, [loginSuccess, refreshToken, password, accessToken, navigate, state?.path]);
+  }, [
+    loginSuccess,
+    refreshToken,
+    password,
+    accessToken,
+    navigate,
+    state?.path,
+  ]);
 
   useEffect(() => {
     if (loggedIn === true) {
@@ -70,6 +77,7 @@ export function Login() {
           value={password}
           onChange={handleChangePassword}
           size={'default'}
+          name={''}
         />
       </div>
 
@@ -80,4 +88,5 @@ export function Login() {
       )}
     </AuthForm>
   );
-}
+};
+export { Login };

@@ -1,8 +1,11 @@
-import React from 'react';
-import { headerButtonProTypes } from 'utils/type';
+import React, { FC, ReactNode } from 'react';
 import headerButtonStyle from './header-button.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
-function HeaderButton({ children, name, link }) {
+const HeaderButton: FC<{ children: ReactNode; name: string; link: string }> = ({
+  children,
+  name,
+  link,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
   return (
@@ -21,6 +24,5 @@ function HeaderButton({ children, name, link }) {
       <p className="ml-2 text text_type_main-default">{name}</p>
     </div>
   );
-}
-HeaderButton.propTypes = headerButtonProTypes.isRequired;
-export default HeaderButton;
+};
+export { HeaderButton };

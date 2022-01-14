@@ -1,39 +1,45 @@
 import React, { useEffect, useRef } from 'react';
-import IngredientsList from './ingredients-list/ingredients-list';
+import { IngredientsList } from './ingredients-list/ingredients-list';
+import { IngredientDetails } from 'components/ingredient-details/ingredient-details';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import { burgerIngredientsPropTypes } from '../../utils/type';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from '../modal/modal';
+import { Modal } from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from 'services/actions/ingredients';
-import { setCurrentItem } from 'services/actions/currentItem';
-import {
-  openIngredientModal,
-  closeIngredientModal,
-} from 'services/actions/modal';
+import { closeIngredientModal } from 'services/actions/modal';
 import { Link, useLocation } from 'react-router-dom';
-function BurgerIngredients() {
+import { TItem } from 'utils';
+const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState('one');
-  const ingredients = useSelector((store) => store.ingredients.ingredients);
-  const ingredient = useSelector((store) => store.currentItem.currentItem);
-  const { isModalOpen, isIngredient } = useSelector((store) => store.modal);
+  const ingredients = useSelector(
+    (store: any) => store.ingredients.ingredients
+  );
+  const ingredient = useSelector((store: any) => store.currentItem.currentItem);
+  const { isModalOpen, isIngredient } = useSelector(
+    (store: any) => store.modal
+  );
   const location = useLocation();
-  const bunRef = useRef(null);
-  const sauseRef = useRef(null);
-  const mainRef = useRef(null);
-  const scrollRef = useRef(null);
+  const bunRef = useRef<HTMLParagraphElement>(null);
+  const sauseRef = useRef<HTMLParagraphElement>(null);
+  const mainRef = useRef<HTMLParagraphElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const scrollToBun = () => {
-    setCurrent('one');
-    bunRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (bunRef !== null && bunRef.current !== null) {
+      setCurrent('one');
+      bunRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
   const scrollToSause = () => {
-    setCurrent('two');
-    sauseRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (sauseRef !== null && sauseRef.current !== null) {
+      setCurrent('two');
+      sauseRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
   const scrollToMain = () => {
-    setCurrent('three');
-    mainRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (mainRef !== null && mainRef.current !== null) {
+      setCurrent('three');
+      mainRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
   const dispatch = useDispatch();
 
@@ -41,10 +47,10 @@ function BurgerIngredients() {
     ingredients.length === 0 && dispatch(getIngredients());
   }, [dispatch, ingredients.length]);
 
-  const handleScroll = (e) => {
-    const scrollY = e.target.scrollTop;
-    const sauseY = sauseRef.current.offsetTop / 2;
-    const mainY = mainRef.current.offsetTop / 2;
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>): void => {
+    const scrollY = (e.target as HTMLElement).scrollTop;
+    const sauseY = (sauseRef.current as HTMLParagraphElement).offsetTop / 2;
+    const mainY = (mainRef.current as HTMLParagraphElement).offsetTop / 2;
 
     scrollY > sauseY && scrollY < mainY + sauseY
       ? setCurrent('two')
@@ -52,11 +58,6 @@ function BurgerIngredients() {
       ? setCurrent('three')
       : setCurrent('one');
   };
-
-  function handleOpenModal(item) {
-    setCurrentItem(dispatch, item);
-    openIngredientModal(dispatch);
-  }
 
   function handleCloseModal() {
     closeIngredientModal(dispatch);
@@ -93,7 +94,7 @@ function BurgerIngredients() {
           Булки
         </p>
         <ul id="bun" className={`pb-15 ${burgerIngredientsStyle.list}`}>
-          {ingredients.map((item) => {
+          {ingredients.map((item: TItem) => {
             if (item.type === 'bun') {
               return (
                 <Link
@@ -103,9 +104,7 @@ function BurgerIngredients() {
                   state={{ background: location.pathname }}
                 >
                   <IngredientsList
-                    onItemClick={handleOpenModal}
                     key={item._id}
-                    type={item.type}
                     name={item.name}
                     price={item.price}
                     image={item.image}
@@ -126,7 +125,7 @@ function BurgerIngredients() {
             Cоусы
           </p>
           <ul className={burgerIngredientsStyle.list}>
-            {ingredients.map((item) => {
+            {ingredients.map((item: TItem) => {
               if (item.type === 'sauce') {
                 return (
                   <Link
@@ -136,9 +135,7 @@ function BurgerIngredients() {
                     state={{ background: location.pathname }}
                   >
                     <IngredientsList
-                      onItemClick={handleOpenModal}
                       key={item._id}
-                      type={item.type}
                       name={item.name}
                       price={item.price}
                       image={item.image}
@@ -160,7 +157,7 @@ function BurgerIngredients() {
             Начинки{' '}
           </p>
           <ul className={burgerIngredientsStyle.list}>
-            {ingredients.map((item) => {
+            {ingredients.map((item: TItem) => {
               if (item.type === 'main') {
                 return (
                   <Link
@@ -170,8 +167,6 @@ function BurgerIngredients() {
                     state={{ background: location.pathname }}
                   >
                     <IngredientsList
-                      onItemClick={handleOpenModal}
-                      type={item.type}
                       key={item._id}
                       name={item.name}
                       price={item.price}
@@ -190,7 +185,6 @@ function BurgerIngredients() {
       {isModalOpen && isIngredient && (
         <Modal title="Детали ингридиента" onClose={handleCloseModal}>
           <IngredientDetails
-            id={ingredient._id}
             name={ingredient.name}
             image={ingredient.image}
             calories={ingredient.calories}
@@ -202,7 +196,6 @@ function BurgerIngredients() {
       )}
     </section>
   );
-}
+};
 
-BurgerIngredients.propTypes = burgerIngredientsPropTypes.isRequired;
-export default BurgerIngredients;
+export { BurgerIngredients };

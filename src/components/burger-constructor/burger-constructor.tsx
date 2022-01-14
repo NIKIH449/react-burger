@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import burgerConstructorStyle from './burger-constructor.module.css';
-import Modal from '../modal/modal';
-import ConstructorFoodElement from './constructorElement/constructorFoodElement';
-import OrderDeatils from '../order-details/order-detail';
+import { Modal } from 'components/modal/modal';
+import { ConstructorFoodElement } from './constructorElement/constructorFoodElement';
+import { OrderDeatils } from '../order-details/order-detail';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from 'services/actions/order';
 import { closeOrderModal } from 'services/actions/modal';
@@ -14,14 +14,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ADD_INGREDIENT, MOVE_INGREDIENT } from 'services/actions/constructor';
 import { useNavigate } from 'react-router';
-
-function BurgerConstructor() {
+import { TItem } from 'utils';
+const BurgerConstructor = () => {
   const constructorValue = useSelector(
-    (store) => store.constructorValue.constructor
+    (store: any) => store.constructorValue.constructor
   );
-  const loggedIn = useSelector((store) => store.auth.loggedIn);
-  const { isModalOpen, isOrder } = useSelector((store) => store.modal);
-  const order = useSelector((store) => store.order.order);
+  const loggedIn = useSelector((store: any) => store.auth.loggedIn);
+  const { isModalOpen, isOrder } = useSelector((store: any) => store.modal);
+  const order = useSelector((store: any) => store.order.order);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -43,9 +43,12 @@ function BurgerConstructor() {
   }
 
   function totalSum() {
-    const sum = constructorValue.other.reduce((acc, item) => {
-      return acc + item.price;
-    }, 0);
+    const sum = constructorValue.other.reduce(
+      (acc: number, item: { price: number }) => {
+        return acc + item.price;
+      },
+      0
+    );
     return sum + constructorValue.bun[0].price * 2;
   }
 
@@ -98,10 +101,9 @@ function BurgerConstructor() {
             </p>
           )}
         <div className={burgerConstructorStyle.bun}>
-          {constructorValue.bun.map((item, index) => {
+          {constructorValue.bun.map((item: TItem, index: string) => {
             return (
               <div
-                name="bun"
                 key={String(item._id) + index}
                 className={burgerConstructorStyle.ingredient}
               >
@@ -117,8 +119,8 @@ function BurgerConstructor() {
           })}
         </div>
         {
-          <div name="other" className={burgerConstructorStyle.container}>
-            {constructorValue.other.map((item, index) => {
+          <div className={burgerConstructorStyle.container}>
+            {constructorValue.other.map((item: TItem, index: string) => {
               return (
                 <ConstructorFoodElement
                   item={item}
@@ -131,10 +133,9 @@ function BurgerConstructor() {
           </div>
         }
         <div className={burgerConstructorStyle.ingredient}>
-          {constructorValue.bun.map((item, index) => {
+          {constructorValue.bun.map((item: TItem, index: string) => {
             return (
               <div
-                name="bun"
                 key={String(item._id) + index}
                 className={burgerConstructorStyle.ingredient}
               >
@@ -163,17 +164,17 @@ function BurgerConstructor() {
             Оформить заказ
           </Button>
         ) : (
-          <Button disabled onClick={finishOrder} type="defaul" size="large">
+          <Button disabled onClick={finishOrder} type="primary" size="large">
             Соберите бургер!
           </Button>
         )}
       </div>
       {isModalOpen && isOrder && (
-        <Modal onClose={handleCloseModal}>
+        <Modal onClose={handleCloseModal} title={''}>
           <OrderDeatils name={order.name} number={order.order.number} />
         </Modal>
       )}
     </section>
   );
-}
-export default BurgerConstructor;
+};
+export { BurgerConstructor };

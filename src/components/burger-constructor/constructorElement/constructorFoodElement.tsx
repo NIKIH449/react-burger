@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { FC, useRef } from 'react';
 import ConstructorFoodElementStyle from './constructorFoodElement.module.css';
 import {
   DragIcon,
@@ -7,21 +7,24 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { DELETE_INGREDIENT } from 'services/actions/constructor';
-import { constructorFoodElementPropTypes } from 'utils/type';
-
-function ConstructorFoodElement({ moveIngredient, index, item }) {
-  const sortTarget = useRef(null);
+import { TItem } from 'utils';
+const ConstructorFoodElement: FC<{
+  moveIngredient: (dragIndex: number, hoverIndex: string) => void;
+  index: string;
+  item: TItem;
+}> = ({ moveIngredient, index, item }) => {
+  const sortTarget = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const constructorValue = useSelector(
-    (store) => store.constructorValue.constructor.other
+    (store: any) => store.constructorValue.constructor.other
   );
 
   const [{ opacity }, drop] = useDrop(
     () => ({
       accept: 'sort',
-      hover: (item) => {
+      hover: (item: { _id: string }) => {
         const dragIndex = constructorValue.findIndex(
-          (element) => element._id === item._id
+          (element: { _id: string }) => element._id === item._id
         );
         const hoverIndex = index;
         moveIngredient(dragIndex, hoverIndex);
@@ -50,7 +53,7 @@ function ConstructorFoodElement({ moveIngredient, index, item }) {
       key={index}
       className={ConstructorFoodElementStyle.ingredient}
     >
-      <DragIcon />
+      <DragIcon type={'secondary'} />
       <ConstructorElement
         handleClose={() => {
           dispatch({
@@ -64,6 +67,5 @@ function ConstructorFoodElement({ moveIngredient, index, item }) {
       />
     </div>
   );
-}
-ConstructorFoodElement.propTypes = constructorFoodElementPropTypes.isRequired;
-export default ConstructorFoodElement;
+};
+export { ConstructorFoodElement };

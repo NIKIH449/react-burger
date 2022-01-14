@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { FC, FormEventHandler, ReactNode } from 'react';
 import authFormStyle from './auth-form.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
-import { AuthFormPropTypes } from 'utils/type';
-export function AuthForm({
+
+export const AuthForm: FC<{
+  onSubmit: FormEventHandler | undefined;
+  title: string;
+  children: ReactNode;
+  button: string;
+  question: string;
+  questionLink: string;
+  recovery: string;
+  recoveryLink: string;
+}> = ({
   onSubmit,
   title,
   children,
@@ -12,7 +21,8 @@ export function AuthForm({
   questionLink,
   recovery,
   recoveryLink,
-}) {
+}) => {
+
   const location = useLocation();
   return (
     <section className={authFormStyle.auth}>
@@ -59,5 +69,4 @@ export function AuthForm({
       </form>
     </section>
   );
-}
-AuthForm.propTypes = AuthFormPropTypes.isRequired;
+};

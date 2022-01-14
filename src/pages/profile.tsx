@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import profileStyles from './profile.module.css';
 import {
   EmailInput,
@@ -6,12 +6,12 @@ import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import ProfileButton from 'components/profile-button/profile-button';
+import { ProfileButton } from 'components/profile-button/profile-button';
 import { useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { onEditUserInfo, onSignOut } from 'services/actions/auth';
 import { GET_EDITPROFILE_RESET } from 'services/actions/auth/edit-profile';
-export function Profile() {
+const Profile:FC <{}> = ({}) => {
   const {
     name,
     email,
@@ -21,7 +21,7 @@ export function Profile() {
     signOutSuccess,
     editProfileSuccess,
     loggedIn,
-  } = useSelector((store) => store.auth);
+  } = useSelector((store:any) => store.auth);
 
   const [userEmail, setUserEmail] = useState(email);
   const [password, setPassword] = useState('');
@@ -32,15 +32,15 @@ export function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function handleChangeEmail(e) {
+  function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void  {
     setUserEmail(e.target.value);
   }
 
-  function handleChangePassword(e) {
+  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>): void  {
     setPassword(e.target.value);
   }
 
-  function handleChangeName(e) {
+  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void  {
     setUserName(e.target.value);
   }
   useEffect(() => {
@@ -57,7 +57,7 @@ export function Profile() {
     }
   }, [userEmail, password, userName]);
 
-  function onEditProfile(e) {
+  function onEditProfile(e: { preventDefault: () => void }) {
     e.preventDefault();
     const refreshToken = localStorage.getItem('refreshToken');
     const accessToken = localStorage.getItem('accessToken');
@@ -107,9 +107,9 @@ export function Profile() {
   return (
     <section className={`mt-30 ${profileStyles.profile}`}>
       <div className={`mr-15 ${profileStyles.container}`}>
-        <ProfileButton link="/profile" title="Профиль" />
-        <ProfileButton link="/profile/orders" title="История заказов" />
-        <ProfileButton onSignOut={signOut} link="" title="Выход" />
+        <ProfileButton link="/profile" title="Профиль" onSignOut={undefined} children={undefined} />
+        <ProfileButton link="/profile/orders" title="История заказов" onSignOut={undefined} children={undefined} />
+        <ProfileButton onSignOut={signOut} link="" title="Выход" children={undefined} />
         <p
           className={`mt-20 text text_type_main-small text_color_inactive ${profileStyles.paragraph}`}
         >
@@ -128,10 +128,10 @@ export function Profile() {
             />
           </div>
           <div className="mb-6">
-            <EmailInput onChange={handleChangeEmail} value={userEmail} />
+            <EmailInput onChange={handleChangeEmail} value={userEmail} name={''} />
           </div>
           <div>
-            <PasswordInput onChange={handleChangePassword} value={password} />
+            <PasswordInput onChange={handleChangePassword} value={password} name={''} />
           </div>
           {isInputChange && (
             <div className={`mt-6 ${profileStyles.buttonContainer}`}>
@@ -154,3 +154,4 @@ export function Profile() {
     </section>
   );
 }
+export {Profile}

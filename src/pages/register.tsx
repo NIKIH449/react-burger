@@ -1,40 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
 import {
   PasswordInput,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import {  onRegister } from 'services/actions/auth';
+import { onRegister } from 'services/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-export function Register() {
+const Register: FC<{}> = ({}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const { accessToken, registerSuccess, refreshToken, loggedIn } = useSelector(
-    (store) => store.auth
+    (store: any) => store.auth
   );
   useEffect(() => {
     if (loggedIn === true) {
-      navigate('/login');
+      navigate('/');
     }
   }, []);
-  function handleChangeEmail(e) {
+
+  function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     setEmail(e.target.value);
   }
 
-  function handleChangePassword(e) {
+  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>): void {
     setPassword(e.target.value);
   }
 
-  function handleChangeName(e) {
+  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
     setName(e.target.value);
   }
 
-  function signUp(e) {
+  function signUp(e: { preventDefault: () => void }) {
     e.preventDefault();
     dispatch(onRegister(email, password, name));
   }
@@ -57,6 +58,8 @@ export function Register() {
       question="Уже зарегистрированы?"
       questionLink="Войти"
       onSubmit={signUp}
+      recovery={''}
+      recoveryLink={''}
     >
       <div className="mb-6 mt-6">
         <Input
@@ -83,8 +86,10 @@ export function Register() {
           value={password}
           onChange={handleChangePassword}
           size={'default'}
+          name={''}
         />
       </div>
     </AuthForm>
   );
-}
+};
+export { Register };

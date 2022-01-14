@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { protectedRoutePropsTypes } from 'utils/type';
 import { Navigate } from 'react-router';
 
-export function ProtectedRoute({ children }) {
+const ProtectedRoute: FC<{ children: ReactElement}> = ({ children }) => {
   const location = useLocation();
-  const loggedIn = useSelector((store) => store.auth.loggedIn);
+  const loggedIn = useSelector((store: any) => store.auth.loggedIn);
   return loggedIn === true ? (
     children
   ) : (
     <Navigate to="/login" state={{ path: location.pathname }} />
   );
-}
-ProtectedRoute.propTypes = protectedRoutePropsTypes.isRequired;
+};
+export { ProtectedRoute };
