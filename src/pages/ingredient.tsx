@@ -8,6 +8,7 @@ import { Modal } from 'components/modal/modal';
 import Main from 'components/main/main';
 import { closeIngredientModal } from 'services/actions/modal';
 const Ingredient: FC = () => {
+  const russian = localStorage.getItem('rus');
   const currentId = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -31,7 +32,10 @@ const Ingredient: FC = () => {
     <>
       {state && <Main></Main>}
       {state && ingredient ? (
-        <Modal title="Детали ингридиента" onClose={handleCloseModal}>
+        <Modal
+          title={russian ? 'Детали ингридиента' : 'Details of ingredient'}
+          onClose={handleCloseModal}
+        >
           <IngredientDetails
             name={ingredient.name}
             image={ingredient.image}
@@ -46,7 +50,7 @@ const Ingredient: FC = () => {
           {ingredient && (
             <>
               <h2 className={'pb-4 pt-30 text text_type_main-large'}>
-                Детали ингридиента
+              {russian ? 'Детали ингридиента' : 'Details of ingredient'}
               </h2>
               <IngredientDetails
                 name={ingredient.name}

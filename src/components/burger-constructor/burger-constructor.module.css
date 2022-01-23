@@ -15,11 +15,9 @@
 .empty {
   border: 1px dashed #5441f2;
   position: relative;
-}
-.emptyParagraph {
-  position: absolute;
-  top: 50%;
-  right: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .container {
   display: flex;

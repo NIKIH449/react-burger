@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 const Register: FC<{}> = ({}) => {
+  const russian = localStorage.getItem('rus');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -53,10 +54,10 @@ const Register: FC<{}> = ({}) => {
 
   return (
     <AuthForm
-      title="Регистрация"
-      button="Зарегистрироваться"
-      question="Уже зарегистрированы?"
-      questionLink="Войти"
+      title={russian ? 'Регистрация' : 'Sign up'}
+      button={russian ? 'Зарегистрироваться' : 'Sign up'}
+      question={russian ? 'Уже зарегистрированы?' : 'Have an account already?'}
+      questionLink={russian ? 'Войти' : 'Log in '}
       onSubmit={signUp}
       recovery={''}
       recoveryLink={''}
@@ -65,8 +66,8 @@ const Register: FC<{}> = ({}) => {
         <Input
           value={name}
           onChange={handleChangeName}
-          errorText={'Ошибка'}
-          placeholder={'Имя'}
+          errorText={russian ? 'Ошибка' : 'Error'}
+          placeholder={russian ? 'Имя' : 'Name'}
           size={'default'}
           icon={'EditIcon'}
         />
@@ -75,7 +76,7 @@ const Register: FC<{}> = ({}) => {
         <Input
           onChange={handleChangeEmail}
           value={email}
-          errorText={'Ошибка'}
+          errorText={russian ? 'Ошибка' : 'Error'}
           placeholder={'E-mail'}
           type={'email'}
           size={'default'}

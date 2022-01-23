@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { IngredientsList } from './ingredients-list/ingredients-list';
 import { IngredientDetails } from 'components/ingredient-details/ingredient-details';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
@@ -10,7 +10,8 @@ import { closeIngredientModal } from 'services/actions/modal';
 import { Link, useLocation } from 'react-router-dom';
 import { TItem } from 'utils';
 const BurgerIngredients = () => {
-  const [current, setCurrent] = React.useState('one');
+  const russian = localStorage.getItem('rus');
+  const [current, setCurrent] = useState('one');
   const ingredients = useSelector(
     (store: any) => store.ingredients.ingredients
   );
@@ -68,17 +69,17 @@ const BurgerIngredients = () => {
       <h1
         className={`text text_type_main-large pb-5 ${burgerIngredientsStyle.title}`}
       >
-        Соберите бургер
+        {russian ? 'Соберите бургер' : 'Build a burger'}
       </h1>
       <div style={{ display: 'flex' }}>
         <Tab onClick={scrollToBun} value="one" active={current === 'one'}>
-          Булки
+          {russian ? 'Булки' : 'Buns'}
         </Tab>
         <Tab onClick={scrollToSause} value="two" active={current === 'two'}>
-          Соусы
+          {russian ? 'Соусы' : 'Sauces'}
         </Tab>
         <Tab onClick={scrollToMain} value="three" active={current === 'three'}>
-          Начинки
+          {russian ? 'Начинки' : 'Main'}
         </Tab>
       </div>
 
@@ -91,7 +92,7 @@ const BurgerIngredients = () => {
           ref={bunRef}
           className={`text text_type_main-medium mt-10 mb-6 ${burgerIngredientsStyle.subtitle}`}
         >
-          Булки
+          {russian ? 'Булки' : 'Buns'}
         </p>
         <ul id="bun" className={`pb-15 ${burgerIngredientsStyle.list}`}>
           {ingredients.map((item: TItem) => {
@@ -122,7 +123,7 @@ const BurgerIngredients = () => {
             ref={sauseRef}
             className={`text text_type_main-medium mt-5 mb-5 ${burgerIngredientsStyle.subtitle}`}
           >
-            Cоусы
+            {russian ? 'Соусы' : 'Sauces'}
           </p>
           <ul className={burgerIngredientsStyle.list}>
             {ingredients.map((item: TItem) => {
@@ -154,7 +155,7 @@ const BurgerIngredients = () => {
             ref={mainRef}
             className={`text text_type_main-medium mt-5 mb-5 ${burgerIngredientsStyle.subtitle}`}
           >
-            Начинки{' '}
+            {russian ? 'Начинки' : 'Main'}
           </p>
           <ul className={burgerIngredientsStyle.list}>
             {ingredients.map((item: TItem) => {
@@ -182,18 +183,6 @@ const BurgerIngredients = () => {
           </ul>
         </div>
       </div>
-      {isModalOpen && isIngredient && (
-        <Modal title="Детали ингридиента" onClose={handleCloseModal}>
-          <IngredientDetails
-            name={ingredient.name}
-            image={ingredient.image}
-            calories={ingredient.calories}
-            carbohydrates={ingredient.carbohydrates}
-            fat={ingredient.fat}
-            proteins={ingredient.proteins}
-          ></IngredientDetails>
-        </Modal>
-      )}
     </section>
   );
 };

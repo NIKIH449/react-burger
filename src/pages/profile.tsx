@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { onEditUserInfo, onSignOut } from 'services/actions/auth';
 import { GET_EDITPROFILE_RESET } from 'services/actions/auth/edit-profile';
-const Profile:FC <{}> = ({}) => {
+const Profile: FC<{}> = ({}) => {
   const {
     name,
     email,
@@ -21,8 +21,8 @@ const Profile:FC <{}> = ({}) => {
     signOutSuccess,
     editProfileSuccess,
     loggedIn,
-  } = useSelector((store:any) => store.auth);
-
+  } = useSelector((store: any) => store.auth);
+  const russian = localStorage.getItem('rus');
   const [userEmail, setUserEmail] = useState(email);
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState(name);
@@ -32,15 +32,15 @@ const Profile:FC <{}> = ({}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void  {
+  function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     setUserEmail(e.target.value);
   }
 
-  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>): void  {
+  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>): void {
     setPassword(e.target.value);
   }
 
-  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void  {
+  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>): void {
     setUserName(e.target.value);
   }
   useEffect(() => {
@@ -107,13 +107,30 @@ const Profile:FC <{}> = ({}) => {
   return (
     <section className={`mt-30 ${profileStyles.profile}`}>
       <div className={`mr-15 ${profileStyles.container}`}>
-        <ProfileButton link="/profile" title="Профиль" onSignOut={undefined} children={undefined} />
-        <ProfileButton link="/profile/orders" title="История заказов" onSignOut={undefined} children={undefined} />
-        <ProfileButton onSignOut={signOut} link="" title="Выход" children={undefined} />
+        <ProfileButton
+          link="/profile"
+          title={russian ? 'Профиль' : 'Profile'}
+          onSignOut={undefined}
+          children={undefined}
+        />
+        <ProfileButton
+          link="/profile/orders"
+          title={russian ? 'История заказов' : 'Order history'}
+          onSignOut={undefined}
+          children={undefined}
+        />
+        <ProfileButton
+          onSignOut={signOut}
+          link=""
+          title={russian ? 'Выход' : 'Log out'}
+          children={undefined}
+        />
         <p
           className={`mt-20 text text_type_main-small text_color_inactive ${profileStyles.paragraph}`}
         >
-          В этом разделе вы можете изменить свои персональные данные
+          {russian
+            ? 'В этом разделе вы можете изменить свои персональные данные'
+            : 'In this section you can change your personal data'}
         </p>
       </div>
       {location.pathname === '/profile' ? (
@@ -123,15 +140,23 @@ const Profile:FC <{}> = ({}) => {
               value={userName}
               onChange={handleChangeName}
               type={'text'}
-              placeholder={'Имя'}
+              placeholder={russian ? 'Имя' : 'Name'}
               icon={'EditIcon'}
             />
           </div>
           <div className="mb-6">
-            <EmailInput onChange={handleChangeEmail} value={userEmail} name={''} />
+            <EmailInput
+              onChange={handleChangeEmail}
+              value={userEmail}
+              name={''}
+            />
           </div>
           <div>
-            <PasswordInput onChange={handleChangePassword} value={password} name={''} />
+            <PasswordInput
+              onChange={handleChangePassword}
+              value={password}
+              name={''}
+            />
           </div>
           {isInputChange && (
             <div className={`mt-6 ${profileStyles.buttonContainer}`}>
@@ -140,10 +165,10 @@ const Profile:FC <{}> = ({}) => {
                 className={profileStyles.cancelButton}
                 type="button"
               >
-                Отмена
+                {russian ? 'Отмена' : 'Cancel'}
               </button>
               <Button type="primary" size="medium">
-                Сохранить
+                {russian ? 'Сохранить' : 'Save'}
               </Button>
             </div>
           )}
@@ -153,5 +178,5 @@ const Profile:FC <{}> = ({}) => {
       )}
     </section>
   );
-}
-export {Profile}
+};
+export { Profile };

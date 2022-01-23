@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { onResetPassword } from 'services/actions/auth';
 const ResetPassword: FC<{}> = ({}) => {
+  const russian = localStorage.getItem('rus');
   const dispatch = useDispatch();
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
@@ -48,10 +49,10 @@ const ResetPassword: FC<{}> = ({}) => {
   return (
     <AuthForm
       onSubmit={resetPassword}
-      title="Восстановление пароля"
-      button="Сохранить"
-      question="Вспомнили пароль?"
-      questionLink="Войти"
+      title={russian ? 'Восстановление пароля' : 'Password recovery'}
+      button={russian ? 'Сохранить' : 'Save'}
+      question={russian ? 'Вспомнили пароль?' : 'Rembered password?'}
+      questionLink={russian ? 'Войти' : 'Log in'}
       recovery={''}
       recoveryLink={''}
     >
@@ -69,7 +70,11 @@ const ResetPassword: FC<{}> = ({}) => {
             <Input
               value={code}
               onChange={handleChangeCode}
-              placeholder={'Введите код из письма'}
+              placeholder={
+                russian
+                  ? 'Введите код из письма'
+                  : 'Enter the code from the letter'
+              }
               size={'default'}
             />
           </div>

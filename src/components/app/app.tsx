@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { onCheckAuth } from 'services/actions/auth';
 import { Preloader } from 'components/preloader/preloader';
 import { NotFound } from 'pages/not-found';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { ProtectedRoute } from 'components/protected-route/protected-route';
 import {
   Login,
@@ -21,10 +21,17 @@ import {
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
   const background = location.state && location.state.background;
   const { refreshToken, refreshTokenSuccess, loading, accessToken } =
     useSelector((store: any) => store.auth);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!localStorage.getItem('eng')) {
+      localStorage.setItem('rus', 'rus');
+    }
+  }, []);
 
   const checkAuth = (
     accessToken: string | null,

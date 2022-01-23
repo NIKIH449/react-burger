@@ -16,6 +16,7 @@ import { ADD_INGREDIENT, MOVE_INGREDIENT } from 'services/actions/constructor';
 import { useNavigate } from 'react-router';
 import { TItem } from 'utils';
 const BurgerConstructor = () => {
+  const russian = localStorage.getItem('rus');
   const constructorValue = useSelector(
     (store: any) => store.constructorValue.constructor
   );
@@ -94,10 +95,8 @@ const BurgerConstructor = () => {
       >
         {constructorValue.bun.length === 0 &&
           constructorValue.other.length === 0 && (
-            <p
-              className={`text text_type_main-medium ${burgerConstructorStyle.emptyParagraph}`}
-            >
-              Добавьте ингредиенты
+            <p className={`text text_type_main-medium`}>
+              {russian ? 'Добавьте ингредиенты' : 'Add ingredients'}
             </p>
           )}
         <div className={burgerConstructorStyle.bun}>
@@ -165,7 +164,7 @@ const BurgerConstructor = () => {
           </Button>
         ) : (
           <Button disabled onClick={finishOrder} type="primary" size="large">
-            Соберите бургер!
+            {russian ? 'Соберите бургер!' : 'Build a burger!'}
           </Button>
         )}
       </div>
