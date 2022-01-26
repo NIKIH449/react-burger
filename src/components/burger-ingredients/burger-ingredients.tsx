@@ -1,23 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { IngredientsList } from './ingredients-list/ingredients-list';
-import { IngredientDetails } from 'components/ingredient-details/ingredient-details';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Modal } from '../modal/modal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 import { getIngredients } from 'services/actions/ingredients';
-import { closeIngredientModal } from 'services/actions/modal';
 import { Link, useLocation } from 'react-router-dom';
-import { TItem } from 'utils';
+import { TItem } from 'utils/types';
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState('one');
-  const ingredients = useSelector(
-    (store: any) => store.ingredients.ingredients
-  );
-  const ingredient = useSelector((store: any) => store.currentItem.currentItem);
-  const { isModalOpen, isIngredient } = useSelector(
-    (store: any) => store.modal
-  );
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
   const location = useLocation();
   const bunRef = useRef<HTMLParagraphElement>(null);
   const sauseRef = useRef<HTMLParagraphElement>(null);
@@ -58,10 +49,6 @@ const BurgerIngredients = () => {
       ? setCurrent('three')
       : setCurrent('one');
   };
-
-  function handleCloseModal() {
-    closeIngredientModal(dispatch);
-  }
 
   return (
     <section className={`mr-5 ${burgerIngredientsStyle.burgerIngredients}`}>
@@ -182,18 +169,6 @@ const BurgerIngredients = () => {
           </ul>
         </div>
       </div>
-      {isModalOpen && isIngredient && (
-        <Modal title="Детали ингридиента" onClose={handleCloseModal}>
-          <IngredientDetails
-            name={ingredient.name}
-            image={ingredient.image}
-            calories={ingredient.calories}
-            carbohydrates={ingredient.carbohydrates}
-            fat={ingredient.fat}
-            proteins={ingredient.proteins}
-          ></IngredientDetails>
-        </Modal>
-      )}
     </section>
   );
 };

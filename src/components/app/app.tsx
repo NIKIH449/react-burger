@@ -4,7 +4,7 @@ import Main from '../main/main';
 import { AppHeader } from 'components/header/app-header';
 import '../../fonts/fonts.css';
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 import { onCheckAuth } from 'services/actions/auth';
 import { Preloader } from 'components/preloader/preloader';
 import { NotFound } from 'pages/not-found';
@@ -23,7 +23,7 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const { refreshToken, refreshTokenSuccess, loading, accessToken } =
-    useSelector((store: any) => store.auth);
+    useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
   const checkAuth = (

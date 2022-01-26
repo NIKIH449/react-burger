@@ -6,7 +6,7 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import '../index.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../utils/hooks';
 import { useLocation, useNavigate } from 'react-router';
 const Login: FC = () => {
   const { state } = useLocation();
@@ -15,7 +15,7 @@ const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { accessToken, refreshToken, loginSuccess, loginFailed, loggedIn } =
-    useSelector((store: any) => store.auth);
+    useSelector((store) => store.auth);
 
   function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     setEmail(e.target.value);

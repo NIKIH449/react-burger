@@ -1,18 +1,18 @@
 import React, { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../utils/hooks';
 import ingredientStyles from './ingredient.module.css';
 import { IngredientDetails } from 'components/ingredient-details/ingredient-details';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { getIngredients } from 'services/actions/ingredients';
 import { Modal } from 'components/modal/modal';
 import Main from 'components/main/main';
-import { closeIngredientModal } from 'services/actions/modal';
+import { getCloseIngredientModalAction } from 'services/actions/modal';
 const Ingredient: FC = () => {
   const currentId = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
   const ingredients = useSelector(
-    (store: any) => store.ingredients.ingredients
+    (store) => store.ingredients.ingredients
   );
   const ingredient = ingredients.filter(
     (item: { _id: string }) => currentId.id === item._id
@@ -24,7 +24,7 @@ const Ingredient: FC = () => {
   }, [dispatch, ingredients.length]);
 
   function handleCloseModal() {
-    closeIngredientModal(dispatch);
+    dispatch(getCloseIngredientModalAction());
     navigate('/');
   }
   return (

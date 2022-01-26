@@ -3,25 +3,25 @@ import burgerConstructorStyle from './burger-constructor.module.css';
 import { Modal } from 'components/modal/modal';
 import { ConstructorFoodElement } from './constructorElement/constructorFoodElement';
 import { OrderDeatils } from '../order-details/order-detail';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 import { createOrder } from 'services/actions/order';
-import { closeOrderModal } from 'services/actions/modal';
+import { getCloseOrderModalAction } from 'services/actions/modal';
 import { useDrop } from 'react-dnd';
 import {
   ConstructorElement,
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ADD_INGREDIENT, MOVE_INGREDIENT } from 'services/actions/constructor';
+import {  getAddIngredientsAction, getMoveIngredientsAction } from 'services/actions/constructor';
 import { useNavigate } from 'react-router';
-import { TItem } from 'utils';
+import { TItem } from 'utils/types';
 const BurgerConstructor = () => {
   const constructorValue = useSelector(
-    (store: any) => store.constructorValue.constructor
+    (store) => store.constructorValue.constructor
   );
-  const loggedIn = useSelector((store: any) => store.auth.loggedIn);
-  const { isModalOpen, isOrder } = useSelector((store: any) => store.modal);
-  const order = useSelector((store: any) => store.order.order);
+  const loggedIn = useSelector((store) => store.auth.loggedIn);
+  const { isModalOpen, isOrder } = useSelector((store) => store.modal);
+  const order = useSelector((store) => store.order.order);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -39,7 +39,7 @@ const BurgerConstructor = () => {
   }
 
   function handleCloseModal() {
-    closeOrderModal(dispatch);
+    dispatch(getCloseOrderModalAction());
   }
 
   function totalSum() {
@@ -55,11 +55,8 @@ const BurgerConstructor = () => {
   const [, dropTarget] = useDrop(
     () => ({
       accept: ['bun', 'sauce', 'main'],
-      drop(item) {
-        dispatch({
-          type: ADD_INGREDIENT,
-          currentItem: item,
-        });
+      drop(item: TItem) {
+        dispatch(getAddIngredientsAction(item))
       },
     }),
     [constructorValue]
@@ -72,10 +69,7 @@ const BurgerConstructor = () => {
       newConstructor.splice(dragIndex, 1);
       newConstructor.splice(hoverIndex, 0, dragIngredient);
       dragIndex !== hoverIndex &&
-        dispatch({
-          type: MOVE_INGREDIENT,
-          item: newConstructor,
-        });
+        dispatch(getMoveIngredientsAction(newConstructor));
     },
     [dispatch, constructorValue]
   );
@@ -101,7 +95,7 @@ const BurgerConstructor = () => {
             </p>
           )}
         <div className={burgerConstructorStyle.bun}>
-          {constructorValue.bun.map((item: TItem, index: string) => {
+          {constructorValue.bun.map((item: TItem, index: number) => {
             return (
               <div
                 key={String(item._id) + index}
@@ -120,7 +114,7 @@ const BurgerConstructor = () => {
         </div>
         {
           <div className={burgerConstructorStyle.container}>
-            {constructorValue.other.map((item: TItem, index: string) => {
+            {constructorValue.other.map((item: TItem, index: number) => {
               return (
                 <ConstructorFoodElement
                   item={item}
@@ -133,7 +127,7 @@ const BurgerConstructor = () => {
           </div>
         }
         <div className={burgerConstructorStyle.ingredient}>
-          {constructorValue.bun.map((item: TItem, index: string) => {
+          {constructorValue.bun.map((item: TItem, index: number) => {
             return (
               <div
                 key={String(item._id) + index}

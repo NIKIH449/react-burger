@@ -44,14 +44,48 @@ import {
   LOADING_END,
   LOADING_START,
 } from 'services/actions/auth';
+import { TApplicationActions } from '../../utils/types';
 
-const initialState = {
+type TAuthState = {
+  email: string;
+  name: string;
+  accessToken: string;
+  refreshToken: string;
+  registerRequest: boolean;
+  registerFailed: boolean;
+  registerSuccess: boolean;
+  loginRequest: boolean;
+  loginFailed: boolean;
+  loginSuccess: boolean;
+  signOutRequest: boolean;
+  signOutFailed: boolean;
+  signOutSuccess: boolean;
+  resetPasswordRequest: boolean;
+  resetPasswordFailed: boolean;
+  resetPasswordSuccess: boolean;
+  recoveryPasswordRequest: boolean;
+  recoveryPasswordFailed: boolean;
+  recoveryPasswordSuccess: boolean;
+  editProfileRequest: boolean;
+  editProfileFailed: boolean;
+  editProfileSuccess: boolean;
+  refreshTokenRequest: boolean;
+  refreshTokenFailed: boolean;
+  refreshTokenSuccess: boolean;
+  chekAuthRequest: boolean;
+  chekAuthFailed: boolean;
+  chekAuthSuccess: boolean;
+  loading: boolean;
+  loggedIn: boolean;
+};
+
+const initialState: TAuthState = {
   email: '',
   name: '',
   accessToken: '',
   refreshToken: '',
   registerRequest: false,
-  regiterFailed: false,
+  registerFailed: false,
   registerSuccess: false,
 
   loginRequest: false,
@@ -85,7 +119,10 @@ const initialState = {
   loggedIn: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (
+  state = initialState,
+  action: TApplicationActions
+) => {
   switch (action.type) {
     case LOADING_START: {
       return {

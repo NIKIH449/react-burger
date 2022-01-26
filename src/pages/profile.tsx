@@ -8,9 +8,9 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProfileButton } from 'components/profile-button/profile-button';
 import { useLocation, useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../utils/hooks';
 import { onEditUserInfo, onSignOut } from 'services/actions/auth';
-import { GET_EDITPROFILE_RESET } from 'services/actions/auth/edit-profile';
+import { getGetEditProfileResetAction, GET_EDITPROFILE_RESET } from 'services/actions/auth/edit-profile';
 const Profile:FC <{}> = ({}) => {
   const {
     name,
@@ -21,11 +21,11 @@ const Profile:FC <{}> = ({}) => {
     signOutSuccess,
     editProfileSuccess,
     loggedIn,
-  } = useSelector((store:any) => store.auth);
+  } = useSelector((store) => store.auth);
 
-  const [userEmail, setUserEmail] = useState(email);
+  const [userEmail, setUserEmail] = useState<string>(email);
   const [password, setPassword] = useState('');
-  const [userName, setUserName] = useState(name);
+  const [userName, setUserName] = useState<string>(name);
   const [isInputChange, setIsInputChange] = useState(false);
 
   const location = useLocation();
@@ -89,13 +89,13 @@ const Profile:FC <{}> = ({}) => {
   useEffect(() => {
     if (editProfileSuccess) {
       setIsInputChange(false);
-      dispatch({ type: GET_EDITPROFILE_RESET });
+      dispatch(getGetEditProfileResetAction());
     }
   }, [editProfileSuccess, userName, userEmail, dispatch]);
 
   function cancelChanges() {
-    setUserName(localStorage.getItem('userName'));
-    setUserEmail(localStorage.getItem('userEmail'));
+    setUserName(JSON.parse(localStorage.getItem('userName')!));
+    setUserEmail(JSON.parse(localStorage.getItem('userEmail')!));
     setPassword('');
   }
 

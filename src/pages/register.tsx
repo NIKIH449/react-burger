@@ -5,7 +5,7 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { onRegister } from 'services/actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 
 const Register: FC<{}> = ({}) => {
@@ -15,7 +15,7 @@ const Register: FC<{}> = ({}) => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const { accessToken, registerSuccess, refreshToken, loggedIn } = useSelector(
-    (store: any) => store.auth
+    (store) => store.auth
   );
   useEffect(() => {
     if (loggedIn === true) {

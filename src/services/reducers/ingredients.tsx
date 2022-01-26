@@ -1,17 +1,28 @@
+import {  TItem } from 'utils/types';
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
+  TGetIngredients,
 } from '../actions/ingredients';
 
-const initialState = {
-  ingredients: [],
+type TIngredientsState = {
+  ingredients: ReadonlyArray<TItem>;
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+  ingredientsSucces: boolean;
+};
+const initialState: TIngredientsState = {
+  ingredients: [] ,
   ingredientsRequest: false,
   ingredientsFailed: false,
   ingredientsSucces: false,
 };
 
-export const indredientsReducer = (state = initialState, action) => {
+export const indredientsReducer = (
+  state = initialState,
+  action: TGetIngredients
+) : TIngredientsState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -26,7 +37,7 @@ export const indredientsReducer = (state = initialState, action) => {
         ingredientsRequest: false,
         ingredientsFailed: false,
         ingredientsSucces: true,
-        ingredients: action.ingredients,
+        ingredients: action.data,
       };
     }
     case GET_INGREDIENTS_FAILED: {

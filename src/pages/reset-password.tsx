@@ -4,7 +4,7 @@ import {
   PasswordInput,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 import { onResetPassword } from 'services/actions/auth';
 const ResetPassword: FC<{}> = ({}) => {
@@ -13,7 +13,7 @@ const ResetPassword: FC<{}> = ({}) => {
   const [code, setCode] = useState('');
   const navigate = useNavigate();
   const { resetPasswordSuccess, recoveryPasswordSuccess, loggedIn } =
-    useSelector((store: any) => store.auth);
+    useSelector((store) => store.auth);
 
   function resetPassword(e: React.ChangeEvent<HTMLInputElement>): void {
     e.preventDefault();
