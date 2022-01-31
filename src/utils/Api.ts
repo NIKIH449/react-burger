@@ -1,20 +1,26 @@
 import { BURGER_URL } from './constants';
 import { checkResponse } from 'utils/utils';
-
-const getIngredientsRequest = async (): Promise<object> => {
-  const res = await fetch(BURGER_URL + 'ingredients');
-  return checkResponse(res);
+const getIngredientsRequest = () => {
+  return fetch(BURGER_URL + 'ingredients').then(checkResponse);
 };
 
-const sentOrderRequest = async (id: string): Promise<object> => {
-  const res = await fetch(BURGER_URL + 'orders', {
+const sentOrderRequest = (id: string, token: string) => {
+  return fetch(`${BURGER_URL}orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ ingredients: id }),
-  });
-  return checkResponse(res);
+  }).then(checkResponse);
 };
 
-export { sentOrderRequest, getIngredientsRequest };
+const getAllOrders = () => {
+  return fetch(`${BURGER_URL}orders/all`).then(checkResponse);
+};
+
+const getUserOrders = () => {
+  return fetch(`${BURGER_URL}orders`).then(checkResponse);
+};
+
+export { sentOrderRequest, getIngredientsRequest, getAllOrders, getUserOrders };

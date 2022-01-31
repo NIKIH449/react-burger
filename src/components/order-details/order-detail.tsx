@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import orderDetails from './order-details.module.css';
 import done from 'images/done.gif';
 
-const OrderDeatils: FC<{ number: number; name: string }> = ({
+const OrderDeatils: FC<{ number: string | number; name: string }> = ({
   number,
   name,
 }) => {

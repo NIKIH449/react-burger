@@ -4,19 +4,19 @@ import {
   DragIcon,
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../../utils/hooks';
 import { useDrag, useDrop } from 'react-dnd';
-import { DELETE_INGREDIENT } from 'services/actions/constructor';
-import { TItem } from 'utils';
+import { getDeleteIngredientAction } from 'services/actions/constructor';
+import { TItem } from 'utils/types';
 const ConstructorFoodElement: FC<{
-  moveIngredient: (dragIndex: number, hoverIndex: string) => void;
-  index: string;
+  moveIngredient: (dragIndex: number, hoverIndex: number) => void;
+  index: number;
   item: TItem;
 }> = ({ moveIngredient, index, item }) => {
   const sortTarget = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const constructorValue = useSelector(
-    (store: any) => store.constructorValue.constructor.other
+    (store) => store.constructorValue.constructor.other
   );
 
   const [{ opacity }, drop] = useDrop(
@@ -56,10 +56,7 @@ const ConstructorFoodElement: FC<{
       <DragIcon type={'secondary'} />
       <ConstructorElement
         handleClose={() => {
-          dispatch({
-            type: DELETE_INGREDIENT,
-            item: item._id + index,
-          });
+          dispatch(getDeleteIngredientAction(item._id + index));
         }}
         text={item.name}
         price={item.price}

@@ -8,7 +8,9 @@ const IngredientDetails: FC<{
   fat: number;
   carbohydrates: number;
 }> = ({ image, name, calories, proteins, fat, carbohydrates }) => {
-  const russian = localStorage.getItem('rus');
+
+    const russian = localStorage.getItem('rus');
+
   return (
     <div className={`pt-15 pb-15 ${ingredientDetailsStyle.ingredientDetails}`}>
       <img src={image} alt={name} className={ingredientDetailsStyle.image} />
