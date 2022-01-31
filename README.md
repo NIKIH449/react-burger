@@ -21,6 +21,9 @@ calculate the price, order and track your order.
 - API
 - REACT
 - REDUX
+- TypeScript
+- DND
+- WebSocket
 
 ### How to run this project? 
 
