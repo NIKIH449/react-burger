@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { HeaderButton } from './header-button/header-button';
 import headerStyles from './header.module.css';
 import {

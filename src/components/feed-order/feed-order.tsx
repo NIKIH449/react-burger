@@ -15,6 +15,7 @@ const FeedOrder: FC<{
   ingredients: TItem[] | string[];
 }> = ({ number, date, name, ingredients, id, status }) => {
   const location = useLocation();
+  const russian = localStorage.getItem('rus');
   const allIngredients = useSelector((store) => store.ingredients.ingredients);
   const orderIngredients = findIngredients();
   const imageStyle = (item: string, key: number) => ({
@@ -30,12 +31,12 @@ const FeedOrder: FC<{
     const orderTime = date.slice(11, -8);
     const term = currentDate.getDate() - orderDay;
     return term === 0
-      ? `Ceгодня ${orderTime} i-GMT+3`
+      ? `${russian ? 'Cегодня' : 'Today'}, ${orderTime} i-GMT+3`
       : term === 1
-      ? `Вчера, ${orderTime} i-GMT+3`
+      ? `${russian ? 'Вчера' : 'Yesterday'}, ${orderTime} i-GMT+3`
       : term < 5
-      ? `${term} дня назад, ${orderTime} i-GMT+3`
-      : `${term} дней назад, ${orderTime} i-GMT+3`;
+      ? `${term} ${russian ? 'дня назад' : 'days ago'}, ${orderTime} i-GMT+3`
+      : `${term} ${russian ? 'дней назад' : 'days ago'}, ${orderTime} i-GMT+3`;
   }
 
   function findIngredients() {
@@ -74,10 +75,16 @@ const FeedOrder: FC<{
         {location.pathname === '/profile/orders' && (
           <p className="text text_type_main-small">
             {status === 'done'
-              ? 'Выполнен'
+              ? russian
+                ? 'Выполнен'
+                : 'Done'
               : status === 'denied'
-              ? 'Oтменен'
-              : 'Выполнен'}
+              ? russian
+                ? 'Готовится'
+                : 'Cooking'
+              : russian
+              ? 'Отменен'
+              : 'Dismissed'}
           </p>
         )}
         <div className={`${feedOrderStyle.main} pt-4`}>

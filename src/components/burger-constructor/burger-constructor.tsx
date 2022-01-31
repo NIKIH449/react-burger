@@ -177,7 +177,11 @@ const BurgerConstructor = () => {
         orderRequest && (
           <Modal onClose={handleCloseModal} title={''} isLoading={true}>
             <OrderDeatils
-              name={'Подтверждаем заказ. Обычно это занимает 15 секунд'}
+              name={
+                russian
+                  ? 'Подтверждаем заказ. Обычно это занимает 15 секунд'
+                  : 'Confirming the order. Usually it takes 15 seconds.'
+              }
               number={''}
             />
           </Modal>

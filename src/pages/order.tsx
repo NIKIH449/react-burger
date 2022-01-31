@@ -27,7 +27,6 @@ const Order = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    ingredients.length === 0 && state === null && dispatch(getIngredients());
     userOrders.length === 0 && state === null && dispatch(wsConnectionStart());
   }, [ingredients.length, userOrders.length, dispatch, state]);
 
@@ -37,12 +36,12 @@ const Order = () => {
   }
   return (
     <>
-      {state && !(location.pathname === `/profile/orders/${currentId.id}`) && (
-        <Feed />
-      )}
-      {state && location.pathname === `/profile/orders/${currentId.id}` && (
-        <Profile />
-      )}
+      {state &&
+        ingredients.length &&
+        !(location.pathname === `/profile/orders/${currentId.id}`) && <Feed />}
+      {state &&
+        ingredients.length &&
+        location.pathname === `/profile/orders/${currentId.id}` && <Profile />}
       {(state && findOrder) || (state && findUserOrder) ? (
         <Modal onClose={handleCloseModal} title={''}>
           <OrderInforamtion

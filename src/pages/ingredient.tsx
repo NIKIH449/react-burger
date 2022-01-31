@@ -20,10 +20,6 @@ const Ingredient = () => {
   )[0];
   const dispatch = useDispatch();
 
-  //useEffect(() => {
-  //  ingredients.length === 0 && dispatch(getIngredients());
-  //}, [dispatch, ingredients.length]);
-
   function handleCloseModal() {
     dispatch(getCloseIngredientModalAction());
     navigate('/');

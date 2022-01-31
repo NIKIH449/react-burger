@@ -21,9 +21,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsActions) => {
         const accessToken = localStorage.getItem('accessToken');
         if (type === wsUserInit || type === wsInit) {
           socket = new WebSocket(
-            `${wsUrl}${type === wsInit ? '/all' : ''}${
-              accessToken ? `?token=${accessToken}` : ''
-            }`
+            `${wsUrl}${type === wsInit ? '/all' : `?token=${accessToken}`}`
           );
         }
         if (socket) {

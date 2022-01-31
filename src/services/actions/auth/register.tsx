@@ -43,7 +43,6 @@ export const onRegister: AppThunk =
     signUp(email, password, name)
       .then((data) => {
         if (data && data.success) {
-          console.log(data)
           dispatch(getRegisterSuccessAction(data));
           localStorage.setItem('userName', data.user.name);
           localStorage.setItem('userEmail', data.user.email);

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'utils/hooks';
 import { TFeedOrder } from 'utils/types';
 import feedStyle from './feed.module.css';
 const Feed = () => {
+  const russian = localStorage.getItem('rus');
   const location = useLocation();
   const currentId = useParams();
   const allIngredients = useSelector((store) => store.ingredients.ingredients);
@@ -22,14 +23,15 @@ const Feed = () => {
     ((orders.length === 0 && location.pathname === '/feed') ||
       (orders.length === 0 && location.pathname === `/feed/${currentId.id}`)) &&
       dispatch(wsConnectionStart());
-    console.log(orders.length);
   }, [currentId.id, dispatch, location.pathname, orders.length]);
 
   return (
     <section className={`mt-25 ${feedStyle.feed}`}>
       <div className={feedStyle.container}>
         <div className={`mr-15 ${feedStyle.orderList}`}>
-          <h2 className="mb-5 text text_type_main-large">Лента заказов</h2>
+          <h2 className="mb-5 text text_type_main-large">
+            {russian ? 'Лента заказов' : 'Orders feed'}
+          </h2>
           {orders.map((item: TFeedOrder, index: number) => (
             <FeedOrder
               status={item.status}
@@ -49,7 +51,7 @@ const Feed = () => {
                 <p
                   className={`mb-6 text text_type_main-medium ${feedStyle.orderTableTitle}`}
                 >
-                  Готовы:
+                  {russian ? 'Готовы:' : 'Ready:'}
                 </p>
               </div>
               <div className={`mr-9 ${feedStyle.orders}`}>
@@ -74,7 +76,7 @@ const Feed = () => {
               <p
                 className={`mb-6 text text_type_main-medium ${feedStyle.orderTableTitle}`}
               >
-                В работе:
+                {russian ? 'Готовы:' : 'In progress:'}
               </p>
               <div className={feedStyle.orders}>
                 {orders.map((item: TFeedOrder, index: number) => {
@@ -96,7 +98,7 @@ const Feed = () => {
           </div>
           <div>
             <p className="text text_type_main-medium">
-              Выполнено за все время:
+              {russian ? 'Выполнено за все время:' : 'All time orders total:'}
             </p>
             <p
               className={`${feedStyle.numberShadow} mb-15 text text_type_digits-large`}
@@ -105,7 +107,9 @@ const Feed = () => {
             </p>
           </div>
           <div>
-            <p className="text text_type_main-medium">Выполнено за сегодня:</p>
+            <p className="text text_type_main-medium">
+              {russian ? 'Today orders total:' : 'Ready:'}
+            </p>
             <p
               className={`${feedStyle.numberShadow} text text_type_digits-large`}
             >

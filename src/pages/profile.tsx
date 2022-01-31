@@ -64,7 +64,7 @@ const Profile = () => {
     if (!isAccessToken && !loggedIn) {
       navigate('/login');
     }
-  }, [loggedIn, navigate]);
+  }, [loggedIn, navigate, isAccessToken]);
 
   useEffect(() => {
     if (!(userEmail === email && password === '' && userName === name)) {
@@ -153,62 +153,62 @@ const Profile = () => {
         </p>
       </div>
       <div className={profileStyles.information}>
-      {location.pathname === '/profile' ? (
-        <form onSubmit={onEditProfile}>
-          <div className="mb-6">
-            <Input
-              value={userName}
-              onChange={handleChangeName}
-              type={'text'}
-              placeholder={russian ? 'Имя' : 'Name'}
-              icon={'EditIcon'}
-            />
-          </div>
-          <div className="mb-6">
-            <EmailInput
-              onChange={handleChangeEmail}
-              value={userEmail}
-              name={''}
-            />
-          </div>
-          <div>
-            <PasswordInput
-              onChange={handleChangePassword}
-              value={password}
-              name={''}
-            />
-          </div>
-          {isInputChange && (
-            <div className={`mt-6 ${profileStyles.buttonContainer}`}>
-              <button
-                onClick={cancelChanges}
-                className={profileStyles.cancelButton}
-                type="button"
-              >
-                {russian ? 'Отмена' : 'Cancel'}
-              </button>
-              <Button type="primary" size="medium">
-                {russian ? 'Сохранить' : 'Save'}
-              </Button>
+        {location.pathname === '/profile' ? (
+          <form onSubmit={onEditProfile}>
+            <div className="mb-6">
+              <Input
+                value={userName}
+                onChange={handleChangeName}
+                type={'text'}
+                placeholder={russian ? 'Имя' : 'Name'}
+                icon={'EditIcon'}
+              />
             </div>
-          )}
-        </form>
-      ) : (
-        orders.length > 0 &&
-        [...orders]
-          .reverse()
-          .map((item: TFeedOrder, index: number) => (
-            <FeedOrder
-              id={item._id}
-              key={index}
-              name={item.name}
-              date={item.createdAt}
-              number={'#' + String(item.number)}
-              status={item.status}
-              ingredients={item.ingredients}
-            />
-          ))
-      )}
+            <div className="mb-6">
+              <EmailInput
+                onChange={handleChangeEmail}
+                value={userEmail}
+                name={''}
+              />
+            </div>
+            <div>
+              <PasswordInput
+                onChange={handleChangePassword}
+                value={password}
+                name={''}
+              />
+            </div>
+            {isInputChange && (
+              <div className={`mt-6 ${profileStyles.buttonContainer}`}>
+                <button
+                  onClick={cancelChanges}
+                  className={profileStyles.cancelButton}
+                  type="button"
+                >
+                  {russian ? 'Отмена' : 'Cancel'}
+                </button>
+                <Button type="primary" size="medium">
+                  {russian ? 'Сохранить' : 'Save'}
+                </Button>
+              </div>
+            )}
+          </form>
+        ) : (
+          orders.length > 0 &&
+          [...orders]
+            .reverse()
+            .map((item: TFeedOrder, index: number) => (
+              <FeedOrder
+                id={item._id}
+                key={index}
+                name={item.name}
+                date={item.createdAt}
+                number={'#' + String(item.number)}
+                status={item.status}
+                ingredients={item.ingredients}
+              />
+            ))
+        )}
       </div>
     </section>
   );
