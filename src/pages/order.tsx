@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'utils/hooks';
 import { Feed } from './feed';
 import { getCloseIngredientModalAction } from 'services/actions/modal';
 import { OrderInforamtion } from 'components/order-information/order-information';
-import { getIngredients } from 'services/actions/ingredients';
 import { Modal } from 'components/modal/modal';
 import { Profile } from './profile';
 import { wsConnectionStart } from 'services/actions/wsFeed';
