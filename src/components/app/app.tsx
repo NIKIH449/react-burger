@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from '../../utils/hooks';
 import { onCheckAuth, onRefreshToken } from 'services/actions/auth';
 import { Preloader } from 'components/preloader/preloader';
 import { NotFound } from 'pages/not-found';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { ProtectedRoute } from 'components/protected-route/protected-route';
 import {
   Login,
@@ -24,6 +24,7 @@ import { getIngredients } from 'services/actions/ingredients';
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
   const background = location.state && location.state.background;
   const {
     refreshToken,
@@ -38,6 +39,12 @@ function App() {
   useEffect(() => {
     ingredients.length === 0 && dispatch(getIngredients());
   }, [dispatch, ingredients.length]);
+
+  useEffect(() => {
+    if (!localStorage.getItem('eng')) {
+      localStorage.setItem('rus', 'rus');
+    }
+  }, []);
 
   const checkAuth = (
     accessToken: string | null,

@@ -9,6 +9,7 @@ import '../index.css';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useLocation, useNavigate } from 'react-router';
 const Login: FC = () => {
+  const russian = localStorage.getItem('rus');
   const { state } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,12 +56,12 @@ const Login: FC = () => {
 
   return (
     <AuthForm
-      title="Вход"
-      button="Войти"
-      question="Вы — новый пользователь?"
-      recovery="Забыли пароль?"
-      questionLink="Зарегистрироваться"
-      recoveryLink="Восстановить пароль"
+      title={russian ? 'Вход' : 'Sign in'}
+      button={'Sig in'}
+      question={russian ? 'Вы — новый пользователь?' : 'A new user?'}
+      recovery={russian ? 'Забыли пароль?' : 'Forgot password?'}
+      questionLink={russian ? 'Зарегистрироваться' : 'Sign up'}
+      recoveryLink={russian ? 'Восстановить пароль' : 'Recover password'}
       onSubmit={signIn}
     >
       <div className="mb-6 mt-6">
@@ -83,7 +84,9 @@ const Login: FC = () => {
 
       {loginFailed && (
         <p className="mt-5 text text_type_main-small">
-          Ошибка. Возможно логин или пароль ошибочны.
+          {russian
+            ? 'Ошибка. Возможно логин или пароль ошибочны.'
+            : 'Oops. There is a problem with login or password.'}
         </p>
       )}
     </AuthForm>

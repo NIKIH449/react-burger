@@ -10,6 +10,7 @@ import { ProfileButton } from 'components/profile-button/profile-button';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { onEditUserInfo, onSignOut } from 'services/actions/auth';
+
 import { getGetEditProfileResetAction } from 'services/actions/auth/edit-profile';
 import { FeedOrder } from 'components/feed-order/feed-order';
 import {
@@ -27,8 +28,12 @@ const Profile = () => {
     signOutSuccess,
     editProfileSuccess,
     loggedIn,
+
   } = useSelector((store) => store.auth);
+        const russian = localStorage.getItem('rus');
   const [userEmail, setUserEmail] = useState<string>(email);
+
+      
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState<string>(name);
   const [isInputChange, setIsInputChange] = useState(false);
@@ -38,6 +43,7 @@ const Profile = () => {
   const orders = useSelector((store) => store.wsFeed.userFeed.orders) || [];
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     location.pathname === '/profile/orders' ||
@@ -125,66 +131,111 @@ const Profile = () => {
       <div className={`mr-15 ${profileStyles.container}`}>
         <ProfileButton
           link="/profile"
-          title="Профиль"
+
+          title={russian ? 'Профиль' : 'Profile'}
+
           onSignOut={undefined}
           children={undefined}
         />
         <ProfileButton
           link="/profile/orders"
-          title="История заказов"
+
+           title={russian ? 'История заказов' : 'Order history'}
+
           onSignOut={undefined}
           children={undefined}
         />
         <ProfileButton
           onSignOut={signOut}
           link=""
-          title="Выход"
+
+           title={russian ? 'Выход' : 'Log out'}
+
           children={undefined}
         />
         <p
           className={`mt-20 text text_type_main-small text_color_inactive ${profileStyles.paragraph}`}
         >
-          В этом разделе вы можете изменить свои персональные данные
+          {russian
+            ? 'В этом разделе вы можете изменить свои персональные данные'
+            : 'In this section you can change your personal data'}
         </p>
       </div>
-      <div className={profileStyles.information}>
-        {location.pathname === '/profile' ? (
-          <form onSubmit={onEditProfile}>
-            <div className="mb-6">
-              <Input
-                value={userName}
-                onChange={handleChangeName}
-                type={'text'}
-                placeholder={'Имя'}
-                icon={'EditIcon'}
-              />
-            </div>
-            <div className="mb-6">
-              <EmailInput
-                onChange={handleChangeEmail}
-                value={userEmail}
-                name={''}
-              />
-            </div>
-            <div>
-              <PasswordInput
-                onChange={handleChangePassword}
-                value={password}
-                name={''}
-              />
-            </div>
-            {isInputChange && (
-              <div className={`mt-6 ${profileStyles.buttonContainer}`}>
-                <button
-                  onClick={cancelChanges}
-                  className={profileStyles.cancelButton}
-                  type="button"
-                >
-                  Отмена
-                </button>
-                <Button type="primary" size="medium">
-                  Сохранить
-                </Button>
+      {location.pathname === '/profile' ? (
+        <form onSubmit={onEditProfile}>
+          <div className="mb-6">
+            <Input
+              value={userName}
+              onChange={handleChangeName}
+              type={'text'}
+              placeholder={russian ? 'Имя' : 'Name'}
+              icon={'EditIcon'}
+            />
+          </div>
+          <div className="mb-6">
+            <EmailInput
+              onChange={handleChangeEmail}
+              value={userEmail}
+              name={''}
+            />
+          </div>
+          <div>
+            <PasswordInput
+              onChange={handleChangePassword}
+              value={password}
+              name={''}
+            />
+          </div>
+          {isInputChange && (
+            <div className={`mt-6 ${profileStyles.buttonContainer}`}>
+              <button
+                onClick={cancelChanges}
+                className={profileStyles.cancelButton}
+                type="button"
+              >
+                {russian ? 'Отмена' : 'Cancel'}
+              </button>
+              <Button type="primary" size="medium">
+                {russian ? 'Сохранить' : 'Save'}
+              </Button>
+
+            {location.pathname === '/profile' ? (
+        <form onSubmit={onEditProfile}>
+          <div className="mb-6">
+            <Input
+              value={userName}
+              onChange={handleChangeName}
+              type={'text'}
+              placeholder={russian ? 'Имя' : 'Name'}
+              icon={'EditIcon'}
+            />
+          </div>
+          <div className="mb-6">
+            <EmailInput
+              onChange={handleChangeEmail}
+              value={userEmail}
+              name={''}
+            />
+          </div>
+          <div>
+            <PasswordInput
+              onChange={handleChangePassword}
+              value={password}
+              name={''}
+            />
+          </div>
+          {isInputChange && (
+            <div className={`mt-6 ${profileStyles.buttonContainer}`}>
+              <button
+                onClick={cancelChanges}
+                className={profileStyles.cancelButton}
+                type="button"
+              >
+                {russian ? 'Отмена' : 'Cancel'}
+              </button>
+              <Button type="primary" size="medium">
+                {russian ? 'Сохранить' : 'Save'}
+              </Button>
               </div>
             )}
           </form>

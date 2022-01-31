@@ -4,7 +4,9 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { onRecoveryPassword } from 'services/actions/auth';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
+
 const RecoveryPassword = () => {
+
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
@@ -36,10 +38,10 @@ const RecoveryPassword = () => {
   return (
     <AuthForm
       onSubmit={recoveryPassword}
-      title="Восстановление пароля"
-      button="Восстановить"
-      question="Вспомнили пароль?"
-      questionLink="Войти"
+      title={russian ? 'Восстановление пароля' : 'Password recovery '}
+      button={russian ? 'Восстановить' : 'Recover'}
+      question={russian ? 'Вспомнили пароль?' : 'Rembered password?'}
+      questionLink={russian ? 'Войти' : 'Sign in'}
       recovery={''}
       recoveryLink={''}
     >

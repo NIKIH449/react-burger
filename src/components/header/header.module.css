@@ -19,3 +19,18 @@
   left: calc(160px - 10%);
   width: 290px;
 }
+
+.languageButton {
+  background-color: transparent;
+  border: none;
+  color: #f2f2f3;
+  padding: 0;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.5;
+}
+
+.languageButton:hover {
+  opacity: 1;
+}

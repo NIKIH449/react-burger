@@ -5,6 +5,7 @@ import { IngredientDetails } from 'components/ingredient-details/ingredient-deta
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { Modal } from 'components/modal/modal';
 import Main from 'components/main/main';
+
 import { getCloseIngredientModalAction } from 'services/actions/modal';
 const Ingredient = () => {
   const currentId = useParams();
@@ -30,7 +31,13 @@ const Ingredient = () => {
     <>
       {state && <Main></Main>}
       {state && ingredient ? (
-        <Modal title="Детали ингридиента" onClose={handleCloseModal} isLoading={false}>
+
+        <Modal
+          title={russian ? 'Детали ингридиента' : 'Details of ingredient'}
+          onClose={handleCloseModal}
+          isLoading={false}
+        >
+
           <IngredientDetails
             name={ingredient.name}
             image={ingredient.image}
@@ -45,7 +52,7 @@ const Ingredient = () => {
           {ingredient && (
             <>
               <h2 className={'pb-4 pt-30 text text_type_main-large'}>
-                Детали ингридиента
+              {russian ? 'Детали ингридиента' : 'Details of ingredient'}
               </h2>
               <IngredientDetails
                 name={ingredient.name}

@@ -8,7 +8,9 @@ const IngredientDetails: FC<{
   fat: number;
   carbohydrates: number;
 }> = ({ image, name, calories, proteins, fat, carbohydrates }) => {
-  
+
+    const russian = localStorage.getItem('rus');
+
   return (
     <div className={`pt-15 pb-15 ${ingredientDetailsStyle.ingredientDetails}`}>
       <img src={image} alt={name} className={ingredientDetailsStyle.image} />
@@ -20,7 +22,7 @@ const IngredientDetails: FC<{
       <ul className={`pt-8 ${ingredientDetailsStyle.list}`}>
         <li className={'mr-5'}>
           <p className="text text_type_main-default text_color_inactive">
-            Калории,ккал
+            {russian ? 'Калории,ккал' : 'Calories'}
           </p>
           <p className="text text_type_digits-default text_color_inactive">
             {calories}
@@ -28,7 +30,7 @@ const IngredientDetails: FC<{
         </li>
         <li className={'mr-5'}>
           <p className="text text_type_main-default text_color_inactive">
-            Белки, г
+            {russian ? 'Белки, г' : 'Proteins'}
           </p>
           <p className="text text_type_digits-default text_color_inactive">
             {proteins}
@@ -36,7 +38,7 @@ const IngredientDetails: FC<{
         </li>
         <li className={'mr-5'}>
           <p className="text text_type_main-default text_color_inactive">
-            Жиры, г
+            {russian ? ' Жиры, г' : 'Fat'}
           </p>
           <p className="text text_type_digits-default text_color_inactive">
             {fat}
@@ -44,7 +46,7 @@ const IngredientDetails: FC<{
         </li>
         <li className={'mr-5'}>
           <p className="text text_type_main-default text_color_inactive">
-            Углеводы, г
+            {russian ? ' Углеводы, г' : 'Carbohydrates'}
           </p>
           <p className="text text_type_digits-default text_color_inactive">
             {carbohydrates}

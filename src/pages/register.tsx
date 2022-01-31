@@ -8,6 +8,7 @@ import { onRegister } from 'services/actions/auth';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 
+
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,10 +54,10 @@ const Register = () => {
 
   return (
     <AuthForm
-      title="Регистрация"
-      button="Зарегистрироваться"
-      question="Уже зарегистрированы?"
-      questionLink="Войти"
+      title={russian ? 'Регистрация' : 'Sign up'}
+      button={russian ? 'Зарегистрироваться' : 'Sign up'}
+      question={russian ? 'Уже зарегистрированы?' : 'Have an account already?'}
+      questionLink={russian ? 'Войти' : 'Log in '}
       onSubmit={signUp}
       recovery={''}
       recoveryLink={''}
@@ -65,8 +66,8 @@ const Register = () => {
         <Input
           value={name}
           onChange={handleChangeName}
-          errorText={'Ошибка'}
-          placeholder={'Имя'}
+          errorText={russian ? 'Ошибка' : 'Error'}
+          placeholder={russian ? 'Имя' : 'Name'}
           size={'default'}
           icon={'EditIcon'}
         />
@@ -75,7 +76,7 @@ const Register = () => {
         <Input
           onChange={handleChangeEmail}
           value={email}
-          errorText={'Ошибка'}
+          errorText={russian ? 'Ошибка' : 'Error'}
           placeholder={'E-mail'}
           type={'email'}
           size={'default'}

@@ -7,6 +7,7 @@ import {
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 import { onResetPassword } from 'services/actions/auth';
+
 const ResetPassword = () => {
   const dispatch = useDispatch();
   const [password, setPassword] = useState('');
@@ -48,10 +49,10 @@ const ResetPassword = () => {
   return (
     <AuthForm
       onSubmit={resetPassword}
-      title="Восстановление пароля"
-      button="Сохранить"
-      question="Вспомнили пароль?"
-      questionLink="Войти"
+      title={russian ? 'Восстановление пароля' : 'Password recovery'}
+      button={russian ? 'Сохранить' : 'Save'}
+      question={russian ? 'Вспомнили пароль?' : 'Rembered password?'}
+      questionLink={russian ? 'Войти' : 'Log in'}
       recovery={''}
       recoveryLink={''}
     >
@@ -69,7 +70,11 @@ const ResetPassword = () => {
             <Input
               value={code}
               onChange={handleChangeCode}
-              placeholder={'Введите код из письма'}
+              placeholder={
+                russian
+                  ? 'Введите код из письма'
+                  : 'Enter the code from the letter'
+              }
               size={'default'}
             />
           </div>
