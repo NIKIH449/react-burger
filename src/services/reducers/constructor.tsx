@@ -1,12 +1,13 @@
-import {  TConstructor, TItem } from 'utils/types';
+import { TConstructor, TItem } from 'utils/types';
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   MOVE_INGREDIENT,
   TConsctructorAction,
+  DELETE_ALL_INGREDIENTS,
 } from '../actions/constructor';
 type TConstructorState = {
-  constructor: TConstructor
+  constructor: TConstructor;
   constructorRequest: boolean;
   constructorFailed: boolean;
 };
@@ -19,7 +20,7 @@ const initialState: TConstructorState = {
 export const constructorReducer = (
   state = initialState,
   action: TConsctructorAction
-) : TConstructorState => {
+): TConstructorState => {
   switch (action.type) {
     case MOVE_INGREDIENT: {
       return {
@@ -52,6 +53,12 @@ export const constructorReducer = (
                 bun: [...state.constructor.bun],
                 other: [...state.constructor.other, action.newItem],
               },
+      };
+    }
+    case DELETE_ALL_INGREDIENTS: {
+      return {
+        ...state,
+        constructor: { bun: [], other: [] },
       };
     }
     default: {

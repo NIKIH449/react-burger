@@ -77,6 +77,7 @@ type TAuthState = {
   chekAuthSuccess: boolean;
   loading: boolean;
   loggedIn: boolean;
+  authLoading: boolean
 };
 
 const initialState: TAuthState = {
@@ -84,6 +85,7 @@ const initialState: TAuthState = {
   name: '',
   accessToken: '',
   refreshToken: '',
+  authLoading: false,
   registerRequest: false,
   registerFailed: false,
   registerSuccess: false,
@@ -145,12 +147,14 @@ export const authReducer = (
     case GET_CHECK_AUTH_REQUEST: {
       return {
         ...state,
+        authLoading: true,
         chekAuthRequest: true,
       };
     }
     case GET_CHECK_AUTH_SUCCESS: {
       return {
         ...state,
+        authLoading: false,
         chekAuthRequest: false,
         chekAuthFailed: false,
         chekAuthSuccess: true,
@@ -162,6 +166,7 @@ export const authReducer = (
     case GET_CHECK_AUTH_FAILED: {
       return {
         ...state,
+        authLoading: false,
         chekAuthRequest: false,
         chekAuthFailed: true,
       };

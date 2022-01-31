@@ -1,2 +1,3 @@
 const BURGER_URL = 'https://norma.nomoreparties.space/api/';
-export { BURGER_URL }
+const WS_URL = 'wss://norma.nomoreparties.space/orders';
+export { BURGER_URL, WS_URL };

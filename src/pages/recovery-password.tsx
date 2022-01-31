@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { onRecoveryPassword } from 'services/actions/auth';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
-const RecoveryPassword: FC<{}> = ({}) => {
+const RecoveryPassword = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
@@ -20,7 +20,8 @@ const RecoveryPassword: FC<{}> = ({}) => {
     if (loggedIn === true) {
       navigate('/');
     }
-  }, []);
+  }, [loggedIn,navigate]);
+
   function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     setEmail(e.target.value);
   }

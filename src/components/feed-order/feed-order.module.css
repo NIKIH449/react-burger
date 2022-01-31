@@ -1,0 +1,53 @@
+.container {
+  background-color: #1c1c21;
+  border-radius: 40px;
+  cursor: pointer;
+
+}
+
+.tracking {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.main {
+  composes: tracking;
+
+}
+.border {
+  border: 2px solid #801ab2;
+}
+.pictures {
+  display: flex;
+  position: relative;
+}
+.picture {
+
+  composes: border;
+  background-color: black;
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+  margin-right: -20px;
+}
+
+.lastPicture {
+  composes: picture;
+  opacity:0.6;
+  z-index: 0;
+}
+
+.rest {
+  z-index: 999;
+  position: absolute;
+  top: 25px;
+  left: 265px;
+}
+
+.overlay {
+  background: rgb(42, 44, 47, 0.3);
+}
+.price {
+  margin: auto 0;
+}

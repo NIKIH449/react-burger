@@ -12,7 +12,10 @@ import {
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import {  getAddIngredientsAction, getMoveIngredientsAction } from 'services/actions/constructor';
+import {
+  getAddIngredientsAction,
+  getMoveIngredientsAction,
+} from 'services/actions/constructor';
 import { useNavigate } from 'react-router';
 import { TItem } from 'utils/types';
 const BurgerConstructor = () => {
@@ -21,13 +24,16 @@ const BurgerConstructor = () => {
   );
   const loggedIn = useSelector((store) => store.auth.loggedIn);
   const { isModalOpen, isOrder } = useSelector((store) => store.modal);
-  const order = useSelector((store) => store.order.order);
+  const { order, orderSuccess, orderRequest } = useSelector(
+    (store) => store.order
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   function finishOrder() {
+    const accessToken = localStorage.getItem('accessToken');
     loggedIn
-      ? dispatch(createOrder(orderIdentificators()))
+      ? dispatch(createOrder(orderIdentificators(), accessToken))
       : navigate('/login');
   }
   function orderIdentificators() {
@@ -35,11 +41,12 @@ const BurgerConstructor = () => {
     for (let i = 0; i < constructorValue.other.length; i++) {
       arr.push(constructorValue.other[i]._id);
     }
+    arr.push(constructorValue.bun[0]._id);
     return arr;
   }
 
   function handleCloseModal() {
-    dispatch(getCloseOrderModalAction());
+    orderSuccess && dispatch(getCloseOrderModalAction());
   }
 
   function totalSum() {
@@ -56,7 +63,7 @@ const BurgerConstructor = () => {
     () => ({
       accept: ['bun', 'sauce', 'main'],
       drop(item: TItem) {
-        dispatch(getAddIngredientsAction(item))
+        dispatch(getAddIngredientsAction(item));
       },
     }),
     [constructorValue]
@@ -163,10 +170,19 @@ const BurgerConstructor = () => {
           </Button>
         )}
       </div>
-      {isModalOpen && isOrder && (
+      {isModalOpen && isOrder && orderSuccess && !orderRequest ? (
         <Modal onClose={handleCloseModal} title={''}>
           <OrderDeatils name={order.name} number={order.order.number} />
         </Modal>
+      ) : (
+        orderRequest && (
+          <Modal onClose={handleCloseModal} title={''} isLoading={true}>
+            <OrderDeatils
+              name={'Подтверждаем заказ. Обычно это занимает 15 секунд'}
+              number={''}
+            />
+          </Modal>
+        )
       )}
     </section>
   );

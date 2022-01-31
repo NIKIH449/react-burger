@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
 import {
   PasswordInput,
@@ -8,7 +8,7 @@ import { onRegister } from 'services/actions/auth';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 
-const Register: FC<{}> = ({}) => {
+const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ const Register: FC<{}> = ({}) => {
     if (loggedIn === true) {
       navigate('/');
     }
-  }, []);
+  }, [loggedIn,navigate]);
 
   function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     setEmail(e.target.value);

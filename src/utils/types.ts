@@ -11,21 +11,39 @@ import { TConsctructorAction } from 'services/actions/constructor';
 import { TGetIngredients } from 'services/actions/ingredients';
 import { TOpenModals } from 'services/actions/modal';
 import { TGetOrder } from 'services/actions/order';
+import { TWsFeedAction } from 'services/actions/wsFeed';
 
 export type TItem = {
-  calories: number;
-  carbohydrates: number;
-  fat: number;
-  image: string;
-  image_large: string;
-  image_mobile: string;
+  readonly calories: number;
+  readonly carbohydrates: number;
+  readonly fat: number;
+  readonly image: string;
+  readonly image_large: string;
+  readonly image_mobile: string;
+  readonly name: string;
+  readonly price: number;
+  readonly proteins: number;
+  readonly type: string;
+  readonly __v: number;
+  readonly _id: string;
+};
+
+export type TFeedOrder = {
+  createdAt: string;
+  ingredients: TItem[] | string[];
   name: string;
-  price: number;
-  proteins: number;
-  type: string;
-  __v: number;
+  number: number;
+  status: string;
+  updatedAt: string;
   _id: string;
-}
+};
+
+export type TFeedOrders = {
+  success: boolean;
+  orders: TFeedOrder[];
+  total: number;
+  totalToday: number;
+};
 export type TOrder = {
   name: string;
   order: { number: number };
@@ -58,14 +76,21 @@ export type TDefaultResponse = {
   success: boolean;
 };
 
-export type TAction = {
-  type: string;
-};
-
 export type TRefreshToken = {
   accessToken: string;
   refreshToken: string;
   success: boolean;
+};
+
+export type TWsActions = {
+  wsInit: string;
+  wsUserInit: string;
+  wsUserOrder: string;
+  wsSendMessage: string;
+  onOpen: string;
+  onClose: string;
+  onError: string;
+  onMessage: string;
 };
 
 export type TApplicationActions =
@@ -81,4 +106,5 @@ export type TApplicationActions =
   | TRecoveryPasswordAction
   | TLoginAction
   | TGetCheckAuthAction
-  | TLoadingAction;
+  | TLoadingAction
+  | TWsFeedAction;

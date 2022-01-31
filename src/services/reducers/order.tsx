@@ -10,11 +10,13 @@ type TOrderState = {
   order: TOrder;
   orderRequest: boolean;
   orderFailed: boolean;
+  orderSuccess: boolean;
 };
 const initialState: TOrderState = {
   order: {} as TOrder,
   orderRequest: false,
   orderFailed: false,
+  orderSuccess: false,
 };
 
 export const orderReducer = (state = initialState, action: TGetOrder) => {
@@ -30,6 +32,7 @@ export const orderReducer = (state = initialState, action: TGetOrder) => {
         ...state,
         orderRequest: false,
         orderFailed: false,
+        orderSuccess: true,
         order: action.data,
       };
     }
@@ -38,6 +41,7 @@ export const orderReducer = (state = initialState, action: TGetOrder) => {
         ...state,
         orderRequest: false,
         orderFailed: true,
+
       };
     }
     default: {

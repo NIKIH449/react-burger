@@ -1,0 +1,34 @@
+.container {
+  padding-top: 120px;
+  margin: auto;
+  width: 640px;
+  height: 620px;
+}
+
+.ingredient {
+  display: flex;
+  justify-content: space-between;
+  width: 640px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.number {
+  text-align: center;
+}
+
+.status {
+  color: #00CCCC
+}
+
+.image {
+  border: 2px solid #801ab2;
+  background-color: black;
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+  margin-right: -20px;
+}

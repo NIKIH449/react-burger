@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
 import {
   PasswordInput,
@@ -7,7 +7,7 @@ import {
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 import { onResetPassword } from 'services/actions/auth';
-const ResetPassword: FC<{}> = ({}) => {
+const ResetPassword = () => {
   const dispatch = useDispatch();
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
@@ -43,7 +43,7 @@ const ResetPassword: FC<{}> = ({}) => {
     if (recoveryPasswordSuccess === false) {
       navigate('/forgot-password');
     }
-  }, []);
+  }, [loggedIn, navigate, recoveryPasswordSuccess]);
 
   return (
     <AuthForm

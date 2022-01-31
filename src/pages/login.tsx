@@ -51,7 +51,7 @@ const Login: FC = () => {
     if (loggedIn === true) {
       navigate('/profile');
     }
-  }, []);
+  }, [loggedIn, navigate]);
 
   return (
     <AuthForm

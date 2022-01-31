@@ -1,13 +1,12 @@
-import React, { FC, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from '../utils/hooks';
 import ingredientStyles from './ingredient.module.css';
 import { IngredientDetails } from 'components/ingredient-details/ingredient-details';
 import { useLocation, useNavigate, useParams } from 'react-router';
-import { getIngredients } from 'services/actions/ingredients';
 import { Modal } from 'components/modal/modal';
 import Main from 'components/main/main';
 import { getCloseIngredientModalAction } from 'services/actions/modal';
-const Ingredient: FC = () => {
+const Ingredient = () => {
   const currentId = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -19,9 +18,9 @@ const Ingredient: FC = () => {
   )[0];
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    ingredients.length === 0 && dispatch(getIngredients());
-  }, [dispatch, ingredients.length]);
+  //useEffect(() => {
+  //  ingredients.length === 0 && dispatch(getIngredients());
+  //}, [dispatch, ingredients.length]);
 
   function handleCloseModal() {
     dispatch(getCloseIngredientModalAction());
@@ -31,7 +30,7 @@ const Ingredient: FC = () => {
     <>
       {state && <Main></Main>}
       {state && ingredient ? (
-        <Modal title="Детали ингридиента" onClose={handleCloseModal}>
+        <Modal title="Детали ингридиента" onClose={handleCloseModal} isLoading={false}>
           <IngredientDetails
             name={ingredient.name}
             image={ingredient.image}

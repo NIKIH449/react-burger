@@ -1,7 +1,7 @@
 import { TUser } from 'utils/types';
 import { updateUserInfo } from 'utils/auth';
-import { onRefreshToken } from '.';
 import { AppDispatch, AppThunk } from 'utils';
+import { getGetCheckAuthFailedAction } from './check-auth';
 export const GET_EDITPROFILE_REQUEST: 'GET_EDITPROFILE_REQUEST' =
   'GET_EDITPROFILE_REQUEST';
 export const GET_EDITPROFILE_SUCCESS: 'GET_EDITPROFILE_SUCCESS' =
@@ -47,13 +47,7 @@ export const getGetEditProfileResetAction = (): TGetEditProfile => ({
 });
 
 export const onEditUserInfo: AppThunk =
-  (
-    email: string,
-    name: string,
-    password: string,
-    token: string,
-    refreshToken: string
-  ) =>
+  (email: string, name: string, password: string, token: string) =>
   (dispatch: AppDispatch) => {
     dispatch(getGetEditProfileRequestAction());
     updateUserInfo(email, name, password, token)
@@ -62,8 +56,8 @@ export const onEditUserInfo: AppThunk =
           dispatch(getGetEditProfileSuccessAction(data));
           localStorage.setItem('userName', data.user.name);
           localStorage.setItem('userEmail', data.user.email);
-        } else if (data && !data.success) {
-          onRefreshToken(refreshToken);
+        } else if (data && data.message === 'jwt malformed') {
+          dispatch(getGetCheckAuthFailedAction());
         } else {
           dispatch(getGetEditProfileFailedAction());
         }

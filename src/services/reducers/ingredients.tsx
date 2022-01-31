@@ -11,9 +11,11 @@ type TIngredientsState = {
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
   ingredientsSucces: boolean;
+  ingredientsLoading: boolean;
 };
 const initialState: TIngredientsState = {
   ingredients: [] ,
+  ingredientsLoading:false,
   ingredientsRequest: false,
   ingredientsFailed: false,
   ingredientsSucces: false,
@@ -29,6 +31,7 @@ export const indredientsReducer = (
         ...state,
         ingredientsRequest: true,
         ingredientsSucces: false,
+        ingredientsLoading:true,
       };
     }
     case GET_INGREDIENTS_SUCCESS: {
@@ -37,6 +40,7 @@ export const indredientsReducer = (
         ingredientsRequest: false,
         ingredientsFailed: false,
         ingredientsSucces: true,
+        ingredientsLoading:false,
         ingredients: action.data,
       };
     }
@@ -44,6 +48,7 @@ export const indredientsReducer = (
       return {
         ...state,
         ingredientsRequest: false,
+        ingredientsLoading:false,
         ingredientsFailed: true,
       };
     }

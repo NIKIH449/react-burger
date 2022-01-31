@@ -1,6 +1,6 @@
 import { TUser } from 'utils/types';
 import { checkValidity } from 'utils/auth';
-import { getLoadingEndAction, getLoadingStartAction, onRefreshToken } from '.';
+import { getLoadingEndAction, getLoadingStartAction } from '.';
 import { getLeggedInAction } from '.';
 import { AppDispatch, AppThunk } from 'utils';
 export const GET_CHECK_AUTH_REQUEST: 'GET_CHECK_AUTH_REQUEST' =
@@ -40,8 +40,9 @@ export const getGetCheckAuthFailedAction = (): TGetCheckAuthAction => ({
 });
 
 export const onCheckAuth: AppThunk =
-  (accessToken: string, refreshToken: string) => (dispatch: AppDispatch) => {
-    dispatch(getLoadingStartAction());
+  (accessToken: string, refreshToken: string, pathname: string) => (dispatch: AppDispatch) => {
+    (pathname === '/profile' || pathname === '/profile/orders') &&
+      dispatch(getLoadingStartAction());
     dispatch(getGetCheckAuthRequestAction());
     checkValidity(accessToken)
       .then((data) => {
@@ -50,9 +51,8 @@ export const onCheckAuth: AppThunk =
           dispatch(getGetCheckAuthSuccessAction(data));
           localStorage.setItem('userName', data.user.name);
           localStorage.setItem('userEmail', data.user.email);
-          dispatch(getLoadingEndAction());
-        } else if (data && !data.success) {
-          onRefreshToken(refreshToken);
+          (pathname === '/profile' || pathname === '/profile/orders') &&
+            dispatch(getLoadingEndAction());
         } else {
           dispatch(getGetCheckAuthFailedAction());
         }
