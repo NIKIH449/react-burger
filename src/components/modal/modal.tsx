@@ -8,16 +8,17 @@ const Modal: FC<{
   onClose: () => void;
   title: string;
   children: ReactNode;
-}> = ({ onClose, title, children }) => {
+  isLoading?: boolean;
+}> = ({ onClose, title, children, isLoading }) => {
   useEffect(() => {
     function onEscClose(e: KeyboardEvent): void {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && !isLoading) {
         onClose();
       }
     }
     window.addEventListener('keydown', onEscClose);
     return () => window.removeEventListener('keydown', onEscClose);
-  }, [onClose]);
+  }, [onClose, isLoading]);
 
   return createPortal(
     <ModalOverlay onClick={onClose}>
@@ -29,7 +30,7 @@ const Modal: FC<{
         )}
         {children}
         <button className={`${modalStyle.button}`} onClick={onClose}>
-          <CloseIcon type={'secondary'} />
+          {!isLoading && <CloseIcon type={'secondary'} />}
         </button>
       </div>
     </ModalOverlay>,

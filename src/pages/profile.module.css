@@ -36,5 +36,25 @@
 
 .cancelButton:hover {
   color: white;
+}
 
+.information {
+  min-height: 690px;
+  max-width: 584px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.information::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2f2f37;
+}
+
+.information::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
+
+.information::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #2f2f37;
 }

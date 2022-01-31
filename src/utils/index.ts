@@ -1,14 +1,11 @@
-export type TItem = {
-  calories: number;
-  carbohydrates: number;
-  fat: number;
-  image: string;
-  image_large: string;
-  image_mobile: string;
-  name: string;
-  price: number;
-  proteins: number;
-  type: string;
-  __v: number;
-  _id: string;
-};
+import { store } from 'services/store/store';
+import { ThunkAction } from 'redux-thunk';
+import { Action, ActionCreator } from 'redux';
+import { TApplicationActions } from './types';
+
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ActionCreator<
+  ThunkAction<ReturnType, Action, RootState, TApplicationActions>
+>;

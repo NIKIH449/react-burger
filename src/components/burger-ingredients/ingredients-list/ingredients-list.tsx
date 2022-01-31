@@ -5,15 +5,15 @@ import {
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
-import { useSelector } from 'react-redux';
-import { TItem } from 'utils';
+import { useSelector } from '../../../utils/hooks';
+import { TItem } from 'utils/types';
 const IngredientsList: FC<{
   item: TItem;
   image: string;
   name: string;
   price: number;
 }> = ({ item, image, name, price }) => {
-  const constructorValue = useSelector((store: any) => store.constructorValue);
+  const constructorValue = useSelector((store) => store.constructorValue);
 
   function countBun() {
     return (

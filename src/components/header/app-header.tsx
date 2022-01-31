@@ -15,7 +15,7 @@ const AppHeader = () => {
         <HeaderButton link="/" name="Конструктор">
           <BurgerIcon type="primary" />
         </HeaderButton>
-        <HeaderButton link="/none" name={'Лента заказов'}>
+        <HeaderButton link="/feed" name={'Лента заказов'}>
           <ListIcon type="primary" />
         </HeaderButton>
         <a

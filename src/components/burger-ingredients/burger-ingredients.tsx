@@ -1,34 +1,34 @@
 import React, { useEffect, useRef } from 'react';
 import { IngredientsList } from './ingredients-list/ingredients-list';
-import { IngredientDetails } from 'components/ingredient-details/ingredient-details';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Modal } from '../modal/modal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 import { getIngredients } from 'services/actions/ingredients';
-import { closeIngredientModal } from 'services/actions/modal';
 import { Link, useLocation } from 'react-router-dom';
-import { TItem } from 'utils';
+import { TItem } from 'utils/types';
+import { wsConnectionClosed } from 'services/actions/wsFeed';
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState('one');
-  const ingredients = useSelector(
-    (store: any) => store.ingredients.ingredients
-  );
-  const ingredient = useSelector((store: any) => store.currentItem.currentItem);
-  const { isModalOpen, isIngredient } = useSelector(
-    (store: any) => store.modal
-  );
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
   const location = useLocation();
+  const dispatch = useDispatch();
   const bunRef = useRef<HTMLParagraphElement>(null);
   const sauseRef = useRef<HTMLParagraphElement>(null);
   const mainRef = useRef<HTMLParagraphElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { wsConnected } = useSelector((store) => store.wsFeed);
+
+  useEffect(() => {
+    wsConnected && dispatch(wsConnectionClosed());
+  }, [wsConnected, dispatch]);
+
   const scrollToBun = () => {
     if (bunRef !== null && bunRef.current !== null) {
       setCurrent('one');
       bunRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
   const scrollToSause = () => {
     if (sauseRef !== null && sauseRef.current !== null) {
       setCurrent('two');
@@ -41,7 +41,6 @@ const BurgerIngredients = () => {
       mainRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  const dispatch = useDispatch();
 
   useEffect(() => {
     ingredients.length === 0 && dispatch(getIngredients());
@@ -58,10 +57,6 @@ const BurgerIngredients = () => {
       ? setCurrent('three')
       : setCurrent('one');
   };
-
-  function handleCloseModal() {
-    closeIngredientModal(dispatch);
-  }
 
   return (
     <section className={`mr-5 ${burgerIngredientsStyle.burgerIngredients}`}>
@@ -182,18 +177,6 @@ const BurgerIngredients = () => {
           </ul>
         </div>
       </div>
-      {isModalOpen && isIngredient && (
-        <Modal title="Детали ингридиента" onClose={handleCloseModal}>
-          <IngredientDetails
-            name={ingredient.name}
-            image={ingredient.image}
-            calories={ingredient.calories}
-            carbohydrates={ingredient.carbohydrates}
-            fat={ingredient.fat}
-            proteins={ingredient.proteins}
-          ></IngredientDetails>
-        </Modal>
-      )}
     </section>
   );
 };

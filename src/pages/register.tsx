@@ -1,27 +1,27 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
 import {
   PasswordInput,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { onRegister } from 'services/actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 
-const Register: FC<{}> = ({}) => {
+const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const { accessToken, registerSuccess, refreshToken, loggedIn } = useSelector(
-    (store: any) => store.auth
+    (store) => store.auth
   );
   useEffect(() => {
     if (loggedIn === true) {
       navigate('/');
     }
-  }, []);
+  }, [loggedIn,navigate]);
 
   function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     setEmail(e.target.value);
