@@ -21,8 +21,8 @@ const Profile = () => {
   const {
     name,
     email,
-    accessToken,
     refreshToken,
+    accessToken,
     refreshTokenSuccess,
     signOutSuccess,
     editProfileSuccess,
@@ -34,6 +34,7 @@ const Profile = () => {
   const [isInputChange, setIsInputChange] = useState(false);
   const currentId = useParams();
   const location = useLocation();
+  const isAccessToken = localStorage.getItem('accessToken');
   const orders = useSelector((store) => store.wsFeed.userFeed.orders) || [];
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const Profile = () => {
     setUserName(e.target.value);
   }
   useEffect(() => {
-    if (loggedIn === false) {
+    if (!isAccessToken && !loggedIn) {
       navigate('/login');
     }
   }, [loggedIn, navigate]);
