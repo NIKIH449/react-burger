@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router';
 
 
 const Register = () => {
+  const russian = localStorage.getItem('rus');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');

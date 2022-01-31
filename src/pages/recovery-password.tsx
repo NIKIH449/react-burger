@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 
 const RecoveryPassword = () => {
-
+  const russian = localStorage.getItem('rus');
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const navigate = useNavigate();

@@ -28,12 +28,10 @@ const Profile = () => {
     signOutSuccess,
     editProfileSuccess,
     loggedIn,
-
   } = useSelector((store) => store.auth);
-        const russian = localStorage.getItem('rus');
+  const russian = localStorage.getItem('rus');
   const [userEmail, setUserEmail] = useState<string>(email);
 
-      
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState<string>(name);
   const [isInputChange, setIsInputChange] = useState(false);
@@ -43,7 +41,6 @@ const Profile = () => {
   const orders = useSelector((store) => store.wsFeed.userFeed.orders) || [];
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     location.pathname === '/profile/orders' ||
@@ -131,26 +128,20 @@ const Profile = () => {
       <div className={`mr-15 ${profileStyles.container}`}>
         <ProfileButton
           link="/profile"
-
           title={russian ? 'Профиль' : 'Profile'}
-
           onSignOut={undefined}
           children={undefined}
         />
         <ProfileButton
           link="/profile/orders"
-
-           title={russian ? 'История заказов' : 'Order history'}
-
+          title={russian ? 'История заказов' : 'Order history'}
           onSignOut={undefined}
           children={undefined}
         />
         <ProfileButton
           onSignOut={signOut}
           link=""
-
-           title={russian ? 'Выход' : 'Log out'}
-
+          title={russian ? 'Выход' : 'Log out'}
           children={undefined}
         />
         <p
@@ -161,6 +152,7 @@ const Profile = () => {
             : 'In this section you can change your personal data'}
         </p>
       </div>
+      <div className={profileStyles.information}>
       {location.pathname === '/profile' ? (
         <form onSubmit={onEditProfile}>
           <div className="mb-6">
@@ -198,63 +190,25 @@ const Profile = () => {
               <Button type="primary" size="medium">
                 {russian ? 'Сохранить' : 'Save'}
               </Button>
-
-            {location.pathname === '/profile' ? (
-        <form onSubmit={onEditProfile}>
-          <div className="mb-6">
-            <Input
-              value={userName}
-              onChange={handleChangeName}
-              type={'text'}
-              placeholder={russian ? 'Имя' : 'Name'}
-              icon={'EditIcon'}
+            </div>
+          )}
+        </form>
+      ) : (
+        orders.length > 0 &&
+        [...orders]
+          .reverse()
+          .map((item: TFeedOrder, index: number) => (
+            <FeedOrder
+              id={item._id}
+              key={index}
+              name={item.name}
+              date={item.createdAt}
+              number={'#' + String(item.number)}
+              status={item.status}
+              ingredients={item.ingredients}
             />
-          </div>
-          <div className="mb-6">
-            <EmailInput
-              onChange={handleChangeEmail}
-              value={userEmail}
-              name={''}
-            />
-          </div>
-          <div>
-            <PasswordInput
-              onChange={handleChangePassword}
-              value={password}
-              name={''}
-            />
-          </div>
-          {isInputChange && (
-            <div className={`mt-6 ${profileStyles.buttonContainer}`}>
-              <button
-                onClick={cancelChanges}
-                className={profileStyles.cancelButton}
-                type="button"
-              >
-                {russian ? 'Отмена' : 'Cancel'}
-              </button>
-              <Button type="primary" size="medium">
-                {russian ? 'Сохранить' : 'Save'}
-              </Button>
-              </div>
-            )}
-          </form>
-        ) : (
-          orders.length > 0 &&
-          [...orders]
-            .reverse()
-            .map((item: TFeedOrder, index: number) => (
-              <FeedOrder
-                id={item._id}
-                key={index}
-                name={item.name}
-                date={item.createdAt}
-                number={'#' + String(item.number)}
-                status={item.status}
-                ingredients={item.ingredients}
-              />
-            ))
-        )}
+          ))
+      )}
       </div>
     </section>
   );

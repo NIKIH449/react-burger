@@ -15,7 +15,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const { resetPasswordSuccess, recoveryPasswordSuccess, loggedIn } =
     useSelector((store) => store.auth);
-
+  const russian = localStorage.getItem('rus');
   function resetPassword(e: React.ChangeEvent<HTMLInputElement>): void {
     e.preventDefault();
     dispatch(onResetPassword(password, code));

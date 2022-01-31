@@ -10,6 +10,7 @@ import { getCloseIngredientModalAction } from 'services/actions/modal';
 const Ingredient = () => {
   const currentId = useParams();
   const { state } = useLocation();
+  const russian = localStorage.getItem('rus');
   const navigate = useNavigate();
   const ingredients = useSelector(
     (store) => store.ingredients.ingredients
