@@ -17,6 +17,7 @@
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
+  width: 550px;
 }
 
 .cancelButton {
@@ -40,7 +41,7 @@
 
 .information {
   min-height: 690px;
-  max-width: 584px;
+  max-width: 620px;
   overflow-y: auto;
   padding-right: 8px;
 }

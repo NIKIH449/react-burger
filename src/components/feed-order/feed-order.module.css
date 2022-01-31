@@ -2,18 +2,16 @@
   background-color: #1c1c21;
   border-radius: 40px;
   cursor: pointer;
-
+  max-width: 620px;
 }
 
 .tracking {
   display: flex;
   justify-content: space-between;
-
 }
 
 .main {
   composes: tracking;
-
 }
 .border {
   border: 2px solid #801ab2;
@@ -23,7 +21,6 @@
   position: relative;
 }
 .picture {
-
   composes: border;
   background-color: black;
   width: 64px;
@@ -34,7 +31,7 @@
 
 .lastPicture {
   composes: picture;
-  opacity:0.6;
+  opacity: 0.6;
   z-index: 0;
 }
 

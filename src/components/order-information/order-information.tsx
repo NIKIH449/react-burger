@@ -6,6 +6,7 @@ import { TFeedOrder, TItem } from 'utils/types';
 const OrderInforamtion: FC<{ order: TFeedOrder }> = ({ order }) => {
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const orderIngredients = findIngredients();
+  const russian = localStorage.getItem('rus');
 
   function findIngredients() {
     let orderIngredients = [];
@@ -56,7 +57,13 @@ const OrderInforamtion: FC<{ order: TFeedOrder }> = ({ order }) => {
       <p
         className={`mb-15 text text_type_main-small ${feedOrderInforamtionStyles.status}`}
       >
-        {order.status === 'done' ? 'Выполнен' : 'Готовится'}
+        {order.status === 'done'
+          ? russian
+            ? 'Выполнен'
+            : 'Done'
+          : russian
+          ? 'Готовится'
+          : 'Cooking'}
       </p>
       <p className="mb-6 text text_type_main-medium">Состав</p>
       <div className={`mb-10 pr-6 ${feedOrderInforamtionStyles.ingredients}`}>

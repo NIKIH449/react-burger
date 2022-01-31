@@ -7,22 +7,24 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useNavigate } from 'react-router';
 
 const AppHeader = () => {
+  const navigate = useNavigate()
   const russian = localStorage.getItem('rus');
 
   function switchToEnglish() {
     if (localStorage.getItem('rus')) {
       localStorage.removeItem('rus');
       localStorage.setItem('eng', 'eng');
-      window.location.reload();
+      navigate('/')
     }
   }
   function switchToRussian() {
     if (localStorage.getItem('eng')) {
       localStorage.removeItem('eng');
       localStorage.setItem('rus', 'rus');
-      window.location.reload();
+      navigate('/')
     }
   }
   return (
@@ -38,7 +40,7 @@ const AppHeader = () => {
         </HeaderButton>
         <a
           className={headerStyles.logo}
-          href="https://nikih449.github.io/react-burger/"
+          href="https://nikih449.github.io/react-burger"
         >
           <Logo />
         </a>
