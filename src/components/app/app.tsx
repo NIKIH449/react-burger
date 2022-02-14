@@ -25,7 +25,6 @@ import { getIngredients } from 'services/actions/ingredients';
 function App() {
   const location: any = useLocation();
   const background = location.state && location.state.background;
-  console.log(location);
   const {
     refreshToken,
     refreshTokenSuccess,
