@@ -9,7 +9,7 @@ import {
 import { ProfileButton } from 'components/profile-button/profile-button';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from '../utils/hooks';
-import { onEditUserInfo, onSignOut } from 'services/actions/auth';
+import { onEditUserInfo, onSignOut } from 'services/actions/auth/helpers';
 
 import { getGetEditProfileResetAction } from 'services/actions/auth/edit-profile';
 import { FeedOrder } from 'components/feed-order/feed-order';

@@ -5,7 +5,7 @@ import { AppHeader } from 'components/header/app-header';
 import '../../fonts/fonts.css';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../utils/hooks';
-import { onCheckAuth, onRefreshToken } from 'services/actions/auth';
+import { onCheckAuth, onRefreshToken } from 'services/actions/auth/helpers';
 import { Preloader } from 'components/preloader/preloader';
 import { NotFound } from 'pages/not-found';
 import { useLocation } from 'react-router';
@@ -23,8 +23,9 @@ import { Order } from '../../pages/order';
 import { getIngredients } from 'services/actions/ingredients';
 
 function App() {
-  const location = useLocation();
+  const location: any = useLocation();
   const background = location.state && location.state.background;
+  console.log(location);
   const {
     refreshToken,
     refreshTokenSuccess,

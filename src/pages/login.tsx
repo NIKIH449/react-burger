@@ -1,6 +1,6 @@
 import React, { useEffect, useState, FC } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
-import { onLogin } from 'services/actions/auth';
+import { onLogin } from 'services/actions/auth/helpers';
 import {
   PasswordInput,
   Input,
@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from '../utils/hooks';
 import { useLocation, useNavigate } from 'react-router';
 const Login: FC = () => {
   const russian = localStorage.getItem('rus');
-  const { state } = useLocation();
+  const { state }: any = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -50,7 +50,7 @@ const Login: FC = () => {
 
   useEffect(() => {
     if (loggedIn === true) {
-      navigate('/profile');
+      navigate('/');
     }
   }, [loggedIn, navigate]);
 

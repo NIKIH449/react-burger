@@ -11,7 +11,7 @@ import { wsConnectionStart } from 'services/actions/wsFeed';
 const Order = () => {
   const currentId = useParams();
   const location = useLocation();
-  const { state } = useLocation();
+  const { state }: any = useLocation();
   const navigate = useNavigate();
   const userOrders = useSelector((store) => store.wsFeed.userFeed.orders) || [];
   const orders = useSelector((store) => store.wsFeed.feed.orders) || [];

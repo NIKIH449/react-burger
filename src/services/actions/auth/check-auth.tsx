@@ -1,7 +1,7 @@
 import { TUser } from 'utils/types';
 import { checkValidity } from 'utils/auth';
-import { getLoadingEndAction, getLoadingStartAction } from '.';
-import { getLeggedInAction } from '.';
+import { getLoadingEndAction, getLoadingStartAction } from './helpers';
+import { getLeggedInAction } from './helpers';
 import { AppDispatch, AppThunk } from 'utils';
 export const GET_CHECK_AUTH_REQUEST: 'GET_CHECK_AUTH_REQUEST' =
   'GET_CHECK_AUTH_REQUEST';
@@ -44,7 +44,7 @@ export const onCheckAuth: AppThunk =
     (pathname === '/profile' || pathname === '/profile/orders') &&
       dispatch(getLoadingStartAction());
     dispatch(getGetCheckAuthRequestAction());
-    checkValidity(accessToken)
+    return checkValidity(accessToken)
       .then((data) => {
         if (data && data.success) {
           dispatch(getLeggedInAction());

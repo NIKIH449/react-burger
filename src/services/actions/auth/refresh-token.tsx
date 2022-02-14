@@ -1,7 +1,7 @@
 import { AppDispatch, AppThunk } from 'utils';
 import { refreshingToken } from 'utils/auth';
 import { TRefreshToken } from 'utils/types';
-import { getLoadingEndAction } from '.';
+import { getLoadingEndAction } from './helpers';
 export const GET_REFRESH_TOKEN_REQUEST: 'GET_REFRESH_TOKEN_REQUEST' =
   'GET_REFRESH_TOKEN_REQUEST';
 export const GET_REFRESH_TOKEN_SUCCESS: 'GET_REFRESH_TOKEN_SUCCESS' =
@@ -41,7 +41,7 @@ export const getRefreshTokenFailedAction = (): TGetRefreshTokenAction => ({
 export const onRefreshToken: AppThunk =
   (refreshToken: string) => (dispatch: AppDispatch) => {
     dispatch(getRefreshTokenRequestAction());
-    refreshingToken(refreshToken)
+    return refreshingToken(refreshToken)
       .then((data) => {
         if (data && data.success) {
           dispatch(getRefreshTokenSuccessAction(data));

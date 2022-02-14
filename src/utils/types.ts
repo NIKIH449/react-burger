@@ -1,4 +1,4 @@
-import { TLoadingAction } from 'services/actions/auth';
+import { TLoadingAction } from 'services/actions/auth/helpers';
 import { TGetCheckAuthAction } from 'services/actions/auth/check-auth';
 import { TGetEditProfile } from 'services/actions/auth/edit-profile';
 import { TLoginAction } from 'services/actions/auth/login';

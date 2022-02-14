@@ -93,6 +93,7 @@ const BurgerConstructor = () => {
           constructorValue.other.length === 0 &&
           burgerConstructorStyle.empty
         }`}
+        data-test-id="burger-constructor"
       >
         {constructorValue.bun.length === 0 &&
           constructorValue.other.length === 0 && (
@@ -160,8 +161,12 @@ const BurgerConstructor = () => {
         </p>
         {constructorValue.bun.length > 0 &&
         constructorValue.other.length > 0 ? (
-          <Button onClick={finishOrder} type="primary" size="large">
-            Оформить заказ
+          <Button
+            onClick={finishOrder}
+            type="primary"
+            size="large"
+          >
+            {russian ? 'Оформить заказ' : 'Make order'}
           </Button>
         ) : (
           <Button disabled onClick={finishOrder} type="primary" size="large">

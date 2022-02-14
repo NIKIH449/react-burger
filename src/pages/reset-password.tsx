@@ -6,7 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
-import { onResetPassword } from 'services/actions/auth';
+import { onResetPassword } from 'services/actions/auth/helpers';
 
 const ResetPassword = () => {
   const dispatch = useDispatch();
