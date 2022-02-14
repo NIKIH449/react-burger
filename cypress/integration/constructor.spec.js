@@ -44,15 +44,18 @@ describe('burger-constructor test', function () {
     cy.get('.constructor-element').eq(5).trigger('dragstart');
     cy.get('.constructor-element').eq(2).trigger('drop');
     //making order
-    cy.get('.button_button_size_large__1TIKZ').click();
+    cy.get('button').eq(2).click();
     //logginIn
     cy.get('.input__placeholder').eq(0).type('qazwsx@gmail.com');
     cy.get('.input__placeholder').eq(1).type('123456');
-    cy.get('.button_button_size_medium__2JkQY').click();
+    cy.get('button').eq(2).click().wait(1000);
     //making order
-    cy.get('.button_button_size_large__1TIKZ').click();
     //waiting for a order number
-    cy.wait(20000)
+    cy.get('button')
+      .eq(2)
+      .click()
+      .wait(15000)
+      .get('[data-test-id="modal"]')
       .contains(
         'Метеоритный альфа-сахаридный антарианский минеральный астероидный фалленианский био-марсианский флюоресцентный бургер'
       )
