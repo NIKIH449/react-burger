@@ -1,5 +1,5 @@
 import { getIngredientsRequest } from 'utils/Api';
-import { getLoadingEndAction, getLoadingStartAction } from './auth';
+import { getLoadingEndAction, getLoadingStartAction } from './auth/helpers';
 import { TItem } from 'utils/types';
 import { AppDispatch, AppThunk } from 'utils';
 export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' =

@@ -4,7 +4,7 @@ import {
   PasswordInput,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { onRegister } from 'services/actions/auth';
+import { onRegister } from 'services/actions/auth/helpers';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 

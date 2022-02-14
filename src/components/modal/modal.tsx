@@ -22,14 +22,22 @@ const Modal: FC<{
 
   return createPortal(
     <ModalOverlay onClick={onClose}>
-      <div className={modalStyle.modal} onClick={(e) => e.stopPropagation()}>
+      <div
+        data-test-id="modal"
+        className={modalStyle.modal}
+        onClick={(e) => e.stopPropagation()}
+      >
         {title && (
           <h2 className={'pb-4 ml-10 pt-15 text text_type_main-large'}>
             {title}
           </h2>
         )}
         {children}
-        <button className={`${modalStyle.button}`} onClick={onClose}>
+        <button
+          data-test-id="close-button"
+          className={`${modalStyle.button}`}
+          onClick={onClose}
+        >
           {!isLoading && <CloseIcon type={'secondary'} />}
         </button>
       </div>

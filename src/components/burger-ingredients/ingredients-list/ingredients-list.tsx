@@ -41,6 +41,7 @@ const IngredientsList: FC<{
       style={{ opacity }}
       ref={ingredientRef}
       className={ingredientsListStyle.item}
+      data-test-id="burger-ingredient"
     >
       {item.type === 'bun' ? (
         <Counter count={countBun()} size="default" />

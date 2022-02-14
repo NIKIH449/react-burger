@@ -43,7 +43,7 @@ import {
   GET_LOGGED_IN,
   LOADING_END,
   LOADING_START,
-} from 'services/actions/auth';
+} from 'services/actions/auth/helpers';
 import { TApplicationActions } from '../../utils/types';
 
 type TAuthState = {
@@ -77,7 +77,7 @@ type TAuthState = {
   chekAuthSuccess: boolean;
   loading: boolean;
   loggedIn: boolean;
-  authLoading: boolean
+  authLoading: boolean;
 };
 
 const initialState: TAuthState = {
@@ -340,7 +340,7 @@ export const authReducer = (
         signOutSuccess: false,
         email: action.data.user.email,
         name: action.data.user.name,
-        accessToken: action.data.accessToken.split('Bearer ')[1],
+        accessToken: action.data.accessToken.split('Bearer ')[1] || '',
         refreshToken: action.data.refreshToken,
       };
     }

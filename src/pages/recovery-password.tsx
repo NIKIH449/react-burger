@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AuthForm } from 'components/auth-form/auth-form';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { onRecoveryPassword } from 'services/actions/auth';
+import { onRecoveryPassword } from 'services/actions/auth/helpers';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { useNavigate } from 'react-router';
 

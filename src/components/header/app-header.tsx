@@ -10,21 +10,21 @@ import {
 import { useNavigate } from 'react-router';
 
 const AppHeader = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const russian = localStorage.getItem('rus');
 
   function switchToEnglish() {
     if (localStorage.getItem('rus')) {
       localStorage.removeItem('rus');
       localStorage.setItem('eng', 'eng');
-      navigate('/')
+      navigate('/');
     }
   }
   function switchToRussian() {
     if (localStorage.getItem('eng')) {
       localStorage.removeItem('eng');
       localStorage.setItem('rus', 'rus');
-      navigate('/')
+      navigate('/');
     }
   }
   return (
@@ -34,14 +34,13 @@ const AppHeader = () => {
           <BurgerIcon type="primary" />
         </HeaderButton>
 
-        <HeaderButton link="/feed"  name={russian ? 'Лента заказов' : 'Order feed'}>
-
+        <HeaderButton
+          link="/feed"
+          name={russian ? 'Лента заказов' : 'Order feed'}
+        >
           <ListIcon type="primary" />
         </HeaderButton>
-        <a
-          className={headerStyles.logo}
-          href="https://nikih449.github.io/react-burger"
-        >
+        <a className={headerStyles.logo} onClick={() => navigate('/')}>
           <Logo />
         </a>
         <HeaderButton
@@ -52,7 +51,7 @@ const AppHeader = () => {
         </HeaderButton>
       </nav>
       <button
-      style={russian ? { opacity: 1 } : { opacity: 0.6 }}
+        style={russian ? { opacity: 1 } : { opacity: 0.6 }}
         onClick={switchToRussian}
         className={`text_type_main-default ${headerStyles.languageButton}`}
       >
